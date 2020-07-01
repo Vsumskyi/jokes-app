@@ -1,0 +1,87 @@
+@import 'variables';
+
+form {
+  margin-bottom: 40px;
+}
+
+.category {
+  margin-bottom: 15px;
+
+  .tags {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 6px;
+    color: $sub-title-color;
+    padding: 3px 9px;
+    font-size: 0.8rem;
+    margin: 5px;
+    border: 2px solid $joke-bgc;
+    cursor: pointer;
+    &.active {
+      background: $joke-bgc;
+      color: $dark-color;
+    }
+  }
+}
+input {
+  margin-bottom: 15px;
+}
+
+.search {
+  width: 100%;
+  border: 2px solid $dark-color;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
+  color: $sub-title-color;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-option:checked,
+.search-option:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+.search-option:checked + label,
+.search-option:not(:checked) + label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  line-height: 20px;
+  display: inline-block;
+  color: $dark-color;
+  margin-bottom: 15px;
+}
+.search-option:checked + label:before,
+.search-option:not(:checked) + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid $dark-color;
+  border-radius: 100%;
+  background: $white-color;
+}
+.search-option:checked + label:after,
+.search-option:not(:checked) + label:after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: $dark-color;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 100%;
+  transition: all 0.2s ease;
+}
+.search-option:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+.search-option:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}

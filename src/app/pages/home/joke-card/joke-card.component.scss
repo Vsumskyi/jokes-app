@@ -1,0 +1,56 @@
+@import 'variables';
+
+.joke-card {
+  width: 680px;
+  background: $joke-bgc;
+  padding: 40px;
+  border-radius: 10px;
+  margin: 10px 0;
+  .heart {
+    display: block;
+    margin-left: auto;
+  }
+  .card-content {
+    .comment {
+      background: $white-color;
+      display: inline-block;
+      box-sizing: content-box;
+      height: 20px;
+      width: 20px;
+      background: $backdrop-bgc;
+      border-radius: 40px;
+      margin-right: 20px;
+      padding: 15px;
+      vertical-align: top;
+    }
+    &-inner {
+      display: inline-block;
+      width: 80%;
+      span {
+        font-size: 0.7rem;
+        color: $sub-title-color;
+        a {
+          color: $main-color;
+          margin-right: 5px;
+        }
+      }
+      p {
+        font-size: 1rem;
+        line-height: 26px;
+        margin: 5px 0 20px 0;
+      }
+      .subtitles {
+        display: flex;
+        justify-content: space-between;
+        .tag {
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          border-radius: 6px;
+          background: $white-color;
+          color: $dark-color;
+          padding: 6px 20px;
+        }
+      }
+    }
+  }
+}

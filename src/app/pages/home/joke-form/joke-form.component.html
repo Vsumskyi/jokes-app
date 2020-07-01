@@ -1,0 +1,22 @@
+<form>
+  <p>
+    <input type="radio" id="test1" name="prim" class="search-option" checked />
+    <label for="test1">Random</label>
+  </p>
+  <p>
+    <input type="radio" id="test2" name="prim" class="search-option" />
+    <label for="test2">From Category</label>
+  </p>
+
+  <div class="category">
+    <span class="tags" *ngFor="let item of category"> {{ item }} </span>
+  </div>
+
+  <p>
+    <input type="radio" id="test3" name="prim" class="search-option" />
+    <label for="test3">Search</label>
+  </p>
+
+  <input type="text" class="search" placeholder="Free text search..." />
+  <button class="btn">Get a joke</button>
+</form>

@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="container">
+    <h3>MSI 2020</h3>
+    <div class="title">
+      <h1>Hey!</h1>
+      <h2>Let’s try to find a joke for you:</h2>
+    </div>
+
+    <app-joke-form></app-joke-form>
+    <app-joke-card></app-joke-card>
+  </div>
+
+  <div class="favorite-container">
+    <h3>Favorite</h3>
+    <app-favorite-card></app-favorite-card>
+    <a class="btn" [routerLink]="['/favorites']">Go to all Favorites</a>
+  </div>
+</div>

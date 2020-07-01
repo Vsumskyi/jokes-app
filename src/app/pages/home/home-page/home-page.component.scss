@@ -1,0 +1,32 @@
+@import 'variables';
+
+h3 {
+  font-size: 1.3rem;
+  margin-bottom: 50px;
+}
+
+.title {
+  margin-bottom: 40px;
+
+  h1 {
+    margin: 10px 0;
+  }
+}
+
+.favorite-container {
+  h3 {
+    color: $sub-title-color;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  background: $backdrop-bgc;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  .btn {
+    margin-top: 40px;
+  }
+}
