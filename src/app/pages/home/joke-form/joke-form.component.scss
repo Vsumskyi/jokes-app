@@ -1,0 +1,100 @@
+@import 'variables';
+
+form {
+  margin-bottom: 40px;
+}
+
+.category {
+  margin: 20px 0;
+
+  .tags {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 6px;
+    color: $sub-title-color;
+    padding: 3px 9px;
+    font-size: 0.8rem;
+    margin: 0 5px;
+    border: 2px solid $joke-bgc;
+    cursor: pointer;
+    &.active {
+      background: $joke-bgc;
+      color: $dark-color;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+input {
+  margin-bottom: 15px;
+}
+
+p {
+  margin-top: 10px;
+  margin-left: 34px;
+}
+
+.search {
+  width: 100%;
+  border: 2px solid $dark-color;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
+  color: #000;
+  font-size: 1rem;
+  outline: none;
+  margin: 20px 0;
+  &::placeholder {
+    color: $sub-title-color;
+  }
+}
+
+.search-option {
+  &:checked,
+  &:not(:checked) {
+    position: absolute;
+    left: -9999px;
+  }
+  &:checked + label,
+  &:not(:checked) + label {
+    position: relative;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: $dark-color;
+  }
+  &:checked + label:before,
+  &:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    right: calc(100% + 15px);
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #333333;
+    border-radius: 100%;
+  }
+
+  &:checked + label:after,
+  &:not(:checked) + label:after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: $dark-color;
+    position: absolute;
+    top: 5px;
+    right: calc(100% + 20px);
+    border-radius: 100%;
+    transition: all 0.2s ease;
+  }
+
+  &:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+  }
+  &:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
