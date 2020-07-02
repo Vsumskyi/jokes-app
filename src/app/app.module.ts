@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http'
 import { SharedModule } from './shared/shared.module'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
@@ -14,7 +15,8 @@ import { AppComponent } from './app.component'
     AppRoutingModule,
     FavoritesModule,
     SharedModule,
-    HomeModule
+    HomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

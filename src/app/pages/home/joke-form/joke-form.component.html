@@ -1,22 +1,57 @@
-<form>
+<form [formGroup]="form"
+  (ngSubmit)="submit()">
   <p>
-    <input type="radio" id="test1" name="prim" class="search-option" checked />
-    <label for="test1">Random</label>
+    <input type="radio"
+      id="random"
+      name="category"
+      class="search-option"
+      formControlName="category"
+      (click)="form.get('apiValue').setValue(null)"
+      value="random" />
+    <label for="random">Random</label>
   </p>
   <p>
-    <input type="radio" id="test2" name="prim" class="search-option" />
-    <label for="test2">From Category</label>
+    <input type="radio"
+      (click)="form.get('apiValue').setValue(category[0])"
+      id="category"
+      name="category"
+      class="search-option"
+      formControlName="category"
+      value="fromCategory" />
+    <label for="category">From Category</label>
   </p>
 
-  <div class="category">
-    <span class="tags" *ngFor="let item of category"> {{ item }} </span>
+  <div *ngIf="form.get('category').value === 'fromCategory'"
+    class="category">
+    <div *ngFor="let item of category"
+      class="tag-group">
+      <input type="radio"
+        class="tags"
+        [id]="item"
+        [value]="item"
+        name="apiValue"
+        formControlName="apiValue" />
+      <label [for]="item"> {{item}} </label>
+    </div>
   </div>
 
   <p>
-    <input type="radio" id="test3" name="prim" class="search-option" />
+    <input type="radio"
+      (click)="form.get('apiValue').setValue(null)"
+      id="test3"
+      name="category"
+      formControlName="category"
+      value="search"
+      class="search-option" />
     <label for="test3">Search</label>
   </p>
 
-  <input type="text" class="search" placeholder="Free text search..." />
-  <button class="btn">Get a joke</button>
+  <input *ngIf="form.get('category').value === 'search'"
+    formControlName="apiValue"
+    type="text"
+    class="search"
+    placeholder="Free text search..." />
+  <button class="btn"
+    [disabled]="jokeService.loading">Get a joke</button>
+
 </form>
