@@ -14,19 +14,21 @@ h3 {
 }
 
 .favorite-container {
+  width: 400px;
+  box-sizing: content-box;
+  background: $backdrop-bgc;
+  padding: 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   h3 {
     color: $sub-title-color;
     margin-right: auto;
     margin-bottom: 20px;
   }
-  background: $backdrop-bgc;
-  padding: 40px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
+
   .btn {
     margin-top: 40px;
+    align-self: center;
   }
 }

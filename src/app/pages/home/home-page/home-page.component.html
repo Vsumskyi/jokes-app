@@ -7,12 +7,13 @@
     </div>
 
     <app-joke-form></app-joke-form>
-    <app-joke-card></app-joke-card>
+    <app-favorite-card [jokes]="jokeService.notFavorites()"></app-favorite-card>
+
   </div>
 
   <div class="favorite-container">
     <h3>Favorite</h3>
-    <app-favorite-card></app-favorite-card>
+    <app-favorite-card [jokes]="jokeService.favorites()"></app-favorite-card>
     <a class="btn" [routerLink]="['/favorites']">Go to all Favorites</a>
   </div>
 </div>

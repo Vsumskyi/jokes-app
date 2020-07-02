@@ -16,12 +16,14 @@ html {
 .wrapper {
   display: flex;
   justify-content: space-between;
-  height: 100vh;
 }
 
 .container {
-  padding: 40px 140px 0 140px;
-  height: 100vh;
+  display: block;
+  margin: 0 auto;
+  padding: 40px 40px 0 40px;
+  min-height: 100vh;
+  width: 680px;
 }
 
 .btn {
@@ -37,7 +39,8 @@ html {
   font-size: 1rem;
   line-height: 22px;
   text-decoration: none;
-  &:active {
+  &:active,
+  &:hover {
     background: linear-gradient(
       to right bottom,
       darken($main-color, 5),
