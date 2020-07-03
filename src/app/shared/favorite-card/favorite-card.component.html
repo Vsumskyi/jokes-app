@@ -1,9 +1,10 @@
 <div *ngFor="let joke of jokes">
 
   <div class="card"
-    [ngClass]=" {'joke-card': !joke.favorite, 'favorite-card': joke.favorite} ">
+    [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
-      <a href="#"
+      <a (click)=" jokeService.saveToFavorites(joke.id)"
+        href="#"
         class="heart">
         <img
           [src]="joke.favorite?'../assets/images/heart-active.svg':'../assets/images/heart.svg'"
@@ -24,7 +25,6 @@
           </p>
           <div class="subtitles">
             <span>
-              <!-- TODO -->
               Last update: {{joke.updated_at | date:'MMM-dd HH:mm'}}
             </span>
             <span class="tag"

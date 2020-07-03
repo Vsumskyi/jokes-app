@@ -4,7 +4,10 @@ import { Injectable } from '@angular/core'
 
 @Injectable({ providedIn: 'root' })
 export class JokeService {
-  jokes: Joke[] = [
+  LOCAL_STORAGE_KEY = 'jokes'
+  favoritesJokes: Joke[] = this.getDataFromLocalStorage(
+    this.LOCAL_STORAGE_KEY
+  ) || [
     {
       url: 'Post 1',
       value: 'Sample text for post 1',
@@ -30,50 +33,68 @@ export class JokeService {
       categories: []
     }
   ]
+  jokes: Joke[] = []
   loading = false
 
   constructor(private http: HttpClient) {}
 
-  fetchJoke(category: string, apiValue: string): void {
+  fetchJoke(searchParam: string, apiValue: string): void {
     this.loading = true
+    let baseUrl = 'https://api.chucknorris.io/jokes/'
 
-    const params = new HttpParams()
-    const baseUrl = 'https://api.chucknorris.io/jokes/'
-    if (category === 'random') {
-      params.set('random', '')
+    if (searchParam === 'random') {
+      baseUrl += searchParam
     }
-    if (category === 'fromCategory') {
-      params.set('category', apiValue)
+    if (searchParam === 'category') {
+      baseUrl += `random?${searchParam}=${apiValue}`
     }
-    if (category === 'search') {
-      params.set('search', apiValue)
+    if (searchParam === 'search') {
+      baseUrl += `${searchParam}?query=${apiValue}`
     }
 
-    this.http
-      .get<Joke>(baseUrl, { params })
-      .subscribe(data => {
-        if (category !== 'search') {
+    this.http.get<Joke>(baseUrl).subscribe(data => {
+      if (searchParam !== 'search') {
+        !this.containsJoke(data.id, this.jokes) &&
           this.jokes.unshift({
             ...data,
-            favorite: false
+            favorite: this.containsJoke(data.id, this.favoritesJokes)
           })
-        } else {
-          data.result.forEach(i => {
+      } else {
+        data.result.forEach(item => {
+          !this.containsJoke(item.id, this.jokes) &&
             this.jokes.unshift({
-              ...i,
-              favorite: false
+              ...item,
+              favorite: this.containsJoke(item.id, this.favoritesJokes)
             })
-          })
-        }
-        this.loading = false
-      })
+        })
+      }
+      this.loading = false
+    })
   }
 
-  favorites(): Joke[] {
-    return this.jokes.filter(i => i.favorite)
+  containsJoke(id: string | number, jokes: Joke[]) {
+    return jokes.some(i => i.id === id)
   }
 
-  notFavorites(): Joke[] {
-    return this.jokes.filter(i => !i.favorite)
+  saveToFavorites(id: string | number) {
+    const jokes = [...this.jokes, ...this.favoritesJokes]
+    const index = jokes.findIndex(i => i.id === id)
+
+    if (jokes[index].favorite) {
+      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id)
+      jokes[index].favorite = false
+    } else {
+      jokes[index].favorite = true
+      this.favoritesJokes.unshift(jokes[index])
+    }
+    this.saveToLocalStorage(this.favoritesJokes, this.LOCAL_STORAGE_KEY)
+  }
+
+  saveToLocalStorage(favoritesJokes: Joke[], key: string) {
+    localStorage.setItem(key, JSON.stringify(favoritesJokes))
+  }
+  getDataFromLocalStorage(key: string): Joke[] {
+    const jokes = JSON.parse(localStorage.getItem(key))
+    return jokes.length && jokes
   }
 }

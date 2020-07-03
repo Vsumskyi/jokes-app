@@ -17,11 +17,11 @@
       name="category"
       class="search-option"
       formControlName="category"
-      value="fromCategory" />
+      value="category" />
     <label for="category">From Category</label>
   </p>
 
-  <div *ngIf="form.get('category').value === 'fromCategory'"
+  <div *ngIf="form.get('category').value === 'category'"
     class="category">
     <div *ngFor="let item of category"
       class="tag-group">

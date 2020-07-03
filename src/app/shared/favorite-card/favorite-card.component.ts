@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { Joke } from '../../interfaces/interfaces'
+import { JokeService } from 'src/app/services/joke.service'
 
 @Component({
   selector: 'app-favorite-card',
@@ -7,7 +8,8 @@ import { Joke } from '../../interfaces/interfaces'
   styleUrls: ['./favorite-card.component.scss']
 })
 export class FavoriteCardComponent implements OnInit {
-  constructor() {}
+  constructor(public jokeService: JokeService) {}
   @Input('jokes') jokes: Joke
+  @Input('favorite') favorite: boolean
   ngOnInit(): void {}
 }
