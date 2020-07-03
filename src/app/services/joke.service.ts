@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Joke } from '../interfaces/interfaces'
 import { Injectable } from '@angular/core'
-import { Form } from '@angular/forms'
 
 @Injectable({ providedIn: 'root' })
 export class JokeService {
@@ -38,34 +37,36 @@ export class JokeService {
   fetchJoke(category: string, apiValue: string): void {
     this.loading = true
 
-    //TODO
-    let url = 'https://api.chucknorris.io/jokes/'
+    const params = new HttpParams()
+    const baseUrl = 'https://api.chucknorris.io/jokes/'
     if (category === 'random') {
-      url = 'https://api.chucknorris.io/jokes/random'
+      params.set('random', '')
     }
     if (category === 'fromCategory') {
-      url = `https://api.chucknorris.io/jokes/random?category=${apiValue}`
+      params.set('category', apiValue)
     }
     if (category === 'search') {
-      url = `https://api.chucknorris.io/jokes/search?query=${apiValue}`
+      params.set('search', apiValue)
     }
 
-    this.http.get<Joke>(url).subscribe(data => {
-      if (category !== 'search') {
-        this.jokes.unshift({
-          ...data,
-          favorite: false
-        })
-      } else {
-        data.result.forEach(i => {
+    this.http
+      .get<Joke>(baseUrl, { params })
+      .subscribe(data => {
+        if (category !== 'search') {
           this.jokes.unshift({
-            ...i,
+            ...data,
             favorite: false
           })
-        })
-      }
-      this.loading = false
-    })
+        } else {
+          data.result.forEach(i => {
+            this.jokes.unshift({
+              ...i,
+              favorite: false
+            })
+          })
+        }
+        this.loading = false
+      })
   }
 
   favorites(): Joke[] {
