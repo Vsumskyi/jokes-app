@@ -25,7 +25,7 @@
           </p>
           <div class="subtitles">
             <span>
-              Last update: {{joke.updated_at | date:'MMM-dd HH:mm'}}
+              Last update: {{joke.updated_at | diffDate}} hours ago
             </span>
             <span class="tag"
               *ngIf="joke.categories.length">

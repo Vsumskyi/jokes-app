@@ -35,11 +35,13 @@ export class JokeService {
   ]
   jokes: Joke[] = []
   loading = false
+  errorMessage = ''
 
   constructor(private http: HttpClient) {}
 
   fetchJoke(searchParam: string, apiValue: string): void {
     this.loading = true
+    this.errorMessage = ''
     let baseUrl = 'https://api.chucknorris.io/jokes/'
 
     if (searchParam === 'random') {
@@ -52,24 +54,30 @@ export class JokeService {
       baseUrl += `${searchParam}?query=${apiValue}`
     }
 
-    this.http.get<Joke>(baseUrl).subscribe(data => {
-      if (searchParam !== 'search') {
-        !this.containsJoke(data.id, this.jokes) &&
-          this.jokes.unshift({
-            ...data,
-            favorite: this.containsJoke(data.id, this.favoritesJokes)
-          })
-      } else {
-        data.result.forEach(item => {
-          !this.containsJoke(item.id, this.jokes) &&
-            this.jokes.unshift({
-              ...item,
-              favorite: this.containsJoke(item.id, this.favoritesJokes)
-            })
+    this.http.get<Joke>(baseUrl).subscribe(
+      data => {
+        const response = data.result || [data]
+        response.forEach(item => {
+          !this.containsJoke(item.id, this.jokes)
+            ? this.jokes.unshift({
+                ...item,
+                favorite: this.containsJoke(item.id, this.favoritesJokes)
+              })
+            : this.bubbleUpJoke(item)
         })
+        this.loading = false
+      },
+      e => {
+        this.errorMessage = e.error.message
+        this.loading = false
       }
-      this.loading = false
-    })
+    )
+  }
+
+  bubbleUpJoke(item: Joke) {
+    this.jokes = this.jokes.filter(i => i.id !== item.id)
+    item.favorite = this.containsJoke(item.id, this.favoritesJokes)
+    this.jokes.unshift(item)
   }
 
   containsJoke(id: string | number, jokes: Joke[]) {
