@@ -3,7 +3,7 @@
   <div class="card"
     [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
-      <a (click)=" jokeService.saveToFavorites(joke.id)"
+      <a (click)="like(joke.id, $event)"
         href="#"
         class="heart">
         <img
