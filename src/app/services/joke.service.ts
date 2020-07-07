@@ -1,5 +1,5 @@
-import { Joke } from './../interfaces/interfaces'
-import { Injectable } from '@angular/core'
+import { Joke } from './../interfaces/interfaces';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -30,41 +30,41 @@ export class JokeService {
       updated_at: '129',
       categories: []
     }
-  ]
+  ];
 
-  jokes: Joke[] = []
+  jokes: Joke[] = [];
 
-  saveToFavorites(id: string | number) {
-    const jokes = [...this.jokes, ...this.favoritesJokes]
-    const index = jokes.findIndex(i => i.id === id)
+  saveToFavorites(id: string | number): void {
+    const jokes = [...this.jokes, ...this.favoritesJokes];
+    const index = jokes.findIndex(i => i.id === id);
 
     if (jokes[index].favorite) {
-      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id)
-      jokes[index].favorite = false
+      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
+      jokes[index].favorite = false;
     } else {
-      jokes[index].favorite = true
-      this.favoritesJokes.unshift(jokes[index])
+      jokes[index].favorite = true;
+      this.favoritesJokes.unshift(jokes[index]);
     }
   }
 
-  addJoke(jokes: Joke[]) {
+  addJoke(jokes: Joke[]): void {
     jokes.forEach(item => {
       !this.containsJoke(item.id, this.jokes)
         ? this.jokes.unshift({
             ...item,
             favorite: this.containsJoke(item.id, this.favoritesJokes)
           })
-        : this.bubbleUpJoke(item)
-    })
+        : this.bubbleUpJoke(item);
+    });
   }
 
-  bubbleUpJoke(item: Joke) {
-    this.jokes = this.jokes.filter(i => i.id !== item.id)
-    item.favorite = this.containsJoke(item.id, this.favoritesJokes)
-    this.jokes.unshift(item)
+  bubbleUpJoke(item: Joke): void {
+    this.jokes = this.jokes.filter(i => i.id !== item.id);
+    item.favorite = this.containsJoke(item.id, this.favoritesJokes);
+    this.jokes.unshift(item);
   }
 
-  containsJoke(id: string | number, jokes: Joke[]) {
-    return jokes.some(i => i.id === id)
+  containsJoke(id: string | number, jokes: Joke[]): boolean {
+    return jokes.some(i => i.id === id);
   }
 }

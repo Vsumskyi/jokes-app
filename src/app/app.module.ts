@@ -1,12 +1,12 @@
-import { HttpClientModule } from '@angular/common/http'
-import { SharedModule } from './shared/shared.module'
-import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import { FavoritesModule } from './pages/favorites/favorites.module'
-import { HomeModule } from './pages/home/home.module'
-import { AppRoutingModule } from './app-routing.module'
-import { AppComponent } from './app.component'
+import { FavoritesModule } from './pages/favorites/favorites.module';
+import { HomeModule } from './pages/home/home.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],

@@ -3,55 +3,60 @@
   <p>
     <input type="radio"
       id="random"
-      name="category"
       class="search-option"
-      formControlName="category"
-      (click)="form.get('apiValue').setValue(null)"
-      value="random" />
+      formControlName="formOptions"
+      [value]="eFormProperty.Random" />
     <label for="random">Random</label>
   </p>
   <p>
     <input type="radio"
-      (click)="form.get('apiValue').setValue(category[0])"
       id="category"
-      name="category"
       class="search-option"
-      formControlName="category"
-      value="category" />
+      formControlName="formOptions"
+      [value]="eFormProperty.Category" />
     <label for="category">From Category</label>
   </p>
 
-  <div *ngIf="form.get('category').value === 'category'"
-    class="category">
+  <div *ngIf="form.get('formOptions').value === eFormProperty.Category"
+    class="category"
+    formGroupName="apiValue">
     <div *ngFor="let item of category"
       class="tag-group">
       <input type="radio"
         class="tags"
+        formControlName="categories"
         [id]="item"
-        [value]="item"
-        name="apiValue"
-        formControlName="apiValue" />
+        [value]="item" />
       <label [for]="item"> {{item}} </label>
     </div>
   </div>
 
   <p>
     <input type="radio"
-      (click)="form.get('apiValue').setValue(null)"
       id="test3"
-      name="category"
-      formControlName="category"
-      value="search"
+      formControlName="formOptions"
+      [value]="eFormProperty.Search"
       class="search-option" />
     <label for="test3">Search</label>
   </p>
+  <div formGroupName="apiValue"
+    *ngIf="form.get('formOptions').value === eFormProperty.Search">
+    <input formControlName="search"
+      type="text"
+      class="search"
+      placeholder="Free text search..." />
 
-  <input *ngIf="form.get('category').value === 'search'"
-    formControlName="apiValue"
-    type="text"
-    class="search"
-    placeholder="Free text search..." />
+    <span *ngIf="form.get('apiValue.search').errors?.minlength ">
+      Minimum length
+      {{form.get('apiValue.search').errors.minlength.requiredLength}}
+      characters
+    </span>
+  </div>
+
   <button class="btn"
-    [disabled]="loading">Get a joke</button>
+    [disabled]="loading || 
+    (!form.get('apiValue.search').valid && 
+    form.get('formOptions').value === eFormProperty.Search) ">
+    Get a joke</button>
 
 </form>

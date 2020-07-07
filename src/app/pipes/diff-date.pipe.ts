@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'diffDate'
@@ -8,6 +8,6 @@ export class DiffDatePipe implements PipeTransform {
     return (
       (new Date().getTime() - new Date(apiDate).getTime()) /
       (1000 * 60 * 60)
-    ).toFixed(0)
+    ).toFixed(0);
   }
 }

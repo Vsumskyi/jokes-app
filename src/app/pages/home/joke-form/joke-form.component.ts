@@ -1,7 +1,8 @@
-import { FormGroup, FormControl } from '@angular/forms'
-import { Component, OnInit } from '@angular/core'
-import { AsyncService } from 'src/app/services/async.service'
-import { JokeService } from 'src/app/services/joke.service'
+import { FormProperty } from 'src/app/enums/FormProperty';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AsyncService } from 'src/app/services/async.service';
+import { JokeService } from 'src/app/services/joke.service';
 
 @Component({
   selector: 'app-joke-form',
@@ -9,37 +10,41 @@ import { JokeService } from 'src/app/services/joke.service'
   styleUrls: ['./joke-form.component.scss']
 })
 export class JokeFormComponent implements OnInit {
-  loading = false
-  errorMessage = ''
-  form: FormGroup
-  category = ['animal', 'career', 'celebrity', 'dev']
+  eFormProperty = FormProperty;
+  loading = false;
+  errorMessage = '';
+  form: FormGroup;
+  category = ['animal', 'career', 'celebrity', 'dev'];
 
   constructor(
     public jokeService: JokeService,
-    public asyncService: AsyncService
+    public asyncService: AsyncService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      category: new FormControl('random'),
-      apiValue: new FormControl(null)
-    })
+    this.form = this.fb.group({
+      formOptions: [this.eFormProperty.Random],
+      apiValue: this.fb.group({
+        random: ['random'],
+        categories: ['animal'],
+        search: ['', [Validators.required, Validators.minLength(3)]]
+      })
+    });
   }
 
-  submit() {
-    this.errorMessage = ''
-    this.loading = true
-    this.asyncService
-      .fetchJoke(this.form.value.category, this.form.value.apiValue)
-      .subscribe(
-        data => {
-          this.jokeService.addJoke(data.result || [data])
-          this.loading = false
-        },
-        e => {
-          this.errorMessage = e.error.message
-          this.loading = false
-        }
-      )
+  submit(): void {
+    this.errorMessage = '';
+    this.loading = true;
+    this.asyncService.fetchJoke(this.form.value).subscribe(
+      data => {
+        this.jokeService.addJoke(data.result || [data]);
+        this.loading = false;
+      },
+      e => {
+        this.errorMessage = e.error.message;
+        this.loading = false;
+      }
+    );
   }
 }

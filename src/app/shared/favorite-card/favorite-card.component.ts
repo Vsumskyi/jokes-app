@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core'
-import { Joke } from 'src/app/interfaces/interfaces'
-import { JokeService } from 'src/app/services/joke.service'
-import { AsyncService } from 'src/app/services/async.service'
+import { Component, OnInit, Input } from '@angular/core';
+import { Joke } from 'src/app/interfaces/interfaces';
+import { JokeService } from 'src/app/services/joke.service';
+import { AsyncService } from 'src/app/services/async.service';
 
 @Component({
   selector: 'app-favorite-card',
@@ -13,13 +13,13 @@ export class FavoriteCardComponent implements OnInit {
     public jokeService: JokeService,
     public asyncService: AsyncService
   ) {}
-  @Input('jokes') jokes: Joke
-  @Input('favorite') favorite: boolean
+  @Input() jokes: Joke;
+  @Input() favorite: boolean;
   ngOnInit(): void {}
 
-  like(id: string | number, event: Event) {
-    event.preventDefault()
-    this.jokeService.saveToFavorites(id)
-    this.asyncService.saveToLocalStorage(this.jokeService.favoritesJokes)
+  like(id: string | number, event: Event): void {
+    event.preventDefault();
+    this.jokeService.saveToFavorites(id);
+    this.asyncService.saveToLocalStorage(this.jokeService.favoritesJokes);
   }
 }
