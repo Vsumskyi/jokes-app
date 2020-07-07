@@ -1,22 +1,62 @@
-<form>
+<form [formGroup]="form"
+  (ngSubmit)="submit()">
   <p>
-    <input type="radio" id="test1" name="prim" class="search-option" checked />
-    <label for="test1">Random</label>
+    <input type="radio"
+      id="random"
+      class="search-option"
+      formControlName="formOptions"
+      [value]="formProperty[1]" />
+    <label for="random">Random</label>
   </p>
   <p>
-    <input type="radio" id="test2" name="prim" class="search-option" />
-    <label for="test2">From Category</label>
+    <input type="radio"
+      id="category"
+      class="search-option"
+      formControlName="formOptions"
+      [value]="formProperty[2]" />
+    <label for="category">From Category</label>
   </p>
 
-  <div class="category">
-    <span class="tags" *ngFor="let item of category"> {{ item }} </span>
+  <div *ngIf="form.get('formOptions').value === formProperty[2]"
+    class="category"
+    formGroupName="apiValue">
+    <div *ngFor="let item of jokeCategories"
+      class="tag-group">
+      <input type="radio"
+        class="tags"
+        formControlName="categories"
+        [id]="item"
+        [value]="item" />
+      <label [for]="item"> {{item}} </label>
+    </div>
   </div>
 
   <p>
-    <input type="radio" id="test3" name="prim" class="search-option" />
-    <label for="test3">Search</label>
+    <input type="radio"
+      id="search"
+      formControlName="formOptions"
+      [value]="formProperty[3]"
+      class="search-option" />
+    <label for="search">Search</label>
   </p>
+  <div formGroupName="apiValue"
+    *ngIf="form.get('formOptions').value === formProperty[3]">
+    <input formControlName="search"
+      type="text"
+      class="search"
+      placeholder="Free text search..." />
 
-  <input type="text" class="search" placeholder="Free text search..." />
-  <button class="btn">Get a joke</button>
+    <span *ngIf="form.get('apiValue.search').errors?.minlength ">
+      Minimum length
+      {{form.get('apiValue.search').errors.minlength.requiredLength}}
+      characters
+    </span>
+  </div>
+
+  <button class="btn"
+    [disabled]="loading || 
+    (!form.get('apiValue.search').valid && 
+    form.get('formOptions').value === formProperty[3]) ">
+    Get a joke</button>
+
 </form>

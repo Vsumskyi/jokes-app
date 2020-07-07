@@ -14,13 +14,13 @@ h3 {
 }
 
 .favorite-container {
-  width: 400px;
-  box-sizing: content-box;
+  width: 480px;
   background: $backdrop-bgc;
   padding: 40px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  height: 100vh;
   h3 {
     color: $sub-title-color;
     margin-right: auto;
@@ -30,5 +30,16 @@ h3 {
   .btn {
     margin-top: 40px;
     align-self: center;
+  }
+
+  &::-webkit-scrollbar {
+    // hide scrollbar
+    width: 2px;
+    height: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    height: 2px;
+    background-color: $main-color;
+    border-radius: 40px;
   }
 }

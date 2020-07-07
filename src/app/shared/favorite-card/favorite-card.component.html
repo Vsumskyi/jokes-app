@@ -1,27 +1,36 @@
 <div *ngFor="let joke of jokes">
 
-  <div class="card" [ngClass]=" {'joke-card': !joke.favorite, 'favorite-card': joke.favorite} ">
+  <div class="card"
+    [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
-      <a href="#">
-        <img [src]="joke.favorite?'../assets/images/heart-active.svg':'../assets/images/heart.svg'" alt=""
-             class="heart" /></a>
+      <a (click)="like(joke.id, $event)"
+        href="#"
+        class="heart">
+        <img
+          [src]="joke.favorite?'../assets/images/heart-active.svg':'../assets/images/heart.svg'"
+          alt="" /></a>
 
       <div class="card-content-wrapper">
         <div class="comment">
-          <a href="#"><img src="../assets/images/comment.svg" alt="" /></a>
+          <a href="#"><img src="../assets/images/comment.svg"
+              alt="" /></a>
         </div>
         <div class="card-content-inner">
           <span>ID: <a href="#">{{joke.id}}</a>
-            <a href="#"> <img src="../assets/images/link.svg" alt="" /></a>
+            <a href="#"> <img src="../assets/images/link.svg"
+                alt="" /></a>
           </span>
           <p>
             {{joke.value}}
           </p>
           <div class="subtitles">
             <span>
-              Last update: 1923 hours ago
+              Last update: {{joke.updated_at | diffDate}} hours ago
             </span>
-            <span class="tag">celebrity</span>
+            <span class="tag"
+              *ngIf="joke.categories.length">
+              {{joke.categories[0]}}
+            </span>
           </div>
         </div>
       </div>

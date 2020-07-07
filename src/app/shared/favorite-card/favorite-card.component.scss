@@ -5,9 +5,10 @@
   border-radius: 10px;
   margin: 10px 0;
   .card-content {
+    display: flex;
+    flex-direction: column;
     .heart {
-      display: block;
-      margin-left: auto;
+      align-self: flex-end;
       cursor: pointer;
     }
     .comment {

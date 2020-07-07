@@ -6,18 +6,21 @@ form {
 
 .category {
   margin: 20px 0;
-
+  display: flex;
   .tags {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 6px;
-    color: $sub-title-color;
-    padding: 3px 9px;
-    font-size: 0.8rem;
-    margin: 0 5px;
-    border: 2px solid $joke-bgc;
-    cursor: pointer;
-    &.active {
+    display: none;
+    & + label {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-radius: 6px;
+      color: $sub-title-color;
+      padding: 3px 9px;
+      font-size: 0.8rem;
+      margin: 0 5px;
+      border: 2px solid $joke-bgc;
+      cursor: pointer;
+    }
+    &:checked + label {
       background: $joke-bgc;
       color: $dark-color;
     }
@@ -27,7 +30,7 @@ form {
   }
 }
 input {
-  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 p {
@@ -44,7 +47,7 @@ p {
   color: #000;
   font-size: 1rem;
   outline: none;
-  margin: 20px 0;
+  margin-top: 20px;
   &::placeholder {
     color: $sub-title-color;
   }
@@ -96,5 +99,12 @@ p {
   &:checked + label:after {
     opacity: 1;
     transform: scale(1);
+  }
+}
+.btn {
+  margin-top: 20px;
+  &:disabled {
+    cursor: not-allowed;
+    background: lighten($main-color2, 20%);
   }
 }
