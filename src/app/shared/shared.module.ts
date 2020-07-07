@@ -1,11 +1,13 @@
-import { FavoriteCardComponent } from './favorite-card/favorite-card.component'
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { RouterModule } from '@angular/router'
+import { DiffDatePipe } from './../pipes/diff-date.pipe';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { FavoriteCardComponent } from './favorite-card/favorite-card.component';
 
 @NgModule({
-  declarations: [FavoriteCardComponent],
+  declarations: [FavoriteCardComponent, DiffDatePipe],
   imports: [CommonModule, RouterModule],
-  exports: [FavoriteCardComponent, RouterModule]
+  exports: [FavoriteCardComponent, RouterModule, DiffDatePipe]
 })
 export class SharedModule {}

@@ -1,5 +1,5 @@
-import { JokeService } from './../../../services/joke.service'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
+import { JokeService } from 'src/app/services/joke.service';
 
 @Component({
   selector: 'app-home',

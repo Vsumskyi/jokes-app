@@ -1,8 +1,15 @@
 export interface Joke {
-  icon_url?: string
-  value: string
-  id: number | string
-  url?: string
-  favorite: boolean
-  date?: Date
+  icon_url?: string;
+  value: string;
+  id: number | string;
+  updated_at?: string;
+  url?: string;
+  favorite: boolean;
+  categories?: [];
+  result?: [Joke];
+}
+
+export interface JokeSearchFormValue {
+  formOptions: string;
+  apiValue: { random: string; categories: string; search: string };
 }
