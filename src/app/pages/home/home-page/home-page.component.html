@@ -1,5 +1,16 @@
 <div class="wrapper">
+
   <div class="container">
+
+    <div class="drawer-trigger"
+      (click)="toggleDrawer()">
+      <div class="drawer-link"
+        [ngClass]="{'active':openDrawer}"><span
+          class="drawer-link_lines"></span>
+      </div>
+      <h3>Favorite</h3>
+    </div>
+
     <h3>MSI 2020</h3>
     <div class="title">
       <h1>Hey!</h1>
@@ -11,11 +22,18 @@
 
   </div>
 
-  <div class="favorite-container">
+  <div class="favorite-container"
+    [ngClass]="{'active':openDrawer}">
     <h3>Favorite</h3>
     <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
       [favorite]="true"></app-favorite-card>
     <a class="btn"
       [routerLink]="['/favorites']">Go to all Favorites</a>
   </div>
+
+  <div class="fade"
+    (click)="toggleDrawer()"
+    [ngClass]="{'active':openDrawer}">
+  </div>
+
 </div>

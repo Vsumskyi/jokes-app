@@ -50,7 +50,7 @@ export class JokeFormComponent implements OnInit {
     this.loading = true;
     this.jokesDataService.fetchJoke(this.form.value).subscribe(
       data => {
-        this.jokeService.addJoke(data.result || [data]);
+        this.jokeService.addJoke([data]);
       },
       e => {
         this.errorMessage = e.error.message;

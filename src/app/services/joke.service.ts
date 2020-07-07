@@ -24,14 +24,16 @@ export class JokeService {
   }
 
   addJoke(jokes: Joke[]): void {
-    jokes.forEach(item => {
-      !this.containsJoke(item.id, this.jokes)
-        ? this.jokes.unshift({
-            ...item,
-            favorite: this.containsJoke(item.id, this.favoritesJokes)
-          })
-        : this.bubbleUpJoke(item);
-    });
+    jokes
+      .reduce((acc, curr) => acc.concat(curr), [])
+      .forEach(item => {
+        !this.containsJoke(item.id, this.jokes)
+          ? this.jokes.unshift({
+              ...item,
+              favorite: this.containsJoke(item.id, this.favoritesJokes)
+            })
+          : this.bubbleUpJoke(item);
+      });
   }
 
   bubbleUpJoke(item: Joke): void {
