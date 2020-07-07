@@ -9,7 +9,7 @@ export interface Joke {
   result?: [Joke];
 }
 
-export interface FormValue {
+export interface JokeSearchFormValue {
   formOptions: string;
   apiValue: { random: string; categories: string; search: string };
 }

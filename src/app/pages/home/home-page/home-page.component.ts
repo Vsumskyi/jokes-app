@@ -1,6 +1,5 @@
-import { JokeService } from 'src/app/services/joke.service';
-import { AsyncService } from 'src/app/services/async.service';
 import { Component, OnInit } from '@angular/core';
+import { JokeService } from 'src/app/services/joke.service';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  constructor(
-    public jokeService: JokeService,
-    private asyncService: AsyncService
-  ) {}
+  constructor(public jokeService: JokeService) {}
 
-  ngOnInit(): void {
-    this.jokeService.favoritesJokes =
-      this.asyncService.getDataFromLocalStorage() ||
-      this.jokeService.favoritesJokes;
-  }
+  ngOnInit(): void {}
 }

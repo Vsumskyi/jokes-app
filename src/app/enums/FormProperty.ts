@@ -1,5 +1,5 @@
 export enum FormProperty {
-  Random = 'random',
-  Category = 'category',
-  Search = 'search'
+  'random' = 1,
+  'category' = 2,
+  'search' = 3
 }

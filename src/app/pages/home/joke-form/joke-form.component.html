@@ -5,7 +5,7 @@
       id="random"
       class="search-option"
       formControlName="formOptions"
-      [value]="eFormProperty.Random" />
+      [value]="formProperty[1]" />
     <label for="random">Random</label>
   </p>
   <p>
@@ -13,14 +13,14 @@
       id="category"
       class="search-option"
       formControlName="formOptions"
-      [value]="eFormProperty.Category" />
+      [value]="formProperty[2]" />
     <label for="category">From Category</label>
   </p>
 
-  <div *ngIf="form.get('formOptions').value === eFormProperty.Category"
+  <div *ngIf="form.get('formOptions').value === formProperty[2]"
     class="category"
     formGroupName="apiValue">
-    <div *ngFor="let item of category"
+    <div *ngFor="let item of jokeCategories"
       class="tag-group">
       <input type="radio"
         class="tags"
@@ -33,14 +33,14 @@
 
   <p>
     <input type="radio"
-      id="test3"
+      id="search"
       formControlName="formOptions"
-      [value]="eFormProperty.Search"
+      [value]="formProperty[3]"
       class="search-option" />
-    <label for="test3">Search</label>
+    <label for="search">Search</label>
   </p>
   <div formGroupName="apiValue"
-    *ngIf="form.get('formOptions').value === eFormProperty.Search">
+    *ngIf="form.get('formOptions').value === formProperty[3]">
     <input formControlName="search"
       type="text"
       class="search"
@@ -56,7 +56,7 @@
   <button class="btn"
     [disabled]="loading || 
     (!form.get('apiValue.search').valid && 
-    form.get('formOptions').value === eFormProperty.Search) ">
+    form.get('formOptions').value === formProperty[3]) ">
     Get a joke</button>
 
 </form>

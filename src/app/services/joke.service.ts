@@ -5,45 +5,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class JokeService {
-  favoritesJokes: Joke[] = [
-    {
-      url: 'Post 1',
-      value: 'Sample text for post 1',
-      id: 11,
-      favorite: true,
-      updated_at: '129',
-      categories: []
-    },
-    {
-      url: 'Post 1',
-      value: 'Sample text for post 1',
-      id: 12,
-      favorite: true,
-      updated_at: '129',
-      categories: []
-    },
-    {
-      url: 'Post 1',
-      value: 'Sample text for post 1',
-      id: 13,
-      favorite: true,
-      updated_at: '129',
-      categories: []
-    }
-  ];
+  favoritesJokes: Joke[] = [];
 
   jokes: Joke[] = [];
 
   saveToFavorites(id: string | number): void {
-    const jokes = [...this.jokes, ...this.favoritesJokes];
-    const index = jokes.findIndex(i => i.id === id);
+    const joke = [...this.jokes, ...this.favoritesJokes].find(
+      jokeItem => jokeItem.id === id
+    );
 
-    if (jokes[index].favorite) {
+    if (joke.favorite) {
       this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
-      jokes[index].favorite = false;
+      joke.favorite = false;
     } else {
-      jokes[index].favorite = true;
-      this.favoritesJokes.unshift(jokes[index]);
+      joke.favorite = true;
+      this.favoritesJokes.unshift(joke);
     }
   }
 

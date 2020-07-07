@@ -13,7 +13,7 @@
 
   <div class="favorite-container">
     <h3>Favorite</h3>
-    <app-favorite-card [jokes]="jokeService.favoritesJokes"
+    <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
       [favorite]="true"></app-favorite-card>
     <a class="btn"
       [routerLink]="['/favorites']">Go to all Favorites</a>
