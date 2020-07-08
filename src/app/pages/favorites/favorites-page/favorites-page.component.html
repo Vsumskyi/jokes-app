@@ -3,13 +3,13 @@
   <a href="#"
     class="btn"
     routerLink="/">
-    back
+    &larr;
   </a>
 
   <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
     <input type="text"
       class="base-input"
-      placeholder="search"
+      placeholder="Search"
       [(ngModel)]="searchTracker" />
 
     <app-favorite-card

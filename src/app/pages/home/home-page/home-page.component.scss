@@ -57,6 +57,10 @@ h3 {
       opacity: 0;
     }
   }
+  @include _480 {
+    padding: 20px;
+    width: auto;
+  }
 }
 
 .drawer-trigger {
@@ -64,9 +68,10 @@ h3 {
   right: 40px;
   display: none;
   z-index: 4;
+  cursor: pointer;
 
   h3 {
-    color: \$sub-title-color;
+    color: $sub-title-color;
     margin-bottom: 0;
   }
 
@@ -78,7 +83,6 @@ h3 {
     background-color: $dark-color;
     position: relative;
     margin-right: 10px;
-    cursor: pointer;
 
     .drawer-link_lines {
       background-color: transparent;
@@ -88,10 +92,10 @@ h3 {
     .drawer-link_lines {
       position: absolute;
       width: 14px;
-      height: 2px;
+      height: 3px;
       background-color: $white-color;
       border-radius: 2px;
-      transition: 0.4s;
+      transition: transform 0.25s ease;
     }
     .drawer-link_lines {
       background: transparent;
@@ -120,5 +124,9 @@ h3 {
 
   @include _836 {
     display: flex;
+  }
+
+  @include _480 {
+    right: 20px;
   }
 }

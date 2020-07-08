@@ -60,6 +60,9 @@ html {
   @include _836 {
     width: 100%;
   }
+  @include _480 {
+    padding: 20px 20px 0 20px;
+  }
 }
 
 .btn {

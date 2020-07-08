@@ -4,7 +4,6 @@
   padding: 20px;
   border-radius: 10px;
   margin: 10px 0;
-  transition: background 0.45s ease;
   .card-content {
     display: flex;
     flex-direction: column;
@@ -52,9 +51,6 @@
         }
       }
     }
-  }
-  &.born {
-    background: lighten($main-color, 15%);
   }
 }
 

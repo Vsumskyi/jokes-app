@@ -1,14 +1,27 @@
 @import 'variables';
+@import 'media_mixin';
 
 .container {
   width: 100%;
   padding: 40px;
   .btn {
-    display: inline-block;
+    display: inline-flex;
     margin-bottom: 30px;
+    padding: 10px 25px;
+    padding-top: 5px;
+    font-size: 2rem;
   }
   .base-input {
     width: 40%;
     display: block;
+    margin-top: 0;
+  }
+
+  @include _480 {
+    padding: 20px;
+    .base-input {
+      width: 100%;
+      display: block;
+    }
   }
 }
