@@ -1,0 +1,14 @@
+@import 'variables';
+
+.container {
+  width: 100%;
+  padding: 40px;
+  .btn {
+    display: inline-block;
+    margin-bottom: 30px;
+  }
+  .base-input {
+    width: 40%;
+    display: block;
+  }
+}

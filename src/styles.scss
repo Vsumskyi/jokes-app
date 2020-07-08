@@ -84,3 +84,18 @@ html {
     );
   }
 }
+
+.base-input {
+  width: 100%;
+  border: 2px solid $dark-color;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
+  color: #000;
+  font-size: 1rem;
+  outline: none;
+  margin-top: 20px;
+  &::placeholder {
+    color: $sub-title-color;
+  }
+}

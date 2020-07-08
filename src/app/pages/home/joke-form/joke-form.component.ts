@@ -30,9 +30,9 @@ export class JokeFormComponent implements OnInit {
 
   setForm(): void {
     this.form = this.fb.group({
-      formOptions: ['random'],
+      formOptions: [FormProperty[1]],
       apiValue: this.fb.group({
-        random: ['random'],
+        random: [FormProperty[1]],
         categories: ['animal'],
         search: ['', [Validators.required, Validators.minLength(3)]]
       })
@@ -48,16 +48,19 @@ export class JokeFormComponent implements OnInit {
   submit(): void {
     this.errorMessage = '';
     this.loading = true;
-    this.jokesDataService.fetchJoke(this.form.value).subscribe(
-      data => {
-        this.jokeService.addJoke([data]);
-      },
-      e => {
-        this.errorMessage = e.error.message;
-      },
-      () => {
+    this.jokesDataService
+      .fetchJoke(this.form.value)
+      .subscribe(
+        data => {
+          this.jokeService.addJoke([data]);
+        },
+        e => {
+          this.errorMessage = e.statusText;
+        }
+      )
+      .add(() => {
         this.loading = false;
-      }
-    );
+        this.form.get('apiValue').get('search').reset();
+      });
   }
 }

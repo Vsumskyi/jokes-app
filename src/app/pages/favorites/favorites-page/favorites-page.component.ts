@@ -7,6 +7,9 @@ import { JokeService } from 'src/app/services/joke.service';
   styleUrls: ['./favorites-page.component.scss']
 })
 export class FavoritesPageComponent implements OnInit {
+
+  searchTracker = '';
+
   constructor(public jokeService: JokeService) {}
 
   ngOnInit(): void {}

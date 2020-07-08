@@ -37,22 +37,18 @@ p {
   margin-top: 10px;
   margin-left: 34px;
 }
-
-.search {
-  width: 100%;
-  border: 2px solid $dark-color;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 10px;
-  color: #000;
-  font-size: 1rem;
-  outline: none;
-  margin-top: 20px;
-  &::placeholder {
-    color: $sub-title-color;
+.search-group,
+.submit-group {
+  position: relative;
+  .error {
+    position: absolute;
+    font-size: 0.7rem;
+    color: #dd0031;
+    bottom: -15px;
+    right: 0;
+    left: 0;
   }
 }
-
 .search-option {
   &:checked,
   &:not(:checked) {

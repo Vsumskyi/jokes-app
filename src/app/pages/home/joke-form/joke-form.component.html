@@ -40,23 +40,31 @@
     <label for="search">Search</label>
   </p>
   <div formGroupName="apiValue"
+    class="search-group"
     *ngIf="form.get('formOptions').value === formProperty[3]">
     <input formControlName="search"
+      appInputFocus
       type="text"
-      class="search"
+      class="base-input"
       placeholder="Free text search..." />
 
-    <span *ngIf="form.get('apiValue.search').errors?.minlength ">
+    <span *ngIf="form.get('apiValue.search').errors?.minlength"
+      class="error">
       Minimum length
       {{form.get('apiValue.search').errors.minlength.requiredLength}}
       characters
     </span>
   </div>
 
-  <button class="btn"
-    [disabled]="loading || 
+  <div class="submit-group">
+    <button class="btn"
+      [disabled]="loading || 
     (!form.get('apiValue.search').valid && 
     form.get('formOptions').value === formProperty[3]) ">
-    Get a joke</button>
+      Get a joke
+    </button>
+    <span class="error"> {{errorMessage}} </span>
+  </div>
+
 
 </form>

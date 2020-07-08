@@ -24,12 +24,22 @@
 
   <div class="favorite-container"
     [ngClass]="{'active':openDrawer}">
-    <h3>Favorite</h3>
-    <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
-      [favorite]="true"></app-favorite-card>
-    <a class="btn"
-      [routerLink]="['/favorites']">Go to all Favorites</a>
+
+    <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
+      <h3>Favorite</h3>
+      <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
+        [favorite]="true">
+      </app-favorite-card>
+      <a class="btn"
+        [routerLink]="['/favorites']">Go to all Favorites
+      </a>
+    </ng-container>
   </div>
+
+  <ng-template #empty>
+    <app-empty-container></app-empty-container>
+  </ng-template>
+
 
   <div class="fade"
     (click)="toggleDrawer()"
