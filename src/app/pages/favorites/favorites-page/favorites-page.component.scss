@@ -17,6 +17,19 @@
     margin-top: 0;
   }
 
+  .category-wrapper {
+    display: flex;
+    align-items: baseline;
+    p {
+      flex-shrink: 0;
+    }
+  }
+
+  .everywhere {
+    flex-basis: 100%;
+    margin-top: 15px;
+  }
+
   @include _480 {
     padding: 20px;
     .base-input {

@@ -102,3 +102,34 @@ html {
     color: $sub-title-color;
   }
 }
+
+.category {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  .tag-group {
+    margin: 5px 0;
+  }
+  .tags {
+    display: none;
+    & + label {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-radius: 6px;
+      color: $sub-title-color;
+      padding: 3px 9px;
+      font-size: 0.8rem;
+      margin: 0px 5px;
+      border: 2px solid $joke-bgc;
+      cursor: pointer;
+    }
+    &:checked + label {
+      background: $joke-bgc;
+      color: $dark-color;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

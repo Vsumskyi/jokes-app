@@ -5,12 +5,12 @@ import { Joke } from '../interfaces/interfaces';
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
-  transform(jokes: Joke[], tracker: string): Joke[] {
-    if (!tracker.trim()) {
+  transform(jokes: Joke[], tracker: string, category: string): Joke[] {
+    if (!category.trim() && !tracker.trim()) {
       return jokes;
     }
-    return jokes.filter(i =>
-      i.value.toLowerCase().includes(tracker.toLowerCase())
-    );
+    return jokes
+      .filter(joke => joke.categories.join('').includes(category))
+      .filter(joke => joke.value.toLowerCase().includes(tracker.toLowerCase()));
   }
 }

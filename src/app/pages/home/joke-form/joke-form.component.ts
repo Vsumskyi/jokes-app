@@ -1,4 +1,4 @@
-import { FormProperty } from 'src/app/enums/FormProperty';
+import { FormProperty, JokesCategories } from 'src/app/enums/FormProperty';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
@@ -33,7 +33,7 @@ export class JokeFormComponent implements OnInit {
       formOptions: [FormProperty[1]],
       apiValue: this.fb.group({
         random: [FormProperty[1]],
-        categories: ['animal'],
+        categories: [JokesCategories[1]],
         search: ['', [Validators.required, Validators.minLength(3)]]
       })
     });
@@ -60,7 +60,7 @@ export class JokeFormComponent implements OnInit {
       )
       .add(() => {
         this.loading = false;
-        this.form.get('apiValue').get('search').reset();
+        this.form.get('apiValue.search').reset();
       });
   }
 }

@@ -1,5 +1,4 @@
 <div class="container">
-
   <a href="#"
     class="btn"
     routerLink="/">
@@ -7,13 +6,41 @@
   </a>
 
   <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
-    <input type="text"
-      class="base-input"
-      placeholder="Search"
-      [(ngModel)]="searchTracker" />
 
-    <app-favorite-card
-      [jokes]="jokeService.favoritesJokes | search: searchTracker">
+    <input type="text"
+      appInputFocus
+      class="base-input"
+      placeholder="Search..."
+      [(ngModel)]="value">
+    <div class="category-wrapper">
+      <p> Search in: </p>
+
+      <div class="category">
+        <div *ngFor="let item of jokeCategories"
+          class="tag-group">
+          <input type="radio"
+            class="tags"
+            [id]="item"
+            [(ngModel)]="category"
+            [value]="item" />
+          <label [for]="item"> {{item}} </label>
+        </div>
+
+        <div class="tag-group everywhere">
+          <input type="radio"
+            class="tags"
+            id="search-everywhere"
+            [(ngModel)]="category"
+            value="" />
+          <label for="search-everywhere"> search everywhere </label>
+        </div>
+      </div>
+    </div>
+
+    <app-favorite-card [jokes]="jokeService.favoritesJokes | search:
+      value:
+      category
+      ">
     </app-favorite-card>
 
   </ng-container>
@@ -21,6 +48,5 @@
   <ng-template #empty>
     <app-empty-container></app-empty-container>
   </ng-template>
-
 
 </div>
