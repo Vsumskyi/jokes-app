@@ -24,6 +24,7 @@ html {
     overflow: hidden;
   }
   .fade {
+    display: none;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -35,6 +36,9 @@ html {
     &.active {
       opacity: 1;
       z-index: 1;
+    }
+    @include _836 {
+      display: block;
     }
   }
 }

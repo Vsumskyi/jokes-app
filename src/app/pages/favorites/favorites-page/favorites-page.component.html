@@ -37,11 +37,14 @@
       </div>
     </div>
 
+    <div>
     <app-favorite-card [jokes]="jokeService.favoritesJokes | search:
-      value:
-      category
-      ">
+          value:
+          category
+          ">
     </app-favorite-card>
+    </div>
+
 
   </ng-container>
 

@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'media_mixin';
 
 .card {
   padding: 20px;
@@ -51,6 +52,20 @@
         }
       }
     }
+    @include _350 {
+      flex-direction: row;
+      &-wrapper {
+        order: -1;
+        flex-direction: column;
+        margin-top: -10px;
+      }
+      &-inner {
+        margin: 0 auto;
+      }
+      .heart {
+        align-self: baseline;
+      }
+    }
   }
 }
 
@@ -83,7 +98,6 @@
     }
     &-inner {
       display: inline-block;
-      width: 80%;
       p {
         font-size: 1rem;
         line-height: 26px;

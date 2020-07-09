@@ -2,10 +2,13 @@
 @import 'media_mixin';
 
 .container {
-  width: 100%;
   padding: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
   .btn {
     display: inline-flex;
+    align-self: flex-start;
     margin-bottom: 30px;
     padding: 10px 25px;
     padding-top: 5px;
@@ -22,6 +25,13 @@
     align-items: baseline;
     p {
       flex-shrink: 0;
+    }
+    @include _480 {
+      flex-direction: column;
+      margin-top: 20px;
+      p {
+        margin-left: 10px;
+      }
     }
   }
 

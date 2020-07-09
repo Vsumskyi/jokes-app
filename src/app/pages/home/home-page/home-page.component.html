@@ -2,16 +2,18 @@
 
   <div class="container">
 
-    <div class="drawer-trigger"
-      (click)="toggleDrawer()">
-      <div class="drawer-link"
-        [ngClass]="{'active':openDrawer}"><span
-          class="drawer-link_lines"></span>
+    <div class="nav">
+      <h3>MSI 2020</h3>
+      <div class="drawer-trigger"
+        (click)="toggleDrawer()">
+        <div class="drawer-link"
+          [ngClass]="{'active':openDrawer}"><span
+            class="drawer-link_lines"></span>
+        </div>
+        <h3>Favorite</h3>
       </div>
-      <h3>Favorite</h3>
     </div>
 
-    <h3>MSI 2020</h3>
     <div class="title">
       <h1>Hey!</h1>
       <h2>Let’s try to find a joke for you:</h2>
