@@ -5,9 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class JokeService {
-  favoritesJokes: Joke[] = [];
-
-  jokes: Joke[] = [];
+  public favoritesJokes: Joke[] = [];
+  public jokes: Joke[] = [];
 
   saveToFavorites(id: string | number): void {
     const joke = [...this.jokes, ...this.favoritesJokes].find(
@@ -24,22 +23,14 @@ export class JokeService {
   }
 
   addJoke(jokes: Joke[]): void {
-    jokes
+    this.jokes = jokes
       .reduce((acc, curr) => acc.concat(curr), [])
-      .forEach(item => {
-        !this.containsJoke(item.id, this.jokes)
-          ? this.jokes.unshift({
-              ...item,
-              favorite: this.containsJoke(item.id, this.favoritesJokes)
-            })
-          : this.bubbleUpJoke(item);
+      .map(joke => {
+        if (!this.containsJoke(joke.id, this.jokes)) {
+          joke.favorite = this.containsJoke(joke.id, this.favoritesJokes);
+        }
+        return joke;
       });
-  }
-
-  bubbleUpJoke(item: Joke): void {
-    this.jokes = this.jokes.filter(i => i.id !== item.id);
-    item.favorite = this.containsJoke(item.id, this.favoritesJokes);
-    this.jokes.unshift(item);
   }
 
   containsJoke(id: string | number, jokes: Joke[]): boolean {

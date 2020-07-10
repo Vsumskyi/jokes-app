@@ -1,25 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormProperty } from '../enums/FormProperty';
+import { JokeTypeEnum } from '../enums/FormProperty';
 import { Joke, JokeSearchFormValue } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class JokesDataService {
-  localStorageKey = 'jokes';
-  apiUrl = environment.apiUrl;
+  private jokeTypeEnum = JokeTypeEnum;
+  private localStorageKey = 'jokes';
+  private apiUrl = environment.apiUrl;
+  public loading = false;
+
   constructor(private http: HttpClient) {}
 
-  fetchCategory(): Observable<string[]> {
+  fetchCategories(): Observable<string[]> {
     return this.http.get<string[]>(this.apiUrl + 'categories');
   }
 
   fetchJoke(formValue: JokeSearchFormValue): Observable<Joke> {
+    const jokeTypeEnum = this.jokeTypeEnum;
     const urls = {
-      [FormProperty[1]]: `${formValue.apiValue.random}`,
-      [FormProperty[2]]: `random?${formValue.formOptions}=${formValue.apiValue.categories}`,
-      [FormProperty[3]]: `${formValue.formOptions}?query=${formValue.apiValue.search}`
+      [jokeTypeEnum[1]]: `${formValue.apiValue.random}`,
+      [jokeTypeEnum[2]]: `random?${formValue.formOptions}=${formValue.apiValue.categories}`,
+      [jokeTypeEnum[3]]: `${formValue.formOptions}?query=${formValue.apiValue.search}`
     };
     return this.http.get<Joke>(this.apiUrl + urls[formValue.formOptions]);
   }

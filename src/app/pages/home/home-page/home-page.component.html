@@ -18,10 +18,14 @@
       <h1>Hey!</h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
-
     <app-joke-form></app-joke-form>
-    <app-favorite-card [jokes]="jokeService.jokes"></app-favorite-card>
 
+    <app-favorite-card [jokes]="jokeService.jokes"
+      *ngIf="!jokesDataService.loading;else loader"></app-favorite-card>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
   </div>
 
   <div class="favorite-container"

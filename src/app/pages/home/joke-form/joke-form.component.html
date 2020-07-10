@@ -5,7 +5,7 @@
       id="random"
       class="search-option"
       formControlName="formOptions"
-      [value]="formProperty[1]" />
+      [value]="jokeTypeEnum[1]" />
     <label for="random">Random</label>
   </p>
   <p>
@@ -13,11 +13,11 @@
       id="category"
       class="search-option"
       formControlName="formOptions"
-      [value]="formProperty[2]" />
+      [value]="jokeTypeEnum[2]" />
     <label for="category">From Category</label>
   </p>
 
-  <div *ngIf="form.get('formOptions').value === formProperty[2]"
+  <div *ngIf="form.get('formOptions').value === jokeTypeEnum[2]"
     class="category"
     formGroupName="apiValue">
     <div *ngFor="let item of jokeCategories"
@@ -35,13 +35,13 @@
     <input type="radio"
       id="search"
       formControlName="formOptions"
-      [value]="formProperty[3]"
+      [value]="jokeTypeEnum[3]"
       class="search-option" />
     <label for="search">Search</label>
   </p>
   <div formGroupName="apiValue"
     class="search-group"
-    *ngIf="form.get('formOptions').value === formProperty[3]">
+    *ngIf="form.get('formOptions').value === jokeTypeEnum[3]">
     <input formControlName="search"
       appInputFocus
       type="text"
@@ -58,13 +58,15 @@
 
   <div class="submit-group">
     <button class="btn"
-      [disabled]="loading || 
+      [disabled]="jokesDataService.loading || 
     (!form.get('apiValue.search').valid && 
-    form.get('formOptions').value === formProperty[3]) ">
+    form.get('formOptions').value === jokeTypeEnum[3]) ">
       Get a joke
     </button>
-    <span class="error"> {{errorMessage}} </span>
+    <span class="error"
+      *ngIf="form.get('apiValue.search').touched">
+      {{errorMessage}}
+    </span>
   </div>
-
 
 </form>

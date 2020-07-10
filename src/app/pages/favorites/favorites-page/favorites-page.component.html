@@ -6,45 +6,57 @@
   </a>
 
   <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
+    <form [formGroup]="form"
+      (submit)="reset()">
 
-    <input type="text"
-      appInputFocus
-      class="base-input"
-      placeholder="Search..."
-      [(ngModel)]="value">
-    <div class="category-wrapper">
-      <p> Search in: </p>
-
-      <div class="category">
-        <div *ngFor="let item of jokeCategories"
-          class="tag-group">
-          <input type="radio"
-            class="tags"
-            [id]="item"
-            [(ngModel)]="category"
-            [value]="item" />
-          <label [for]="item"> {{item}} </label>
-        </div>
-
-        <div class="tag-group everywhere">
-          <input type="radio"
-            class="tags"
-            id="search-everywhere"
-            [(ngModel)]="category"
-            value="" />
-          <label for="search-everywhere"> search everywhere </label>
-        </div>
+      <div class="tag-group show-search">
+        <input type="checkbox"
+          class="tags"
+          id="showSearch"
+          formControlName="showSearch" />
+        <label for="showSearch"> show search </label>
+        <button class="btn">&times;</button>
       </div>
-    </div>
+
+      <ng-container *ngIf="getControlValue('showSearch')">
+        <input type="text"
+          appInputFocus
+          class="base-input"
+          placeholder="Search..."
+          formControlName="value">
+        <div class="category-wrapper">
+          <p> Search in: </p>
+
+          <div class="category">
+            <div *ngFor="let item of jokeCategories"
+              class="tag-group">
+              <input type="radio"
+                class="tags"
+                [id]="item"
+                formControlName="category"
+                [value]="item" />
+              <label [for]="item"> {{item}} </label>
+            </div>
+
+            <div class="tag-group everywhere">
+              <input type="radio"
+                class="tags"
+                id="search-everywhere"
+                formControlName="category"
+                value="" />
+              <label for="search-everywhere"> search everywhere </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </form>
 
     <div>
-    <app-favorite-card [jokes]="jokeService.favoritesJokes | search:
-          value:
-          category
-          ">
-    </app-favorite-card>
+      <app-favorite-card [jokes]="jokeService.favoritesJokes | search:
+          getControlValue('value') || '':
+          getControlValue('category') || ''">
+      </app-favorite-card>
     </div>
-
 
   </ng-container>
 

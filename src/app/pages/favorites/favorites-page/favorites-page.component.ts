@@ -1,30 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeService } from 'src/app/services/joke.service';
-import { JokesDataService } from 'src/app/services/jokes-data.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-favorites-page',
   templateUrl: './favorites-page.component.html',
-  styleUrls: ['./favorites-page.component.scss'],
-  providers: [JokesDataService]
+  styleUrls: ['./favorites-page.component.scss']
 })
 export class FavoritesPageComponent implements OnInit {
-  jokeCategories: string[];
-  value = '';
-  category = '';
+  public jokeCategories: string[];
+  public form: FormGroup;
 
-  constructor(
-    public jokeService: JokeService,
-    public jokesDataService: JokesDataService
-  ) {}
+  constructor(public jokeService: JokeService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.getCategories();
+    this.setForm();
+  }
+
+  getControlValue(controlName: string): string {
+    return this.form.get(controlName).value;
+  }
+
+  setForm(): void {
+    this.form = this.fb.group({
+      showSearch: [false],
+      value: [null],
+      category: [null]
+    });
   }
 
   getCategories(): void {
-    this.jokesDataService
-      .fetchCategory()
-      .subscribe(data => (this.jokeCategories = [...data]));
+    this.jokeCategories = this.jokeService.favoritesJokes.reduce(
+      (acc, curr) => {
+        acc.push(curr.categories.toString());
+        return acc;
+      },
+      []
+    );
+  }
+
+  reset(): void {
+    this.form.reset();
   }
 }

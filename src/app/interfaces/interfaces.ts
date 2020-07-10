@@ -2,7 +2,7 @@ export interface Joke {
   icon_url?: string;
   value: string;
   id: number | string;
-  updated_at?: string;
+  updated_at?: Date;
   url?: string;
   favorite: boolean;
   categories?: [];

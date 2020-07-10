@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { LoaderComponent } from './loader/loader.component';
 import { FavoriteCardComponent } from './favorite-card/favorite-card.component';
 import { EmptyContainerComponent } from './empty-container/empty-container.component';
 import { InputFocusDirective } from '../directives/input-focus.directive';
@@ -14,16 +16,20 @@ import { SearchPipe } from './../pipes/search.pipe';
     DiffDatePipe,
     SearchPipe,
     EmptyContainerComponent,
-    InputFocusDirective
+    InputFocusDirective,
+    LoaderComponent
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [
     FavoriteCardComponent,
     RouterModule,
     DiffDatePipe,
     SearchPipe,
     EmptyContainerComponent,
-    InputFocusDirective
+    InputFocusDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    LoaderComponent
   ]
 })
 export class SharedModule {}
