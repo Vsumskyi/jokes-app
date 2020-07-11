@@ -4,6 +4,7 @@
 .card {
   padding: 20px;
   border-radius: 10px;
+  margin: 0 5px;
   margin-bottom: 20px;
   .card-content {
     display: flex;
@@ -74,11 +75,11 @@
     }
   }
   @include _480 {
-    padding: 10px;
+    padding: 15px;
     position: relative;
     .heart {
       position: absolute;
-      right: 10px;
+      right: 15px;
       top: 10px;
     }
   }

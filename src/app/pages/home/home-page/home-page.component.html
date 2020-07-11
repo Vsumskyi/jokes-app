@@ -5,7 +5,8 @@
     <div class="nav">
       <h3>MSI 2020</h3>
       <div class="drawer-trigger"
-        (click)="toggleDrawer()">
+        (click)="toggleDrawer()"
+        [ngClass]="{'active':openDrawer}">
         <div class="drawer-link"
           [ngClass]="{'active':openDrawer}"><span
             class="drawer-link_lines"></span>
@@ -18,19 +19,29 @@
       <h1>Hey!</h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
-    <app-joke-form></app-joke-form>
+    <app-joke-form (loadingChanged)="onLoading($event)"
+      (errorMessage)="onError($event)"></app-joke-form>
 
-    <app-favorite-card [jokes]="jokeService.jokes"
-      *ngIf="!jokesDataService.loading;else loader"></app-favorite-card>
+    <ng-container *ngIf="!errorMessage; else error">
+      <app-favorite-card [jokes]="jokeService.jokes"
+        *ngIf="!loading;else loader">
+      </app-favorite-card>
 
-    <ng-template #loader>
-      <app-loader></app-loader>
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+
+    </ng-container>
+
+    <ng-template #error>
+      <div class="error">
+        <h3> {{errorMessage}} </h3>
+      </div>
     </ng-template>
   </div>
 
   <div class="favorite-container"
     [ngClass]="{'active':openDrawer}">
-
     <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
       <h3>Favorite</h3>
       <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
@@ -45,7 +56,6 @@
   <ng-template #empty>
     <app-empty-container></app-empty-container>
   </ng-template>
-
 
   <div class="fade"
     (click)="toggleDrawer()"

@@ -4,8 +4,8 @@ export interface Joke {
   id: number | string;
   updated_at?: Date;
   url?: string;
-  favorite: boolean;
-  categories?: [];
+  favorite?: boolean;
+  categories: Array<string>;
   result?: [Joke];
 }
 

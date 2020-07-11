@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeService } from 'src/app/services/joke.service';
-import { JokesDataService } from 'src/app/services/jokes-data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +8,22 @@ import { JokesDataService } from 'src/app/services/jokes-data.service';
 })
 export class HomePageComponent implements OnInit {
   public openDrawer = false;
+  public loading = false;
+  public errorMessage = '';
 
-  constructor(
-    public jokeService: JokeService,
-    public jokesDataService: JokesDataService
-  ) {}
+  constructor(public jokeService: JokeService) {}
 
   ngOnInit(): void {}
 
   toggleDrawer(): void {
     this.openDrawer = !this.openDrawer;
+  }
+
+  onLoading(loading: boolean): void {
+    this.loading = loading;
+  }
+
+  onError(error: string): void {
+    this.errorMessage = error;
   }
 }

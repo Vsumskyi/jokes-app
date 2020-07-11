@@ -5,14 +5,11 @@ import { JokeTypeEnum } from '../enums/FormProperty';
 import { Joke, JokeSearchFormValue } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class JokesDataService {
   private jokeTypeEnum = JokeTypeEnum;
   private localStorageKey = 'jokes';
   private apiUrl = environment.apiUrl;
-  public loading = false;
 
   constructor(private http: HttpClient) {}
 

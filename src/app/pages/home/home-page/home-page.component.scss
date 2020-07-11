@@ -22,12 +22,24 @@
 .favorite-container {
   width: 480px;
   background: $backdrop-bgc;
-  padding: 40px;
+  padding: 40px 35px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   height: 100vh;
   transition: transform 0.35s ease;
+  &.active {
+    padding-top: 0;
+  }
+  &.active::before {
+    padding: 40px;
+    content: '';
+    position: sticky;
+    top: 0;
+    right: 0;
+    background: $backdrop-bgc;
+    z-index: 10;
+  }
   h3 {
     color: $sub-title-color;
     margin-right: auto;
@@ -59,7 +71,7 @@
       transform: translateX(0);
     }
     h3 {
-      opacity: 0;
+      display: none;
     }
   }
   @include _480 {
@@ -87,7 +99,7 @@
     background-color: $dark-color;
     position: relative;
     margin-right: 10px;
-
+    cursor: pointer;
     .drawer-link_lines {
       background-color: transparent;
     }
@@ -133,4 +145,8 @@
   @include _480 {
     right: 20px;
   }
+}
+
+.error {
+  text-align: center;
 }

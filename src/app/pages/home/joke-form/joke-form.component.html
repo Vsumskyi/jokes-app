@@ -56,17 +56,11 @@
     </span>
   </div>
 
-  <div class="submit-group">
-    <button class="btn"
-      [disabled]="jokesDataService.loading || 
+  <button class="btn"
+    [disabled]="loading || 
     (!form.get('apiValue.search').valid && 
     form.get('formOptions').value === jokeTypeEnum[3]) ">
-      Get a joke
-    </button>
-    <span class="error"
-      *ngIf="form.get('apiValue.search').touched">
-      {{errorMessage}}
-    </span>
-  </div>
+    Get a joke
+  </button>
 
 </form>

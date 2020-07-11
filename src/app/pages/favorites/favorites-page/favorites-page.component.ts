@@ -14,7 +14,7 @@ export class FavoritesPageComponent implements OnInit {
   constructor(public jokeService: JokeService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.getCategories();
+    this.jokeCategories = this.jokeService.getActualCategories();
     this.setForm();
   }
 
@@ -28,16 +28,6 @@ export class FavoritesPageComponent implements OnInit {
       value: [null],
       category: [null]
     });
-  }
-
-  getCategories(): void {
-    this.jokeCategories = this.jokeService.favoritesJokes.reduce(
-      (acc, curr) => {
-        acc.push(curr.categories.toString());
-        return acc;
-      },
-      []
-    );
   }
 
   reset(): void {
