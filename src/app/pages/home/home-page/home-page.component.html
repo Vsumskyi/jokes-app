@@ -1,21 +1,65 @@
 <div class="wrapper">
+
   <div class="container">
-    <h3>MSI 2020</h3>
+
+    <div class="nav">
+      <h3>MSI 2020</h3>
+      <div class="drawer-trigger"
+        (click)="toggleDrawer()"
+        [ngClass]="{'active':openDrawer}">
+        <div class="drawer-link"
+          [ngClass]="{'active':openDrawer}"><span
+            class="drawer-link_lines"></span>
+        </div>
+        <h3>Favorite</h3>
+      </div>
+    </div>
+
     <div class="title">
       <h1>Hey!</h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
+    <app-joke-form (loadingChanged)="onLoading($event)"
+      (errorMessage)="onError($event)"></app-joke-form>
 
-    <app-joke-form></app-joke-form>
-    <app-favorite-card [jokes]="jokeService.jokes"></app-favorite-card>
+    <ng-container *ngIf="!errorMessage; else error">
+      <app-favorite-card [jokes]="jokeService.jokes"
+        *ngIf="!loading;else loader">
+      </app-favorite-card>
 
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+
+    </ng-container>
+
+    <ng-template #error>
+      <div class="error">
+        <h3> {{errorMessage}} </h3>
+      </div>
+    </ng-template>
   </div>
 
-  <div class="favorite-container">
-    <h3>Favorite</h3>
-    <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
-      [favorite]="true"></app-favorite-card>
-    <a class="btn"
-      [routerLink]="['/favorites']">Go to all Favorites</a>
+  <div class="favorite-container"
+    [ngClass]="{'active':openDrawer}">
+    <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
+      <h3>Favorite</h3>
+      <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
+        [favorite]="true">
+      </app-favorite-card>
+      <a class="btn"
+        [routerLink]="['/favorites']">Go to all Favorites
+      </a>
+    </ng-container>
   </div>
+
+  <ng-template #empty>
+    <app-empty-container></app-empty-container>
+  </ng-template>
+
+  <div class="fade"
+    (click)="toggleDrawer()"
+    [ngClass]="{'active':openDrawer}">
+  </div>
+
 </div>

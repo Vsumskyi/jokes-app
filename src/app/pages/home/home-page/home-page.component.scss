@@ -1,8 +1,14 @@
 @import 'variables';
+@import 'media_mixin';
 
-h3 {
-  font-size: 1.3rem;
+.nav {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 50px;
+
+  h3 {
+    font-size: 1.3rem;
+  }
 }
 
 .title {
@@ -16,11 +22,24 @@ h3 {
 .favorite-container {
   width: 480px;
   background: $backdrop-bgc;
-  padding: 40px;
+  padding: 40px 35px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   height: 100vh;
+  transition: transform 0.35s ease;
+  &.active {
+    padding-top: 0;
+  }
+  &.active::before {
+    padding: 40px;
+    content: '';
+    position: sticky;
+    top: 0;
+    right: 0;
+    background: $backdrop-bgc;
+    z-index: 10;
+  }
   h3 {
     color: $sub-title-color;
     margin-right: auto;
@@ -42,4 +61,92 @@ h3 {
     background-color: $main-color;
     border-radius: 40px;
   }
+
+  @include _836 {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    transform: translateX(100%);
+    &.active {
+      transform: translateX(0);
+    }
+    h3 {
+      display: none;
+    }
+  }
+  @include _480 {
+    padding: 20px;
+    width: auto;
+  }
+}
+
+.drawer-trigger {
+  position: relative;
+  display: none;
+  z-index: 4;
+  cursor: pointer;
+
+  h3 {
+    color: $sub-title-color;
+    margin-bottom: 0;
+  }
+
+  .drawer-link {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: $dark-color;
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+    .drawer-link_lines {
+      background-color: transparent;
+    }
+    .drawer-link_lines::before,
+    .drawer-link_lines::after,
+    .drawer-link_lines {
+      position: absolute;
+      width: 14px;
+      height: 3px;
+      background-color: $white-color;
+      border-radius: 2px;
+      transition: transform 0.25s ease;
+    }
+    .drawer-link_lines {
+      background: transparent;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .drawer-link_lines::before {
+      content: '';
+      top: -3px;
+    }
+    .drawer-link_lines::after {
+      content: '';
+      top: 3px;
+    }
+
+    &.active .drawer-link_lines::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    &.active .drawer-link_lines::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+  }
+
+  @include _836 {
+    display: flex;
+  }
+
+  @include _480 {
+    right: 20px;
+  }
+}
+
+.error {
+  text-align: center;
 }

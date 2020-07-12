@@ -1,34 +1,9 @@
 @import 'variables';
 
 form {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.category {
-  margin: 20px 0;
-  display: flex;
-  .tags {
-    display: none;
-    & + label {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border-radius: 6px;
-      color: $sub-title-color;
-      padding: 3px 9px;
-      font-size: 0.8rem;
-      margin: 0 5px;
-      border: 2px solid $joke-bgc;
-      cursor: pointer;
-    }
-    &:checked + label {
-      background: $joke-bgc;
-      color: $dark-color;
-    }
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-}
 input {
   margin-top: 15px;
 }
@@ -37,22 +12,17 @@ p {
   margin-top: 10px;
   margin-left: 34px;
 }
-
-.search {
-  width: 100%;
-  border: 2px solid $dark-color;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 10px;
-  color: #000;
-  font-size: 1rem;
-  outline: none;
-  margin-top: 20px;
-  &::placeholder {
-    color: $sub-title-color;
+.search-group {
+  position: relative;
+  .error {
+    position: absolute;
+    font-size: 0.7rem;
+    color: #dd0031;
+    bottom: -15px;
+    right: 0;
+    left: 0;
   }
 }
-
 .search-option {
   &:checked,
   &:not(:checked) {
@@ -102,7 +72,7 @@ p {
   }
 }
 .btn {
-  margin-top: 20px;
+  margin-top: 30px;
   &:disabled {
     cursor: not-allowed;
     background: lighten($main-color2, 20%);

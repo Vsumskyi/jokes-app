@@ -14,7 +14,7 @@ export class FavoriteCardComponent implements OnInit {
     public jokeService: JokeService,
     public jokesDataService: JokesDataService
   ) {}
-  @Input() jokes: Joke;
+  @Input() jokes: Joke[];
   @Input() favorite: boolean;
   ngOnInit(): void {}
 

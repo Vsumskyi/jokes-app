@@ -1,9 +1,11 @@
 @import 'variables';
+@import 'media_mixin';
 
 .card {
   padding: 20px;
   border-radius: 10px;
-  margin: 10px 0;
+  margin: 0 5px;
+  margin-bottom: 20px;
   .card-content {
     display: flex;
     flex-direction: column;
@@ -23,10 +25,12 @@
     }
     &-wrapper {
       display: flex;
+      flex-grow: 1;
     }
     &-inner {
       display: inline-block;
-      width: 80%;
+      width: 100%;
+      padding-right: 20px;
       span {
         font-size: 0.7rem;
         color: $sub-title-color;
@@ -48,8 +52,35 @@
           background: $white-color;
           color: $dark-color;
           padding: 6px 20px;
+          margin-left: 10px;
         }
       }
+    }
+    @include _350 {
+      flex-direction: row;
+      &-wrapper {
+        order: -1;
+        flex-direction: column;
+        margin-top: -10px;
+      }
+      &-inner {
+        margin: 0 auto;
+      }
+      .heart {
+        align-self: baseline;
+      }
+      .comment {
+        margin: 5px 0;
+      }
+    }
+  }
+  @include _480 {
+    padding: 15px;
+    position: relative;
+    .heart {
+      position: absolute;
+      right: 15px;
+      top: 10px;
     }
   }
 }
@@ -83,7 +114,6 @@
     }
     &-inner {
       display: inline-block;
-      width: 80%;
       p {
         font-size: 1rem;
         line-height: 26px;
