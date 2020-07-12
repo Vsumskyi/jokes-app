@@ -56,11 +56,9 @@ export class JokeFormComponent implements OnInit {
       .fetchJoke(this.form.value)
       .subscribe(
         data => {
-          this.jokeService.addJoke(
-            this.jokeService.mapJokes(
-              [data],
-              this.form.get('apiValue.categories').value
-            )
+          this.jokeService.mapJokes(
+            [data],
+            this.form.get('apiValue.categories').value
           );
         },
         e => {

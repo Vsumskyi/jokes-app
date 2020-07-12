@@ -21,26 +21,13 @@ export class JokeService {
     }
   }
 
-  addJoke(jokes: Joke[]): void {
-    this.jokes = jokes.map(joke => {
-      if (!this.containsJoke(joke.id, this.jokes)) {
-        joke.favorite = this.containsJoke(joke.id, this.favoritesJokes);
-      }
-      return joke;
-    });
-  }
-
-  containsJoke(id: string | number, jokes: Joke[]): boolean {
-    return jokes.some(i => i.id === id);
-  }
-
-  mapJokes(data: Joke[], curetCategory: string): Joke[] {
-    return data.flat().map(joke => {
+  mapJokes(data: Joke[], curetCategory: string): void {
+    this.jokes = data.flat().map(joke => {
+      joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
       if (joke.categories.includes(curetCategory)) {
-        joke.categories = joke.categories.filter(
-          (category: string) => category !== curetCategory
-        );
-        joke.categories.unshift(curetCategory);
+        joke.categories = [curetCategory];
+      } else {
+        joke.categories = [joke.categories[0]];
       }
       return joke;
     });
@@ -48,15 +35,9 @@ export class JokeService {
 
   getActualCategories(): string[] {
     const categories = this.favoritesJokes.reduce((acc, curr) => {
-      if (curr.categories.length > 1) {
-        curr.categories.forEach(category => {
-          acc.push(category);
-        });
-      } else {
-        acc.push(curr.categories.toString());
-      }
-      return acc;
+      curr.categories.forEach(category => acc.push(category));
+      return acc.filter(i => i);
     }, []);
-    return Array.from(new Set(categories)).filter(i => i);
+    return Array.from(new Set(categories));
   }
 }

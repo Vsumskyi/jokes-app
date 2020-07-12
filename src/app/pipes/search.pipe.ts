@@ -10,7 +10,7 @@ export class SearchPipe implements PipeTransform {
       return jokes;
     }
     return jokes
-      .filter(joke => joke.categories.join('').indexOf(category) === 0)
+      .filter(joke => joke.categories.join('').includes(category))
       .filter(joke => joke.value.toLowerCase().includes(tracker.toLowerCase()));
   }
 }
