@@ -28,7 +28,7 @@
               Last update: {{joke.updated_at | diffDate}} hours ago
             </span>
             <span class="tag"
-              *ngIf="joke.categories.length">
+              *ngIf="joke.categories.join('').length">
               {{joke.categories[0]}}
             </span>
           </div>
