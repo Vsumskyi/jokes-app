@@ -90,6 +90,10 @@ html {
       darken($main-color2, 5)
     );
   }
+  &:disabled {
+    cursor: not-allowed;
+    background: lighten($main-color2, 20%);
+  }
 }
 
 .base-input {

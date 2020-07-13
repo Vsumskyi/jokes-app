@@ -16,7 +16,7 @@
     </div>
 
     <div class="title">
-      <h1>Hey!</h1>
+      <h1>Hey! {{userName|titlecase}} </h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
     <app-joke-form (loadingChanged)="onLoading($event)"

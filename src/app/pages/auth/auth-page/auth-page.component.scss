@@ -1,0 +1,9 @@
+@import 'variables';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $backdrop-bgc;
+  width: auto;
+}

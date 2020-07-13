@@ -34,4 +34,8 @@ export class JokesDataService {
     const jokes = JSON.parse(localStorage.getItem(this.localStorageKey));
     return jokes || [];
   }
+  // TODO
+  // saveJokeToDb(id: number | string): Observable<any> {
+  //   return this.http.post<any>(`${this.apiUrl}favorite/${id}`, id);
+  // }
 }
