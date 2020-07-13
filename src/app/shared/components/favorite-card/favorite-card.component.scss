@@ -45,6 +45,7 @@
       .subtitles {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         .tag {
           text-transform: uppercase;
           letter-spacing: 2px;
@@ -56,8 +57,19 @@
         }
       }
     }
-    @include _350 {
+  }
+  @include _480 {
+    padding: 10px;
+    .card-content {
       flex-direction: row;
+      padding: 15px;
+      position: relative;
+      padding: 0;
+      .heart {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+      }
       &-wrapper {
         order: -1;
         flex-direction: column;
@@ -72,15 +84,6 @@
       .comment {
         margin: 5px 0;
       }
-    }
-  }
-  @include _480 {
-    padding: 15px;
-    position: relative;
-    .heart {
-      position: absolute;
-      right: 15px;
-      top: 10px;
     }
   }
 }
