@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/interfaces';
+import { User, RegistryUser, LoginUser } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +13,8 @@ export class AuthService {
   public userData: User;
   public isAuthenticated = false;
 
+  constructor(private http: HttpClient) {}
+
   refreshUserData(): void {
     const userData = this.getAuthData();
     if (!userData) {
@@ -22,11 +24,10 @@ export class AuthService {
     this.userData = userData;
   }
 
-  constructor(private http: HttpClient) {}
-
   getAuthData(): User {
     return JSON.parse(localStorage.getItem(this.localStorageKey));
   }
+
   setAuthData(user: User, remember: boolean): void {
     this.userData = user;
     this.isAuthenticated = true;
@@ -34,9 +35,14 @@ export class AuthService {
       localStorage.setItem(this.localStorageKey, JSON.stringify(user));
     }
   }
-  login(user: User): Observable<any> {
-    return this.http.post(this.authUrl + 'signin', user);
+
+  signin(user: RegistryUser): Observable<boolean> {
+    return this.http.post<boolean>(this.authUrl + 'signup', user);
   }
+  login(user: LoginUser): Observable<User> {
+    return this.http.post<User>(this.authUrl + 'signin', user);
+  }
+
   logout(): void {
     this.isAuthenticated = false;
     localStorage.removeItem(this.localStorageKey);

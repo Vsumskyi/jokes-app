@@ -9,6 +9,7 @@ import { SearchPipe } from './../pipes/search.pipe';
 import { EmptyContainerComponent } from './components/empty-container/empty-container.component';
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     LoaderComponent,
     DiffDatePipe,
     SearchPipe,
-    InputFocusDirective
+    InputFocusDirective,
+    NotAuthorizedComponent
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -29,7 +31,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     SearchPipe,
     InputFocusDirective,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NotAuthorizedComponent
   ]
 })
 export class SharedModule {}

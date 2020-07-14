@@ -10,13 +10,23 @@ import { AuthService } from './services/auth.service';
   providers: [JokesDataService]
 })
 export class AppComponent implements OnInit {
+  public loading = false;
   constructor(
     public jokeService: JokeService,
     public jokesDataService: JokesDataService,
     private authService: AuthService
   ) {}
+
   ngOnInit(): void {
     this.authService.refreshUserData();
-    this.jokeService.favoritesJokes = this.jokesDataService.getDataFromLocalStorage();
+    if (this.authService.isAuthenticated) {
+      this.loading = true;
+      this.jokesDataService
+        .getDataFromDb()
+        .subscribe(data => {
+          this.jokeService.favoritesJokes = [...data];
+        })
+        .add(() => (this.loading = false));
+    }
   }
 }

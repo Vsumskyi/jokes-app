@@ -59,9 +59,10 @@
       </form>
 
       <div>
-        <app-favorite-card [jokes]="jokeService.favoritesJokes | search:
+        <app-favorite-card *ngFor="let joke of jokeService.favoritesJokes | search:
           getControlValue('value') || '':
-          getControlValue('category') || ''">
+          getControlValue('category') || ''"
+          [joke]="joke">
         </app-favorite-card>
       </div>
 

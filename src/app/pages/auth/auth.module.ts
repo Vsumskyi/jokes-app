@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthPageComponent } from './auth-page/auth-page.component';
-import { AuthFormComponent } from './auth-form/auth-form.component';
+import { LogInFormComponent } from './log-in-form/log-in-form.component';
+import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 
 @NgModule({
-  declarations: [AuthPageComponent, AuthFormComponent],
+  declarations: [AuthPageComponent, LogInFormComponent, SignInFormComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,8 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Provider } from '@angular/core';
-
+import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FavoritesModule } from './pages/favorites/favorites.module';
 import { HomeModule } from './pages/home/home.module';

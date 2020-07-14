@@ -18,19 +18,19 @@ export class FavoriteCardComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
-  @Input() jokes: Joke[];
+  @Input() joke: Joke;
   @Input() favorite: boolean;
   ngOnInit(): void {}
 
-  like(id: string | number, event: Event): void {
+  like(id: string | number, event: Event, isFavorite: boolean): void {
     event.preventDefault();
     if (!this.authService.isAuthenticated) {
       this.router.navigate(['/auth']);
       return;
     }
-    // TODO
-    // this.jokesDataService.saveJokeToDb(id).subscribe(data => console.log(data));
+    !isFavorite
+      ? this.jokesDataService.saveJokeToDb(id).subscribe()
+      : this.jokesDataService.removeFromDb(id).subscribe();
     this.jokeService.saveToFavorites(id);
-    this.jokesDataService.saveToLocalStorage(this.jokeService.favoritesJokes);
   }
 }

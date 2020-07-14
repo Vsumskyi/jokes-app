@@ -1,0 +1,46 @@
+<!-- <span>email: vsumskiy@gmail.com</span>
+<span>password: 123456</span> -->
+
+<form [formGroup]="form"
+  (ngSubmit)="submit()">
+  <ng-container *ngFor="let formControl of formControls">
+
+    <div class="form-group"
+      [ngClass]="{
+      invalid: form.get(formControl.name).touched && form.get(formControl.name).invalid
+    }">
+
+      <label [for]="formControl.name">{{formControl.name|titlecase}}:</label>
+      <input class="base-input"
+        [type]="formControl.type"
+        [id]="formControl.name"
+        [formControlName]="formControl.name" />
+
+      <div class="validation"
+        *ngIf="form.get(formControl.name).touched && form.get(formControl.name).invalid">
+        <small
+          *ngIf="form.get(formControl.name).errors.required">{{formControl.name}}
+          is
+          required!</small>
+        <small
+          *ngIf="form.get(formControl.name).errors[formControl.name]">{{formControl.name}}
+          it`s not
+          valid!</small>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="submit-group">
+    <button class="btn"
+      [disabled]="loading ||  form.invalid">
+      Sign In
+    </button>
+    <input type="checkbox"
+      class="tags"
+      formControlName="remember"
+      id="remember" />
+    <label for="remember">Remember</label>
+  </div>
+
+  <p class="invalid">{{errorMessage}}</p>
+</form>

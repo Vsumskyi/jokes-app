@@ -1,4 +1,4 @@
-import { JokeTypeEnum, JokeCategoryEnum } from 'src/app/enums/FormProperty';
+import { JokeTypeEnum, JokeCategoryEnum } from 'src/app/enums/enums';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { JokesDataService } from 'src/app/services/jokes-data.service';

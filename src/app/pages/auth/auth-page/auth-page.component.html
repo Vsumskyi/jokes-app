@@ -1,5 +1,44 @@
 <div class="container">
+  <a href="#"
+    class="btn rout-link"
+    [routerLink]="returnUrl">Go back</a>
 
-  <app-auth-form></app-auth-form>
+  <div *ngIf="authService.isAuthenticated;else authForm"
+    class="content-wrapper">
+    <h3>
+      You already login, {{authService.userData.user.firstName | titlecase}}
+    </h3>
+    <a href="#"
+      [routerLink]="['/auth']"
+      (click)="authService.logout()"
+      class="btn">Log Out</a>
+  </div>
+
+  <ng-template #authForm>
+    <div class="content-wrapper">
+      <form [formGroup]="form">
+
+        <input type="radio"
+          class="tags"
+          formControlName="auth"
+          value="logIn"
+          id="logIn" />
+        <label for="logIn">Log-In</label>
+
+        <input type="radio"
+          class="tags"
+          formControlName="auth"
+          value="signIn"
+          id="signIn" />
+        <label for="signIn">Sign-In</label>
+      </form>
+
+      <app-log-in-form *ngIf="form.get('auth').value === 'logIn'">
+      </app-log-in-form>
+
+      <app-sign-in-form *ngIf="form.get('auth').value === 'signIn'">
+      </app-sign-in-form>
+    </div>
+  </ng-template>
 
 </div>

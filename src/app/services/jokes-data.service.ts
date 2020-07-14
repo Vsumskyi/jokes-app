@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JokeTypeEnum } from '../enums/FormProperty';
+import { JokeTypeEnum } from '../enums/enums';
 import { Joke, JokeSearchFormValue } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class JokesDataService {
   private jokeTypeEnum = JokeTypeEnum;
-  private localStorageKey = 'jokes';
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
@@ -27,15 +27,22 @@ export class JokesDataService {
     return this.http.get<Joke>(this.apiUrl + urls[formValue.formOptions]);
   }
 
-  saveToLocalStorage(favoritesJokes: Joke[]): void {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(favoritesJokes));
+  getDataFromDb(): Observable<Joke[]> {
+    return this.http.get<Joke[]>(this.apiUrl + 'user-favorite').pipe(
+      map(joke =>
+        joke.map(i => {
+          i.favorite = true;
+          return i;
+        })
+      )
+    );
   }
-  getDataFromLocalStorage(): Joke[] {
-    const jokes = JSON.parse(localStorage.getItem(this.localStorageKey));
-    return jokes || [];
+
+  saveJokeToDb(id: number | string): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}favorite/${id}`, id);
   }
-  // TODO
-  // saveJokeToDb(id: number | string): Observable<any> {
-  //   return this.http.post<any>(`${this.apiUrl}favorite/${id}`, id);
-  // }
+
+  removeFromDb(id: number | string): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}favorite/${id}`);
+  }
 }

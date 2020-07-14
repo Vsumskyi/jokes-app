@@ -15,7 +15,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     public jokeService: JokeService,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

@@ -24,3 +24,15 @@ export interface User {
     roles: Array<string>;
   };
 }
+
+export interface RegistryUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
