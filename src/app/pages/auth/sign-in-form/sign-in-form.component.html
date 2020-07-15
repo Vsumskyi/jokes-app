@@ -1,10 +1,14 @@
+<!-- <span>email: vsumskiy@gmail.com</span>
+<span>password: 123456</span> -->
+
 <form [formGroup]="form"
-  (ngSubmit)="signIn()">
+  (ngSubmit)="submit()">
 
   <div class="form-group"
     [ngClass]="{
-        invalid: form.get('email').touched && form.get('email').invalid
-      }">
+      invalid: form.get('email').touched && form.get('email').invalid
+    }">
+
     <label for="email">Email:</label>
     <input class="base-input"
       type="email"
@@ -24,81 +28,38 @@
 
   <div class="form-group"
     [ngClass]="{
-            invalid: form.get('firstName').touched && form.get('firstName').invalid
-          }">
-    <label for="firstName">First Name:</label>
+          invalid: form.get('password').touched && form.get('password').invalid
+        }">
+
+    <label for="password">Password:</label>
     <input class="base-input"
-      type="text"
-      id="firstName"
-      formControlName="firstName" />
+      type="password"
+      id="password"
+      formControlName="password" />
+
     <div class="validation"
-      *ngIf="form.get('firstName').touched && form.get('firstName').invalid">
-      <small *ngIf="form.get('firstName').errors.required">First Name is
+      *ngIf="form.get('password').touched && form.get('password').invalid">
+      <small *ngIf="form.get('password').errors.required">Password
+        is
         required!</small>
-      <small *ngIf="form.get('firstName').errors?.minlength">First Name
+      <small *ngIf="form.get('password').errors?.minlength">Password
         it`s not
         valid!</small>
     </div>
   </div>
 
-  <div class="form-group"
-    [ngClass]="{invalid: form.get('lastName').touched && form.get('lastName').invalid} ">
-    <label for="lastName">Last Name:</label>
-    <input class="base-input"
-      type="text"
-      id="lastName"
-      formControlName="lastName" />
 
-    <div class="validation"
-      *ngIf="form.get('lastName').touched && form.get('lastName').invalid">
-      <small *ngIf="form.get('lastName').errors.required">Last Name is
-        required!</small>
-      <small *ngIf="form.get('lastName').errors?.minlength">Last Name it`s not
-        valid!</small>
-    </div>
+  <div class="submit-group">
+    <button class="btn"
+      [disabled]="loading ||  form.invalid">
+      Sign In
+    </button>
+    <input type="checkbox"
+      class="tags"
+      formControlName="remember"
+      id="remember" />
+    <label for="remember">Remember</label>
   </div>
-
-  <div formGroupName="passwords">
-    <div class="form-group"
-      [ngClass]="{invalid: form.get('passwords.password').touched && form.get('passwords.password').invalid}">
-      <label for="password">Password:</label>
-      <input class="base-input"
-        type="password"
-        id="password"
-        formControlName="password" />
-
-      <div class="validation"
-        *ngIf="form.get('passwords.password').touched && form.get('passwords.password').invalid">
-        <small *ngIf="form.get('passwords.password').errors.required">Password
-          is
-          required!</small>
-        <small *ngIf="form.get('passwords.password').errors?.minlength">Password
-          it`s not
-          valid!</small>
-      </div>
-    </div>
-
-    <div class="form-group"
-      [ngClass]="{invalid: form.get('passwords.confirmPassword').touched && form.hasError('notSame', 'passwords')
-    && form.hasError('notSame', 'passwords')}">
-      <label for="confirmPassword">Confirm Password:</label>
-      <input class="base-input"
-        type="password"
-        id="confirmPassword"
-        formControlName="confirmPassword" />
-      <div class="validation"
-        *ngIf="form.get('passwords.confirmPassword').touched && form.hasError('notSame', 'passwords')">
-        <small
-          *ngIf="form.get('passwords.confirmPassword').touched && form.hasError('notSame', 'passwords')">
-          Passwords not equal!</small>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn"
-    [disabled]="loading ||  form.invalid">
-    Sign In!
-  </button>
 
   <p class="invalid">{{errorMessage}}</p>
 </form>

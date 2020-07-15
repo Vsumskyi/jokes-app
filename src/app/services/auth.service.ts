@@ -9,7 +9,7 @@ import {
 } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 import { AuthPropertiesEnum } from '../enums/enums';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

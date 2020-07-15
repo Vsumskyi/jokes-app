@@ -17,4 +17,13 @@ form {
   input {
     margin: 0;
   }
+  .submit-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tags:checked + label {
+      background: $main-color;
+    }
+  }
 }
