@@ -14,7 +14,14 @@ export interface JokeSearchFormValue {
   apiValue: { random: string; categories: string; search: string };
 }
 
-export interface User {
+export interface UserInterface {
+  token: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface ApiUserInterface {
   token: string;
   user: {
     email: string;

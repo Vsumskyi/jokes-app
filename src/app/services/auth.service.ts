@@ -1,8 +1,15 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User, RegistryUser, LoginUser } from '../interfaces/interfaces';
+import {
+  UserInterface,
+  RegistryUser,
+  LoginUser,
+  ApiUserInterface
+} from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
+import { AuthPropertiesEnum } from '../enums/enums';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +17,9 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   private authUrl = environment.authUrl;
   private localStorageKey = 'user';
-  public userData: User;
+  public userData: UserInterface;
   public isAuthenticated = false;
+  private authPropertiesEnum = AuthPropertiesEnum;
 
   constructor(private http: HttpClient) {}
 
@@ -24,11 +32,11 @@ export class AuthService {
     this.userData = userData;
   }
 
-  getAuthData(): User {
+  getAuthData(): UserInterface {
     return JSON.parse(localStorage.getItem(this.localStorageKey));
   }
 
-  setAuthData(user: User, remember: boolean): void {
+  setAuthData(user: UserInterface, remember: boolean): void {
     this.userData = user;
     this.isAuthenticated = true;
     if (remember) {
@@ -36,11 +44,23 @@ export class AuthService {
     }
   }
 
-  signin(user: RegistryUser): Observable<boolean> {
-    return this.http.post<boolean>(this.authUrl + 'signup', user);
+  signup(user: RegistryUser): Observable<boolean> {
+    return this.http.post<boolean>(
+      this.authUrl + this.authPropertiesEnum[2],
+      user
+    );
   }
-  login(user: LoginUser): Observable<User> {
-    return this.http.post<User>(this.authUrl + 'signin', user);
+  signin(user: LoginUser): Observable<UserInterface> {
+    return this.http
+      .post<ApiUserInterface>(this.authUrl + this.authPropertiesEnum[1], user)
+      .pipe(
+        map(data => ({
+          token: data.token,
+          email: data.user.email,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName
+        }))
+      );
   }
 
   logout(): void {

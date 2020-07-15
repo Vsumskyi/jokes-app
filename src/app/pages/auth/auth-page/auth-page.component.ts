@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 import { JokeService } from 'src/app/services/joke.service';
+import { AuthPropertiesEnum } from 'src/app/enums/enums';
 
 @Component({
   selector: 'app-auth-page',
@@ -13,6 +14,7 @@ import { JokeService } from 'src/app/services/joke.service';
 export class AuthPageComponent implements OnInit, OnDestroy {
   public returnUrl: string;
   public form: FormGroup;
+  public authPropertiesEnum = AuthPropertiesEnum;
 
   constructor(
     public authService: AuthService,
@@ -33,7 +35,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     this.form = this.fb.group({
-      auth: ['logIn']
+      auth: [this.authPropertiesEnum[1]]
     });
   }
 }

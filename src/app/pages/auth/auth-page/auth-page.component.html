@@ -6,7 +6,7 @@
   <div *ngIf="authService.isAuthenticated;else authForm"
     class="content-wrapper">
     <h3>
-      You already login, {{authService.userData.user.firstName | titlecase}}
+      You already login, {{authService.userData.firstName | titlecase}}
     </h3>
     <a href="#"
       [routerLink]="['/auth']"
@@ -21,22 +21,23 @@
         <input type="radio"
           class="tags"
           formControlName="auth"
-          value="logIn"
+          [value]="authPropertiesEnum[1]"
           id="logIn" />
         <label for="logIn">Log-In</label>
 
         <input type="radio"
           class="tags"
           formControlName="auth"
-          value="signIn"
+          [value]="authPropertiesEnum[2]"
           id="signIn" />
         <label for="signIn">Sign-In</label>
       </form>
 
-      <app-log-in-form *ngIf="form.get('auth').value === 'logIn'">
+      <app-log-in-form *ngIf="form.get('auth').value === authPropertiesEnum[1]">
       </app-log-in-form>
 
-      <app-sign-in-form *ngIf="form.get('auth').value === 'signIn'">
+      <app-sign-in-form
+        *ngIf="form.get('auth').value === authPropertiesEnum[2]">
       </app-sign-in-form>
     </div>
   </ng-template>

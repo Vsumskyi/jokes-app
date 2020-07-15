@@ -14,10 +14,7 @@ export class LogInFormComponent implements OnInit {
   public errorMessage = '';
   public loading = false;
   private returnUrl: string;
-  public formControls = [
-    { name: 'email', type: 'email' },
-    { name: 'password', type: 'password' }
-  ];
+
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
@@ -41,12 +38,12 @@ export class LogInFormComponent implements OnInit {
   submit(): void {
     this.loading = true;
     this.errorMessage = '';
-    const user: LoginUser = { ...this.form.value };
+    const loginUser: LoginUser = { ...this.form.value };
     this.authService
-      .login(user)
+      .signin(loginUser)
       .subscribe(
-        data => {
-          this.authService.setAuthData(data, this.form.get('remember').value);
+        user => {
+          this.authService.setAuthData(user, this.form.get('remember').value);
           this.router.navigateByUrl(this.returnUrl);
           this.form.reset();
         },

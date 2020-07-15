@@ -19,14 +19,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.refreshUserData();
-    if (this.authService.isAuthenticated) {
-      this.loading = true;
-      this.jokesDataService
-        .getDataFromDb()
-        .subscribe(data => {
-          this.jokeService.favoritesJokes = [...data];
-        })
-        .add(() => (this.loading = false));
+    this.autoLogin();
+  }
+
+  autoLogin(): void {
+    if (!this.authService.isAuthenticated) {
+      return;
     }
+    this.loading = true;
+    this.jokesDataService
+      .getDataFromDb()
+      .subscribe(data => {
+        this.jokeService.favoritesJokes = [...data];
+      })
+      .add(() => (this.loading = false));
   }
 }

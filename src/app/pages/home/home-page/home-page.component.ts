@@ -26,7 +26,7 @@ export class HomePageComponent implements OnInit {
     if (!this.authService.isAuthenticated) {
       return;
     }
-    const { firstName, lastName } = this.authService.userData.user;
+    const { firstName, lastName } = this.authService.userData;
     this.userName = `${firstName} ${lastName}`;
   }
 
