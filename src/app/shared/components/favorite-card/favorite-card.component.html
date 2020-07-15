@@ -1,9 +1,8 @@
-<div *ngFor="let joke of jokes">
-
+<div>
   <div class="card"
     [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
-      <a (click)="like(joke.id, $event)"
+      <a (click)="like(joke.id, $event, joke.favorite)"
         href="#"
         class="heart">
         <img
@@ -25,7 +24,7 @@
           </p>
           <div class="subtitles">
             <span>
-              Last update: {{joke.updated_at | diffDate}} hours ago
+              Last update: {{joke.updatedAt | diffDate}} hours ago
             </span>
             <span class="tag"
               *ngIf="joke.categories.join('').length">

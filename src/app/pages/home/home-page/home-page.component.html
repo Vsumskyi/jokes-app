@@ -16,17 +16,18 @@
     </div>
 
     <div class="title">
-      <h1>Hey!</h1>
+      <h1>Hey! {{userName|titlecase}} </h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
     <app-joke-form (loadingChanged)="onLoading($event)"
       (errorMessage)="onError($event)"></app-joke-form>
 
     <ng-container *ngIf="!errorMessage; else error">
-      <app-favorite-card [jokes]="jokeService.jokes"
-        *ngIf="!loading;else loader">
-      </app-favorite-card>
-
+      <ng-container *ngIf="!loading;else loader">
+        <app-favorite-card *ngFor="let joke of jokeService.jokes"
+          [joke]="joke">
+        </app-favorite-card>
+      </ng-container>
       <ng-template #loader>
         <app-loader></app-loader>
       </ng-template>
@@ -42,20 +43,32 @@
 
   <div class="favorite-container"
     [ngClass]="{'active':openDrawer}">
-    <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
-      <h3>Favorite</h3>
-      <app-favorite-card [jokes]="jokeService.favoritesJokes.slice(0, 3)"
-        [favorite]="true">
-      </app-favorite-card>
-      <a class="btn"
-        [routerLink]="['/favorites']">Go to all Favorites
-      </a>
-    </ng-container>
-  </div>
 
-  <ng-template #empty>
-    <app-empty-container></app-empty-container>
-  </ng-template>
+    <ng-container *ngIf="!authService.isAuthenticated; else content"
+      class="notAuth">
+      <app-not-authorized></app-not-authorized>
+    </ng-container>
+
+    <ng-template #content>
+
+      <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
+        <h3>Favorite</h3>
+        <app-favorite-card
+          *ngFor="let joke of jokeService.favoritesJokes.slice(0,3)"
+          [joke]="joke"
+          [favorite]="true">
+        </app-favorite-card>
+        <a class="btn"
+          [routerLink]="['/favorites']">Go to all Favorites
+        </a>
+      </ng-container>
+
+      <ng-template #empty>
+        <app-empty-container></app-empty-container>
+      </ng-template>
+
+    </ng-template>
+  </div>
 
   <div class="fade"
     (click)="toggleDrawer()"

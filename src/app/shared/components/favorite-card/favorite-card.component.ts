@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Joke } from 'src/app/interfaces/interfaces';
 import { JokeService } from 'src/app/services/joke.service';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorite-card',
@@ -12,15 +14,23 @@ import { JokesDataService } from 'src/app/services/jokes-data.service';
 export class FavoriteCardComponent implements OnInit {
   constructor(
     public jokeService: JokeService,
-    public jokesDataService: JokesDataService
+    public jokesDataService: JokesDataService,
+    private authService: AuthService,
+    private router: Router
   ) {}
-  @Input() jokes: Joke[];
+  @Input() joke: Joke;
   @Input() favorite: boolean;
   ngOnInit(): void {}
 
-  like(id: string | number, event: Event): void {
+  like(id: string | number, event: Event, isFavorite: boolean): void {
     event.preventDefault();
+    if (!this.authService.isAuthenticated) {
+      this.router.navigate(['/auth']);
+      return;
+    }
+    !isFavorite
+      ? this.jokesDataService.saveJokeToDb(id).subscribe()
+      : this.jokesDataService.removeFromDb(id).subscribe();
     this.jokeService.saveToFavorites(id);
-    this.jokesDataService.saveToLocalStorage(this.jokeService.favoritesJokes);
   }
 }

@@ -10,3 +10,8 @@ export enum JokeCategoryEnum {
   'celebrity' = 3,
   'dev' = 4
 }
+
+export enum AuthPropertiesEnum {
+  'signin' = 1,
+  'signup' = 2
+}

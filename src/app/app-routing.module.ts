@@ -9,12 +9,18 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'auth',
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then(module => module.AuthModule)
+  },
+  {
     path: 'favorites',
     loadChildren: () =>
       import('./pages/favorites/favorites.module').then(
         module => module.FavoritesModule
       )
   },
+
   { path: '**', redirectTo: '/' }
 ];
 

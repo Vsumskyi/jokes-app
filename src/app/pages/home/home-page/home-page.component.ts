@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeService } from 'src/app/services/joke.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,24 @@ export class HomePageComponent implements OnInit {
   public openDrawer = false;
   public loading = false;
   public errorMessage = '';
+  public userName = '';
 
-  constructor(public jokeService: JokeService) {}
+  constructor(
+    public jokeService: JokeService,
+    public authService: AuthService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setUserName();
+  }
+
+  setUserName(): void {
+    if (!this.authService.isAuthenticated) {
+      return;
+    }
+    const { firstName, lastName } = this.authService.userData;
+    this.userName = `${firstName} ${lastName}`;
+  }
 
   toggleDrawer(): void {
     this.openDrawer = !this.openDrawer;
