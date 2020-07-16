@@ -1,8 +1,9 @@
-import { JokeTypeEnum, JokeCategoryEnum } from 'src/app/enums/enums';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { JokeTypeEnum, JokeCategoryEnum } from 'src/app/enums/enums';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 import { JokeService } from 'src/app/services/joke.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-joke-form',
@@ -23,6 +24,7 @@ export class JokeFormComponent implements OnInit {
   constructor(
     public jokeService: JokeService,
     public jokesDataService: JokesDataService,
+    public authService: AuthService,
     private fb: FormBuilder
   ) {}
 
@@ -37,6 +39,8 @@ export class JokeFormComponent implements OnInit {
       apiValue: this.fb.group({
         random: [this.jokeTypeEnum.Random],
         categories: [this.jokeCategoryEnum.Animal],
+        latest: [this.jokeTypeEnum.Latest],
+        top: [this.jokeTypeEnum.Top],
         search: ['', [Validators.required, Validators.minLength(3)]]
       })
     });

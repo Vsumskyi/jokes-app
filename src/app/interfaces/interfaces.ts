@@ -18,7 +18,13 @@ export interface PostJokeInterface {
 
 export interface JokeSearchFormValue {
   formOptions: string;
-  apiValue: { random: string; categories: string; search: string };
+  apiValue: {
+    random: string;
+    categories: string;
+    search: string;
+    latest: string;
+    top: string;
+  };
 }
 
 export interface CategoryInterface {

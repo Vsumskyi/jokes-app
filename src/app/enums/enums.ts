@@ -1,7 +1,9 @@
 export enum JokeTypeEnum {
   Random = 'random',
   Category = 'category',
-  Search = 'search'
+  Search = 'search',
+  Latest = 'user-favorite-newest-top',
+  Top = 'top'
 }
 
 export enum JokeCategoryEnum {

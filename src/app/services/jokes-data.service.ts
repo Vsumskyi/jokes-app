@@ -27,7 +27,9 @@ export class JokesDataService {
     const urls = {
       [jokeTypeEnum.Random]: `${formValue.apiValue.random}`,
       [jokeTypeEnum.Category]: `random?${formValue.formOptions}=${formValue.apiValue.categories}`,
-      [jokeTypeEnum.Search]: `${formValue.formOptions}?query=${formValue.apiValue.search}`
+      [jokeTypeEnum.Search]: `${formValue.formOptions}?query=${formValue.apiValue.search}`,
+      [jokeTypeEnum.Latest]: `${formValue.apiValue.latest}`,
+      [jokeTypeEnum.Top]: `favorite/${formValue.apiValue.top}`
     };
     return this.http.get<Joke>(this.apiUrl + urls[formValue.formOptions]);
   }

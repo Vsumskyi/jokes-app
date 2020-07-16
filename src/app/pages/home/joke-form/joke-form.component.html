@@ -31,6 +31,24 @@
     </div>
   </div>
 
+  <!-- <p *ngIf="authService.authenticated">
+    <input type="radio"
+      id="newestTop"
+      class="base-radio"
+      formControlName="formOptions"
+      [value]="jokeTypeEnum.Latest" />
+    <label for="newestTop">Latest Jokes</label>
+  </p> -->
+
+  <p>
+    <input type="radio"
+      id="top"
+      class="base-radio"
+      formControlName="formOptions"
+      [value]="jokeTypeEnum.Top" />
+    <label for="top">Top 5 Jokes</label>
+  </p>
+
   <p>
     <input type="radio"
       id="search"
