@@ -25,9 +25,9 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    if (this.authService.isAuthenticated) {
+    if (this.authService.authenticated) {
       this.jokesDataService.getDataFromDb().subscribe(data => {
-        this.jokeService.favoritesJokes = [...data];
+        this.jokeService.updateJokes(data);
       });
     }
   }
@@ -35,7 +35,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     this.form = this.fb.group({
-      auth: [this.authPropertiesEnum[1]]
+      auth: [this.authPropertiesEnum['Sign in']]
     });
   }
 }

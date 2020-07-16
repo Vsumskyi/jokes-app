@@ -1,0 +1,68 @@
+<form [formGroup]="form"
+  (ngSubmit)="submit()">
+
+  <div class="form-group">
+    <label for="value">Joke text:</label>
+
+    <textarea class="base-input"
+      id="value"
+      [formControlName]="postJokeEnum.Value"
+      placeholder="Type a joke..."></textarea>
+
+    <div class="validation"
+      *ngIf="form.get(postJokeEnum.Value).touched && form.get(postJokeEnum.Value).invalid">
+      <small *ngIf="form.get(postJokeEnum.Value).errors.required">
+        Joke
+        is
+        required!</small>
+      <small *ngIf="form.get(postJokeEnum.Value).errors?.minlength">
+        Joke text should be at least
+        {{form.get(postJokeEnum.Value).errors?.minlength.requiredLength}}
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="url">Url:</label>
+
+    <input type="text"
+      id="url"
+      [formControlName]="postJokeEnum.Url"
+      class="base-input"
+      placeholder="Joke url...">
+  </div>
+
+  <div class="form-group">
+    <label for="iconUrl">Icon Url:</label>
+
+    <input type="text"
+      id="iconUrl"
+      [formControlName]="postJokeEnum['Icon Url']"
+      class="base-input"
+      placeholder="Icon url...">
+  </div>
+
+  <div class="submit">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a category</mat-label>
+      <mat-select [formControlName]="postJokeEnum.Categories"
+        multiple>
+        <mat-select-trigger>
+          {{(form.get(postJokeEnum.Categories).value[0]|| '')|titlecase}}
+          <span *ngIf="form.get(postJokeEnum.Categories).value?.length > 1"
+            class="example-additional-selection">
+            (+{{form.get(postJokeEnum.Categories).value.length - 1}}
+            {{form.get(postJokeEnum.Categories).value?.length === 2 ? 'other' : 'others'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let category of categoriesList"
+          [value]="category.title">{{category.title |titlecase}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button class="btn"
+      [disabled]="loading || this.form.invalid">Create!</button>
+  </div>
+
+
+</form>

@@ -4,7 +4,6 @@
 .card {
   padding: 20px;
   border-radius: 10px;
-  margin: 0 5px;
   margin-bottom: 20px;
   .card-content {
     display: flex;
@@ -30,7 +29,8 @@
     &-inner {
       display: inline-block;
       width: 100%;
-      padding-right: 20px;
+      padding-right: 10px;
+      padding-left: 10px;
       span {
         font-size: 0.7rem;
         color: $sub-title-color;
@@ -54,9 +54,15 @@
           color: $dark-color;
           padding: 6px 20px;
           margin-left: 10px;
+          @include _480 {
+            padding: 6px 6px;
+          }
         }
       }
     }
+  }
+  @include _836 {
+    margin: 0 5px;
   }
   @include _480 {
     padding: 10px;
@@ -83,6 +89,8 @@
       }
       .comment {
         margin: 5px 0;
+        margin-top: 10px;
+        padding: 10px;
       }
     }
   }
@@ -122,5 +130,13 @@
         line-height: 26px;
       }
     }
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: pointer;
+  img {
+    filter: grayscale(100%);
   }
 }

@@ -17,11 +17,19 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   private authUrl = environment.authUrl;
   private localStorageKey = 'user';
-  public userData: UserInterface;
-  public isAuthenticated = false;
+  private userData: UserInterface;
+  private isAuthenticated = false;
   private authPropertiesEnum = AuthPropertiesEnum;
 
   constructor(private http: HttpClient) {}
+
+  get user(): UserInterface {
+    return this.userData;
+  }
+
+  get authenticated(): boolean {
+    return this.isAuthenticated;
+  }
 
   refreshUserData(): void {
     const userData = this.getAuthData();
@@ -46,13 +54,16 @@ export class AuthService {
 
   signup(user: RegistryUser): Observable<boolean> {
     return this.http.post<boolean>(
-      this.authUrl + this.authPropertiesEnum[2],
+      this.authUrl + this.authPropertiesEnum['Sign up'],
       user
     );
   }
   signin(user: LoginUser): Observable<UserInterface> {
     return this.http
-      .post<ApiUserInterface>(this.authUrl + this.authPropertiesEnum[1], user)
+      .post<ApiUserInterface>(
+        this.authUrl + this.authPropertiesEnum['Sign in'],
+        user
+      )
       .pipe(
         map(data => ({
           token: data.token,

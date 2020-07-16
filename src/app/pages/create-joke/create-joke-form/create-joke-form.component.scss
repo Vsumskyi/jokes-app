@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'media_mixin';
+
+form {
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  background: $white-color;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+  textarea {
+    resize: none;
+    margin: 0;
+  }
+  .base-input {
+    margin: 0;
+  }
+  .form-group {
+    position: relative;
+    margin-bottom: 15px;
+
+    .validation {
+      position: absolute;
+      bottom: -15px;
+      color: $error-color;
+    }
+  }
+  .submit {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 20px 0;
+    margin-bottom: 0;
+    .btn {
+      margin: 0;
+    }
+    @include _600 {
+      flex-direction: column;
+    }
+  }
+}

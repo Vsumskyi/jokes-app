@@ -4,6 +4,7 @@
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 50px;
 
   h3 {
@@ -28,6 +29,25 @@
   overflow-y: auto;
   height: 100vh;
   transition: transform 0.35s ease;
+  .favorite-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    h3 {
+      color: $sub-title-color;
+    }
+    .btn {
+      margin: 0;
+      padding: 5px 20px;
+      background: $sub-title-color;
+      opacity: 0.6;
+      transition: all 0.45s ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
   &.active {
     padding-top: 0;
   }
@@ -40,16 +60,6 @@
     background: $backdrop-bgc;
     z-index: 10;
   }
-  h3 {
-    color: $sub-title-color;
-    margin-right: auto;
-    margin-bottom: 20px;
-  }
-
-  .btn {
-    margin-top: 40px;
-    align-self: center;
-  }
 
   &::-webkit-scrollbar {
     // hide scrollbar
@@ -60,6 +70,23 @@
     height: 2px;
     background-color: $main-color;
     border-radius: 40px;
+  }
+
+  .btn {
+    align-self: center;
+    margin-top: 20px;
+  }
+
+  .route-group {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .btn {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
   }
 
   @include _836 {
@@ -76,7 +103,8 @@
   }
   @include _480 {
     padding: 20px;
-    width: auto;
+    min-width: 80%;
+    max-width: 100%;
   }
 }
 

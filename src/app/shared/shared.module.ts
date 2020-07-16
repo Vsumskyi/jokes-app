@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 import { InputFocusDirective } from '../directives/input-focus.directive';
 import { DiffDatePipe } from './../pipes/diff-date.pipe';
@@ -32,7 +33,8 @@ import { NotAuthorizedComponent } from './components/not-authorized/not-authoriz
     InputFocusDirective,
     FormsModule,
     ReactiveFormsModule,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    MatSelectModule
   ]
 })
 export class SharedModule {}

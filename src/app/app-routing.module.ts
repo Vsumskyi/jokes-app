@@ -20,6 +20,13 @@ const routes: Routes = [
         module => module.FavoritesModule
       )
   },
+  {
+    path: 'create-joke',
+    loadChildren: () =>
+      import('./pages/create-joke/create-joke.module').then(
+        module => module.CreateJokeModule
+      )
+  },
 
   { path: '**', redirectTo: '/' }
 ];

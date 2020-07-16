@@ -9,21 +9,12 @@
   &-inner {
     width: 80%;
     margin: 0 auto;
-  }
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-
-    h3 {
-      color: $sub-title-color;
+    @include _420 {
+      width: 90%;
     }
   }
   .btn {
     padding: 10px 25px;
-    padding-top: 5px;
-    font-size: 2rem;
   }
 
   .base-input {
@@ -41,6 +32,12 @@
     @include _480 {
       flex-direction: column;
       margin-top: 20px;
+      .nav {
+        font-size: 0.9rem;
+        .btn {
+          padding: 5px 20px;
+        }
+      }
       p {
         margin-left: 10px;
       }

@@ -18,10 +18,10 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.authService.isAuthenticated) {
+    if (this.authService.authenticated) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.authService.userData.token}`,
+          Authorization: `Bearer ${this.authService.user.token}`,
           Accept: 'application/json'
         }
       });

@@ -1,0 +1,36 @@
+<div class="container">
+
+  <div class="nav">
+    <a href="#"
+      class="btn route"
+      routerLink="/">
+      Home
+    </a>
+    <h3>Create Joke</h3>
+  </div>
+
+  <div class="form-container">
+
+    <app-create-joke-form (loadingChanged)="onLoading($event)"
+      (errorMessage)="onError($event)">
+    </app-create-joke-form>
+
+    <ng-container *ngIf="!errorMessage; else error">
+      <ng-container *ngIf="!loading; else loader">
+        <app-favorite-card *ngFor="let joke of jokeService.newJokes"
+          [joke]="joke"
+          favorite="true"></app-favorite-card>
+      </ng-container>
+
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #error>
+      <div class="error">
+        <h3> {{errorMessage}} </h3>
+      </div>
+    </ng-template>
+  </div>
+</div>

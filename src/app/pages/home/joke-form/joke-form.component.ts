@@ -33,10 +33,10 @@ export class JokeFormComponent implements OnInit {
 
   setForm(): void {
     this.form = this.fb.group({
-      formOptions: [this.jokeTypeEnum[1]],
+      formOptions: [this.jokeTypeEnum.Random],
       apiValue: this.fb.group({
-        random: [this.jokeTypeEnum[1]],
-        categories: [this.jokeCategoryEnum[1]],
+        random: [this.jokeTypeEnum.Random],
+        categories: [this.jokeCategoryEnum.Animal],
         search: ['', [Validators.required, Validators.minLength(3)]]
       })
     });
@@ -44,7 +44,7 @@ export class JokeFormComponent implements OnInit {
 
   getCategories(): void {
     this.jokesDataService.fetchCategories().subscribe(categories => {
-      this.jokeCategories = [...categories];
+      this.jokeCategories = categories.map(i => i.title);
     });
   }
 
@@ -56,10 +56,15 @@ export class JokeFormComponent implements OnInit {
       .fetchJoke(this.form.value)
       .subscribe(
         data => {
-          this.jokeService.mapJokes(
-            [data],
-            this.form.get('apiValue.categories').value
-          );
+          if (data) {
+            this.jokeService.mapJokes(
+              [data],
+              this.form.get('apiValue.categories').value
+            );
+          } else {
+            this.errorMessage.emit('No jokes in this category..');
+          }
+          this.form.get('apiValue.search').reset();
         },
         e => {
           this.errorMessage.emit(
@@ -70,7 +75,6 @@ export class JokeFormComponent implements OnInit {
       .add(() => {
         this.loadingChanged.emit(false);
         this.loading = false;
-        this.form.get('apiValue.search').reset();
       });
   }
 }

@@ -1,3 +1,39 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$jokes-primary: mat-palette($mat-indigo);
+$jokes-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$jokes-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$jokes-theme: mat-light-theme(
+  (
+    color: (
+      primary: $jokes-primary,
+      accent: $jokes-accent,
+      warn: $jokes-warn
+    )
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($jokes-theme);
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
 @import 'variables';
 @import 'media_mixin';
@@ -140,4 +176,80 @@ html {
   &:first-child {
     margin-left: 0;
   }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+
+  h3 {
+    color: $sub-title-color;
+  }
+  @include _480 {
+    font-size: 0.9rem;
+    .btn {
+      font-size: 0.9rem;
+      padding: 5px 20px;
+    }
+  }
+}
+
+.base-radio {
+  &:checked,
+  &:not(:checked) {
+    position: absolute;
+    left: -9999px;
+  }
+  &:checked + label,
+  &:not(:checked) + label {
+    position: relative;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: $dark-color;
+  }
+  &:checked + label:before,
+  &:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    right: calc(100% + 15px);
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #333333;
+    border-radius: 100%;
+  }
+
+  &:checked + label:after,
+  &:not(:checked) + label:after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: $dark-color;
+    position: absolute;
+    top: 5px;
+    right: calc(100% + 20px);
+    border-radius: 100%;
+    transition: all 0.2s ease;
+  }
+
+  &:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+  }
+  &:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

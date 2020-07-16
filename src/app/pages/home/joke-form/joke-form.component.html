@@ -3,21 +3,21 @@
   <p>
     <input type="radio"
       id="random"
-      class="search-option"
+      class="base-radio"
       formControlName="formOptions"
-      [value]="jokeTypeEnum[1]" />
+      [value]="jokeTypeEnum.Random" />
     <label for="random">Random</label>
   </p>
   <p>
     <input type="radio"
       id="category"
-      class="search-option"
+      class="base-radio"
       formControlName="formOptions"
-      [value]="jokeTypeEnum[2]" />
+      [value]="jokeTypeEnum.Category" />
     <label for="category">From Category</label>
   </p>
 
-  <div *ngIf="form.get('formOptions').value === jokeTypeEnum[2]"
+  <div *ngIf="form.get('formOptions').value === jokeTypeEnum.Category"
     class="category"
     formGroupName="apiValue">
     <div *ngFor="let item of jokeCategories"
@@ -35,13 +35,13 @@
     <input type="radio"
       id="search"
       formControlName="formOptions"
-      [value]="jokeTypeEnum[3]"
-      class="search-option" />
+      [value]="jokeTypeEnum.Search"
+      class="base-radio " />
     <label for="search">Search</label>
   </p>
   <div formGroupName="apiValue"
     class="search-group"
-    *ngIf="form.get('formOptions').value === jokeTypeEnum[3]">
+    *ngIf="form.get('formOptions').value === jokeTypeEnum.Search">
     <input formControlName="search"
       appInputFocus
       type="text"
@@ -59,7 +59,7 @@
   <button class="btn"
     [disabled]="loading || 
     (!form.get('apiValue.search').valid && 
-    form.get('formOptions').value === jokeTypeEnum[3]) ">
+    form.get('formOptions').value === jokeTypeEnum.Search) ">
     Get a joke
   </button>
 

@@ -1,17 +1,24 @@
 export enum JokeTypeEnum {
-  'random' = 1,
-  'category' = 2,
-  'search' = 3
+  Random = 'random',
+  Category = 'category',
+  Search = 'search'
 }
 
 export enum JokeCategoryEnum {
-  'animal' = 1,
-  'career' = 2,
-  'celebrity' = 3,
-  'dev' = 4
+  Animal = 'animal',
+  Career = 'career',
+  Celebrity = 'celebrity',
+  Dev = 'dev'
 }
 
 export enum AuthPropertiesEnum {
-  'signin' = 1,
-  'signup' = 2
+  'Sign in' = 'signin',
+  'Sign up' = 'signup'
+}
+
+export enum PostJokeEnum {
+  Value = 'value',
+  Url = 'url',
+  'Icon Url' = 'iconUrl',
+  Categories = 'categories'
 }
