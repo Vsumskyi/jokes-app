@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   providers: [JokesDataService]
 })
 export class FavoriteCardComponent implements OnInit {
+  public loading = false;
   constructor(
     public jokeService: JokeService,
     public jokesDataService: JokesDataService,
@@ -24,13 +25,21 @@ export class FavoriteCardComponent implements OnInit {
 
   like(id: string | number, event: Event, isFavorite: boolean): void {
     event.preventDefault();
-    if (!this.authService.isAuthenticated) {
+    if (!this.authService.authenticated) {
       this.router.navigate(['/auth']);
       return;
     }
-    !isFavorite
-      ? this.jokesDataService.saveJokeToDb(id).subscribe()
-      : this.jokesDataService.removeFromDb(id).subscribe();
-    this.jokeService.saveToFavorites(id);
+    this.loading = true;
+    if (!isFavorite) {
+      this.jokesDataService
+        .saveJokeToDb(id)
+        .subscribe(() => this.jokeService.saveToFavorites(id))
+        .add(() => (this.loading = false));
+    } else {
+      this.jokesDataService
+        .removeFromDb(id)
+        .subscribe(() => this.jokeService.saveToFavorites(id))
+        .add(() => (this.loading = false));
+    }
   }
 }

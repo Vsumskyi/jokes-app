@@ -9,9 +9,27 @@ export interface Joke {
   result?: [Joke];
 }
 
+export interface PostJokeInterface {
+  value: string;
+  url: string;
+  iconUrl: string;
+  categories: Array<number>;
+}
+
 export interface JokeSearchFormValue {
   formOptions: string;
-  apiValue: { random: string; categories: string; search: string };
+  apiValue: {
+    random: string;
+    categories: string;
+    search: string;
+    latest: string;
+    top: string;
+  };
+}
+
+export interface CategoryInterface {
+  id: number;
+  title: string;
 }
 
 export interface UserInterface {

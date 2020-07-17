@@ -18,20 +18,27 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getJoke();
     this.authService.refreshUserData();
     this.autoLogin();
   }
 
   autoLogin(): void {
-    if (!this.authService.isAuthenticated) {
+    if (!this.authService.authenticated) {
       return;
     }
     this.loading = true;
     this.jokesDataService
       .getDataFromDb()
       .subscribe(data => {
-        this.jokeService.favoritesJokes = [...data];
+        this.jokeService.updateJokes(data);
       })
       .add(() => (this.loading = false));
+  }
+
+  getJoke(): void {
+    this.jokesDataService
+      .getRandomJoke()
+      .subscribe(data => this.jokeService.mapJokes([data]));
   }
 }

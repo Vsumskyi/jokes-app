@@ -2,9 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JokeTypeEnum } from '../enums/enums';
-import { Joke, JokeSearchFormValue } from '../interfaces/interfaces';
+import {
+  Joke,
+  JokeSearchFormValue,
+  PostJokeInterface,
+  CategoryInterface
+} from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class JokesDataService {
@@ -13,29 +17,32 @@ export class JokesDataService {
 
   constructor(private http: HttpClient) {}
 
-  fetchCategories(): Observable<string[]> {
-    return this.http.get<string[]>(this.apiUrl + 'categories');
+  fetchCategories(): Observable<CategoryInterface[]> {
+    return this.http.get<CategoryInterface[]>(this.apiUrl + 'categories');
   }
 
   fetchJoke(formValue: JokeSearchFormValue): Observable<Joke> {
     const jokeTypeEnum = this.jokeTypeEnum;
     const urls = {
-      [jokeTypeEnum[1]]: `${formValue.apiValue.random}`,
-      [jokeTypeEnum[2]]: `random?${formValue.formOptions}=${formValue.apiValue.categories}`,
-      [jokeTypeEnum[3]]: `${formValue.formOptions}?query=${formValue.apiValue.search}`
+      [jokeTypeEnum.Random]: `${formValue.apiValue.random}`,
+      [jokeTypeEnum.Category]: `random?${formValue.formOptions}=${formValue.apiValue.categories}`,
+      [jokeTypeEnum.Search]: `${formValue.formOptions}?query=${formValue.apiValue.search}`,
+      [jokeTypeEnum.Latest]: `${formValue.apiValue.latest}`,
+      [jokeTypeEnum.Top]: `favorite/${formValue.apiValue.top}`
     };
     return this.http.get<Joke>(this.apiUrl + urls[formValue.formOptions]);
   }
 
+  getRandomJoke(): Observable<Joke> {
+    return this.http.get<Joke>(this.apiUrl + 'random');
+  }
+
   getDataFromDb(): Observable<Joke[]> {
-    return this.http.get<Joke[]>(this.apiUrl + 'user-favorite').pipe(
-      map(joke =>
-        joke.map(i => {
-          i.favorite = true;
-          return i;
-        })
-      )
-    );
+    return this.http.get<Joke[]>(this.apiUrl + 'user-favorite');
+  }
+
+  postJoke(joke: PostJokeInterface): Observable<Joke> {
+    return this.http.post<Joke>(this.apiUrl, joke);
   }
 
   saveJokeToDb(id: number | string): Observable<string> {

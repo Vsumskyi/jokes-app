@@ -3,21 +3,21 @@
   <p>
     <input type="radio"
       id="random"
-      class="search-option"
+      class="base-radio"
       formControlName="formOptions"
-      [value]="jokeTypeEnum[1]" />
+      [value]="jokeTypeEnum.Random" />
     <label for="random">Random</label>
   </p>
   <p>
     <input type="radio"
       id="category"
-      class="search-option"
+      class="base-radio"
       formControlName="formOptions"
-      [value]="jokeTypeEnum[2]" />
+      [value]="jokeTypeEnum.Category" />
     <label for="category">From Category</label>
   </p>
 
-  <div *ngIf="form.get('formOptions').value === jokeTypeEnum[2]"
+  <div *ngIf="form.get('formOptions').value === jokeTypeEnum.Category"
     class="category"
     formGroupName="apiValue">
     <div *ngFor="let item of jokeCategories"
@@ -31,17 +31,35 @@
     </div>
   </div>
 
+  <!-- <p *ngIf="authService.authenticated">
+    <input type="radio"
+      id="newestTop"
+      class="base-radio"
+      formControlName="formOptions"
+      [value]="jokeTypeEnum.Latest" />
+    <label for="newestTop">Latest Jokes</label>
+  </p> -->
+
+  <p>
+    <input type="radio"
+      id="top"
+      class="base-radio"
+      formControlName="formOptions"
+      [value]="jokeTypeEnum.Top" />
+    <label for="top">Top 5 Jokes</label>
+  </p>
+
   <p>
     <input type="radio"
       id="search"
       formControlName="formOptions"
-      [value]="jokeTypeEnum[3]"
-      class="search-option" />
+      [value]="jokeTypeEnum.Search"
+      class="base-radio " />
     <label for="search">Search</label>
   </p>
   <div formGroupName="apiValue"
     class="search-group"
-    *ngIf="form.get('formOptions').value === jokeTypeEnum[3]">
+    *ngIf="form.get('formOptions').value === jokeTypeEnum.Search">
     <input formControlName="search"
       appInputFocus
       type="text"
@@ -56,11 +74,15 @@
     </span>
   </div>
 
-  <button class="btn"
-    [disabled]="loading || 
+  <div class="submit-group">
+    <button class="btn"
+      [disabled]="loading || 
     (!form.get('apiValue.search').valid && 
-    form.get('formOptions').value === jokeTypeEnum[3]) ">
-    Get a joke
-  </button>
+    form.get('formOptions').value === jokeTypeEnum.Search) ">
+      Get a joke
+    </button>
+    <mat-spinner [diameter]="30"
+      *ngIf="loading"></mat-spinner>
+  </div>
 
 </form>

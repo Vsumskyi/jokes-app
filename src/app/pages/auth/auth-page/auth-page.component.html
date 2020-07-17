@@ -1,12 +1,17 @@
 <div class="container">
-  <a href="#"
-    class="btn rout-link"
-    [routerLink]="returnUrl">Go back</a>
+  <div class="nav">
+    <a href="#"
+      class="btn"
+      [routerLink]="returnUrl">
+      Home
+    </a>
+    <h3>Authentication</h3>
+  </div>
 
-  <div *ngIf="authService.isAuthenticated;else authForm"
+  <div *ngIf="authService.authenticated;else authForm"
     class="content-wrapper">
     <h3>
-      You already login, {{authService.userData.firstName | titlecase}}
+      You already login, {{authService.user.firstName | titlecase}}
     </h3>
     <a href="#"
       [routerLink]="['/auth']"
@@ -19,26 +24,26 @@
       <form [formGroup]="form">
 
         <input type="radio"
-          class="tags"
+          class="base-radio"
           formControlName="auth"
-          [value]="authPropertiesEnum[1]"
-          id="logIn" />
-        <label for="logIn">Log-In</label>
+          [value]="authPropertiesEnum['Sign in']"
+          id="signin" />
+        <label for="signin">Sign In</label>
 
         <input type="radio"
-          class="tags"
+          class="base-radio"
           formControlName="auth"
-          [value]="authPropertiesEnum[2]"
-          id="signIn" />
-        <label for="signIn">Sign-In</label>
+          [value]="authPropertiesEnum['Sign up']"
+          id="signup" />
+        <label for="signup">Sign Up</label>
       </form>
 
       <app-sign-in-form
-        *ngIf="form.get('auth').value === authPropertiesEnum[1]">
+        *ngIf="form.get('auth').value === authPropertiesEnum['Sign in']">
       </app-sign-in-form>
 
       <app-sign-up-form
-        *ngIf="form.get('auth').value === authPropertiesEnum[2]">
+        *ngIf="form.get('auth').value === authPropertiesEnum['Sign up']">
       </app-sign-up-form>
     </div>
   </ng-template>

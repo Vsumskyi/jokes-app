@@ -23,10 +23,10 @@ export class HomePageComponent implements OnInit {
   }
 
   setUserName(): void {
-    if (!this.authService.isAuthenticated) {
+    if (!this.authService.authenticated) {
       return;
     }
-    const { firstName, lastName } = this.authService.userData;
+    const { firstName, lastName } = this.authService.user;
     this.userName = `${firstName} ${lastName}`;
   }
 
@@ -34,11 +34,12 @@ export class HomePageComponent implements OnInit {
     this.openDrawer = !this.openDrawer;
   }
 
-  onLoading(loading: boolean): void {
-    this.loading = loading;
-  }
-
   onError(error: string): void {
     this.errorMessage = error;
+  }
+
+  logOut(): void {
+    this.authService.logout();
+    this.jokeService.restoreToDefault();
   }
 }

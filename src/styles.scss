@@ -1,143 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
-@import 'variables';
-@import 'media_mixin';
+@import 'material';
+@import 'global-classes';
 
-html {
+html,
+body {
   color: $dark-color;
   font-size: 16px;
+  height: 100%;
 }
-
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: Roboto, sans-serif;
-}
-
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-  min-height: 100vh;
-  position: relative;
-
-  @include _836 {
-    overflow: hidden;
-  }
-  .fade {
-    display: none;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    z-index: -1;
-    &.active {
-      opacity: 1;
-      z-index: 1;
-    }
-    @include _836 {
-      display: block;
-    }
-  }
-}
-
-.container {
-  display: block;
-  margin: 0 auto;
-  padding: 40px 40px 0 40px;
-  width: 680px;
-  height: 100vh;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    // hide scrollbar
-    width: 2px;
-    height: 2px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 2px;
-    background-color: $main-color;
-    border-radius: 40px;
-  }
-  @include _836 {
-    width: 100%;
-  }
-  @include _480 {
-    padding: 20px 20px 0 20px;
-  }
-}
-
-.btn {
-  display: block;
-  background: $main-gradient;
-  color: $white-color;
-  border-radius: 10px;
-  padding: 10px 40px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  line-height: 22px;
-  text-decoration: none;
-  &:active,
-  &:hover {
-    background: linear-gradient(
-      to right bottom,
-      darken($main-color, 5),
-      darken($main-color2, 5)
-    );
-  }
-  &:disabled {
-    cursor: not-allowed;
-    background: lighten($main-color2, 20%);
-  }
-}
-
-.base-input {
-  width: 100%;
-  border: 2px solid $dark-color;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 10px;
-  color: #000;
-  font-size: 1rem;
-  outline: none;
-  margin-top: 20px;
-  &::placeholder {
-    color: $sub-title-color;
-  }
-}
-
-.category {
-  margin: 10px 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-}
-.tag-group {
-  margin: 5px 0;
-}
-.tags {
-  display: none;
-  & + label {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 6px;
-    color: $sub-title-color;
-    padding: 3px 9px;
-    font-size: 0.8rem;
-    margin: 0px 5px;
-    border: 2px solid $joke-bgc;
-    cursor: pointer;
-  }
-  &:checked + label {
-    background: $joke-bgc;
-    color: $dark-color;
-  }
-  &:first-child {
-    margin-left: 0;
-  }
 }

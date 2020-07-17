@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'media_mixin';
 
 form {
   .form-group {
@@ -24,6 +25,13 @@ form {
 
     .tags:checked + label {
       background: $main-color;
+      color: $white-color;
+    }
+
+    @include _420 {
+      .btn {
+        padding: 10px 20px;
+      }
     }
   }
 }

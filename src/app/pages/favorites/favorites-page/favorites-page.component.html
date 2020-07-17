@@ -5,13 +5,13 @@
       <a href="#"
         class="btn"
         routerLink="/">
-        &larr;
+        Home
       </a>
 
       <h3>My favorites jokes</h3>
     </div>
 
-    <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
+    <ng-container *ngIf="jokeService.favorites.length; else empty">
       <form [formGroup]="form"
         (submit)="reset()">
 
@@ -59,7 +59,7 @@
       </form>
 
       <div>
-        <app-favorite-card *ngFor="let joke of jokeService.favoritesJokes | search:
+        <app-favorite-card *ngFor="let joke of jokeService.favorites | search:
           getControlValue('value') || '':
           getControlValue('category') || ''"
           [joke]="joke">

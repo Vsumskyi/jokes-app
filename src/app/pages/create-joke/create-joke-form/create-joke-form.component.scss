@@ -1,0 +1,54 @@
+@import 'variables';
+@import 'media_mixin';
+
+form {
+  padding: 15px 30px;
+  padding-top: 30px;
+  background: $white-color;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  width: fit-content;
+  margin-right: 30px;
+  @include _600 {
+    margin-right: 0;
+    padding: 10px 20px;
+    .form-group {
+      margin-bottom: 15px;
+    }
+  }
+  textarea {
+    margin: 0;
+  }
+  .base-input {
+    margin: 0;
+  }
+  .form-group {
+    position: relative;
+    margin-bottom: 25px;
+  }
+  .submit {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 20px 0;
+    margin-bottom: 0;
+
+    @include _600 {
+      flex-direction: column;
+    }
+  }
+}
+.submit-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  .btn {
+    margin: 0;
+  }
+  .mat-spinner {
+    position: absolute;
+    right: -5px;
+  }
+}

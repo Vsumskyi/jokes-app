@@ -3,6 +3,7 @@
     [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
       <a (click)="like(joke.id, $event, joke.favorite)"
+        [ngClass]="{'disabled': loading}"
         href="#"
         class="heart">
         <img
@@ -27,8 +28,12 @@
               Last update: {{joke.updatedAt | diffDate}} hours ago
             </span>
             <span class="tag"
+              [matTooltip]="joke.categories.slice(1).join(', ') | titlecase"
               *ngIf="joke.categories.join('').length">
               {{joke.categories[0]}}
+              <span class="others"
+                *ngIf="joke.categories.length > 1">
+                (+{{joke.categories.length - 1}} others)</span>
             </span>
           </div>
         </div>

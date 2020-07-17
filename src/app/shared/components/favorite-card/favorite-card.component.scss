@@ -4,7 +4,6 @@
 .card {
   padding: 20px;
   border-radius: 10px;
-  margin: 0 5px;
   margin-bottom: 20px;
   .card-content {
     display: flex;
@@ -30,7 +29,8 @@
     &-inner {
       display: inline-block;
       width: 100%;
-      padding-right: 20px;
+      padding-right: 10px;
+      padding-left: 10px;
       span {
         font-size: 0.7rem;
         color: $sub-title-color;
@@ -54,12 +54,32 @@
           color: $dark-color;
           padding: 6px 20px;
           margin-left: 10px;
+          position: relative;
+          .others {
+            position: absolute;
+            bottom: -13px;
+            right: 0;
+            font-size: 0.6rem;
+            display: block;
+            letter-spacing: normal;
+          }
+          @include _480 {
+            padding: 6px 6px;
+            font-size: 0.6rem;
+            .others {
+              bottom: -10px;
+              font-size: 0.5rem;
+            }
+          }
         }
       }
     }
   }
+  @include _836 {
+    margin: 10px 5px;
+  }
   @include _480 {
-    padding: 10px;
+    padding: 15px 10px;
     .card-content {
       flex-direction: row;
       padding: 15px;
@@ -83,6 +103,8 @@
       }
       .comment {
         margin: 5px 0;
+        margin-top: 10px;
+        padding: 10px;
       }
     }
   }
@@ -122,5 +144,13 @@
         line-height: 26px;
       }
     }
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: pointer;
+  img {
+    filter: grayscale(100%);
   }
 }

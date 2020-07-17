@@ -8,31 +8,36 @@ import { DiffDatePipe } from './../pipes/diff-date.pipe';
 import { SearchPipe } from './../pipes/search.pipe';
 import { EmptyContainerComponent } from './components/empty-container/empty-container.component';
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
-import { LoaderComponent } from './components/loader/loader.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
     FavoriteCardComponent,
     EmptyContainerComponent,
-    LoaderComponent,
     DiffDatePipe,
     SearchPipe,
     InputFocusDirective,
     NotAuthorizedComponent
   ],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule
+  ],
   exports: [
     FavoriteCardComponent,
     EmptyContainerComponent,
-    LoaderComponent,
     RouterModule,
     DiffDatePipe,
     SearchPipe,
     InputFocusDirective,
     FormsModule,
     ReactiveFormsModule,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    MaterialModule
   ]
 })
 export class SharedModule {}

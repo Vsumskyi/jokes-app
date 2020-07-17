@@ -1,7 +1,6 @@
 <div class="wrapper">
 
   <div class="container">
-
     <div class="nav">
       <h3>MSI 2020</h3>
       <div class="drawer-trigger"
@@ -19,18 +18,12 @@
       <h1>Hey! {{userName|titlecase}} </h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
-    <app-joke-form (loadingChanged)="onLoading($event)"
-      (errorMessage)="onError($event)"></app-joke-form>
+    <app-joke-form (errorMessage)="onError($event)"></app-joke-form>
 
     <ng-container *ngIf="!errorMessage; else error">
-      <ng-container *ngIf="!loading;else loader">
-        <app-favorite-card *ngFor="let joke of jokeService.jokes"
-          [joke]="joke">
-        </app-favorite-card>
-      </ng-container>
-      <ng-template #loader>
-        <app-loader></app-loader>
-      </ng-template>
+      <app-favorite-card *ngFor="let joke of jokeService.apiJokes"
+        [joke]="joke">
+      </app-favorite-card>
 
     </ng-container>
 
@@ -44,29 +37,40 @@
   <div class="favorite-container"
     [ngClass]="{'active':openDrawer}">
 
-    <ng-container *ngIf="!authService.isAuthenticated; else content"
+    <ng-container *ngIf="!authService.authenticated; else content"
       class="notAuth">
       <app-not-authorized></app-not-authorized>
     </ng-container>
 
     <ng-template #content>
+      <div class="favorite-nav">
+        <h3 *ngIf="jokeService.favorites.length">Favorite</h3>
+        <a href="#"
+          class="btn"
+          (click)="logOut()">Sign Out</a>
+      </div>
+      <ng-container *ngIf="jokeService.favorites.length; else empty">
 
-      <ng-container *ngIf="jokeService.favoritesJokes.length; else empty">
-        <h3>Favorite</h3>
-        <app-favorite-card
-          *ngFor="let joke of jokeService.favoritesJokes.slice(0,3)"
+        <app-favorite-card *ngFor="let joke of jokeService.favorites.slice(0,3)"
           [joke]="joke"
           [favorite]="true">
         </app-favorite-card>
-        <a class="btn"
-          [routerLink]="['/favorites']">Go to all Favorites
-        </a>
+        <div class="route-group">
+          <a class="btn"
+            [routerLink]="['/favorites']">Go to all Favorites
+          </a>
+          <a class="btn"
+            [routerLink]="['/create-joke']">Create joke
+          </a>
+        </div>
       </ng-container>
 
       <ng-template #empty>
-        <app-empty-container></app-empty-container>
+        <app-empty-container title="No jokes saved..."></app-empty-container>
+        <a class="btn"
+          [routerLink]="['/create-joke']">Create joke
+        </a>
       </ng-template>
-
     </ng-template>
   </div>
 
