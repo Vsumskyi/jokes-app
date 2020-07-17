@@ -14,16 +14,25 @@
     <app-create-joke-form (errorMessage)="onError($event)">
     </app-create-joke-form>
 
-    <ng-container *ngIf="!errorMessage; else error">
-      <app-favorite-card *ngFor="let joke of jokeService.newJokes"
-        [joke]="joke"
-        favorite="true"></app-favorite-card>
-    </ng-container>
+    <div class="cards">
+      <ng-container *ngIf="jokeService.newJokes.length; else empty">
+        <ng-container *ngIf="!errorMessage; else error">
+          <app-favorite-card *ngFor="let joke of jokeService.newJokes"
+            [joke]="joke"
+            favorite="true"></app-favorite-card>
+        </ng-container>
+      </ng-container>
+    </div>
 
-    <ng-template #error>
-      <div class="error">
-        <h3> {{errorMessage}} </h3>
-      </div>
-    </ng-template>
   </div>
 </div>
+
+<ng-template #empty>
+  <app-empty-container title="Create your first joke :)"></app-empty-container>
+</ng-template>
+
+<ng-template #error>
+  <div class="error">
+    <h3> {{errorMessage}} </h3>
+  </div>
+</ng-template>

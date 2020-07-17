@@ -4,16 +4,29 @@
 .container {
   width: 100%;
   .form-container {
-    width: 50%;
     margin: 0 auto;
-    @include _836 {
-      width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+    @include _600 {
+      flex-direction: column;
+      align-items: center;
     }
-    @include _480 {
-      width: 90%;
-    }
-    @include _420 {
-      width: 100%;
-    }
+  }
+}
+
+.cards {
+  height: 100vh;
+  overflow-y: auto;
+  flex-grow: 1;
+  &::-webkit-scrollbar {
+    // hide scrollbar
+    width: 2px;
+    height: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 2px;
+    background-color: $main-color;
+    border-radius: 40px;
   }
 }

@@ -4,12 +4,19 @@
 form {
   padding: 15px 30px;
   padding-top: 30px;
-  margin-bottom: 20px;
   background: $white-color;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+  width: fit-content;
+  margin-right: 30px;
+  @include _600 {
+    margin-right: 0;
+    padding: 10px 20px;
+    .form-group {
+      margin-bottom: 15px;
+    }
+  }
   textarea {
-    resize: none;
     margin: 0;
   }
   .base-input {
@@ -18,12 +25,6 @@ form {
   .form-group {
     position: relative;
     margin-bottom: 25px;
-
-    .validation {
-      position: absolute;
-      bottom: -15px;
-      color: $error-color;
-    }
   }
   .submit {
     display: flex;
@@ -40,8 +41,14 @@ form {
 .submit-group {
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
   .btn {
     margin: 0;
-    margin-left: 10px;
+  }
+  .mat-spinner {
+    position: absolute;
+    right: -5px;
   }
 }

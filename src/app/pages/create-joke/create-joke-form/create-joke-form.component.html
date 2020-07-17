@@ -2,37 +2,28 @@
   (ngSubmit)="submit()">
 
   <div class="form-group">
-    <label for="value">Joke text:</label>
-
-    <textarea class="base-input"
-      id="value"
-      formControlName="value"
-      placeholder="Type a joke..."></textarea>
-
-    <div class="validation"
-      *ngIf="form.get('value').touched && form.get('value').invalid">
-      <small *ngIf="form.get('value').errors.required">
-        Joke is required!
-      </small>
-      <small *ngIf="form.get('value').errors?.minlength">
-        Joke text should be at least
-        {{form.get('value').errors?.minlength.requiredLength}}
-      </small>
-    </div>
+    <mat-form-field appearance="legacy">
+      <mat-label>Type a joke</mat-label>
+      <textarea matInput
+        formControlName="value"
+        placeholder="Type a joke..."></textarea>
+      <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
+        Joke is required!</mat-error>
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="iconUrl">Icon Url:</label>
-
-    <input type="text"
-      id="iconUrl"
-      formControlName="iconUrl"
-      class="base-input"
-      placeholder="Icon url...">
+    <mat-form-field appearance="legacy">
+      <mat-label>Type icon url</mat-label>
+      <input matInput
+        placeholder="Type icon url"
+        formControlName="iconUrl">
+    </mat-form-field>
   </div>
 
+
   <div class="submit">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="legacy">
       <mat-label>Choose a category</mat-label>
       <mat-select formControlName='categories'
         multiple>
@@ -48,13 +39,14 @@
           [value]="category.title">{{category.title |titlecase}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <div class="submit-group">
-      <mat-spinner [diameter]="25"
-        *ngIf="loading">
-      </mat-spinner>
-      <button class="btn"
-        [disabled]="loading || this.form.invalid">Create!</button>
-    </div>
+  </div>
+
+  <div class="submit-group">
+    <mat-spinner [diameter]="25"
+      *ngIf="loading">
+    </mat-spinner>
+    <button class="btn"
+      [disabled]="loading || this.form.invalid">Create!</button>
   </div>
 
 </form>
