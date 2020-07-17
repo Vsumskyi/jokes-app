@@ -29,4 +29,7 @@
     background-color: $main-color;
     border-radius: 40px;
   }
+  @include _600 {
+    width: auto;
+  }
 }

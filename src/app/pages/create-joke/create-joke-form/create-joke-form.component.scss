@@ -9,6 +9,7 @@ form {
   border-radius: 6px;
   width: fit-content;
   margin-right: 30px;
+  margin-bottom: 20px;
   @include _600 {
     margin-right: 0;
     padding: 10px 20px;
