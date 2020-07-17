@@ -2,9 +2,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   CategoryInterface,
-  PostJokeInterface
+  PostJokeInterface,
+  Joke
 } from 'src/app/interfaces/interfaces';
-import { PostJokeEnum } from 'src/app/enums/enums';
 import { JokeService } from 'src/app/services/joke.service';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 
@@ -17,9 +17,7 @@ import { JokesDataService } from 'src/app/services/jokes-data.service';
 export class CreateJokeFormComponent implements OnInit {
   public form: FormGroup;
   public loading = false;
-  public postJokeEnum = PostJokeEnum;
 
-  @Output() loadingChanged = new EventEmitter<boolean>();
   @Output() errorMessage = new EventEmitter<string>();
 
   categoriesList: CategoryInterface[] = [];
@@ -42,41 +40,39 @@ export class CreateJokeFormComponent implements OnInit {
 
   setForm(): void {
     this.form = this.fb.group({
-      [this.postJokeEnum.Value]: [
-        '',
-        [Validators.required, Validators.minLength(3)]
-      ],
-      [this.postJokeEnum.Url]: [''],
-      [this.postJokeEnum['Icon Url']]: [''],
-      [this.postJokeEnum.Categories]: [[]]
+      value: ['', [Validators.required, Validators.minLength(3)]],
+      iconUrl: [''],
+      categories: [[]]
     });
   }
 
   submit(): void {
     this.errorMessage.emit('');
-    this.loadingChanged.emit(true);
     this.loading = true;
 
-    const categories = [...this.form.get(this.postJokeEnum.Categories).value];
-    const joke: PostJokeInterface = {
+    const categories = [...this.form.get('categories').value];
+    const newJoke: PostJokeInterface = {
       ...this.form.value,
       categories: this.mapCategories(categories)
     };
 
     this.jokesDataService
-      .postJoke(joke)
+      .postJoke(newJoke)
       .subscribe(
-        data => {
-          this.jokeService.createJoke(data);
-          this.form.reset();
-          this.form.get(this.postJokeEnum.Categories).setValue([]);
+        joke => {
+          this.createNewJoke(joke);
         },
         () => this.errorMessage.emit('Something went wrong...')
       )
       .add(() => {
         this.loading = false;
-        this.loadingChanged.emit(false);
       });
+  }
+
+  createNewJoke(joke: Joke): void {
+    this.jokeService.createJoke(joke);
+    this.form.reset();
+    this.form.get('categories').setValue([]);
   }
 
   mapCategories(categories: string[]): number[] {

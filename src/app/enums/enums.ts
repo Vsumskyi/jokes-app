@@ -17,10 +17,3 @@ export enum AuthPropertiesEnum {
   'Sign in' = 'signin',
   'Sign up' = 'signup'
 }
-
-export enum PostJokeEnum {
-  Value = 'value',
-  Url = 'url',
-  'Icon Url' = 'iconUrl',
-  Categories = 'categories'
-}

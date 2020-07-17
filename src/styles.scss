@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
+@import 'variables';
+@import 'media_mixin';
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -33,10 +36,6 @@ $jokes-theme: mat-light-theme(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($jokes-theme);
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
-@import 'variables';
-@import 'media_mixin';
 
 html {
   color: $dark-color;
@@ -243,6 +242,11 @@ html {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $main-color;
 }
 
 html,

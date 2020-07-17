@@ -23,11 +23,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  get user(): UserInterface {
+  public get user(): UserInterface {
     return this.userData;
   }
 
-  get authenticated(): boolean {
+  public get authenticated(): boolean {
     return this.isAuthenticated;
   }
 

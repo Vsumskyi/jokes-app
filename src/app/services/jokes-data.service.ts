@@ -9,7 +9,6 @@ import {
   CategoryInterface
 } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class JokesDataService {
@@ -34,15 +33,12 @@ export class JokesDataService {
     return this.http.get<Joke>(this.apiUrl + urls[formValue.formOptions]);
   }
 
+  getRandomJoke(): Observable<Joke> {
+    return this.http.get<Joke>(this.apiUrl + 'random');
+  }
+
   getDataFromDb(): Observable<Joke[]> {
-    return this.http.get<Joke[]>(this.apiUrl + 'user-favorite').pipe(
-      map(joke =>
-        joke.map(i => {
-          i.favorite = true;
-          return i;
-        })
-      )
-    );
+    return this.http.get<Joke[]>(this.apiUrl + 'user-favorite');
   }
 
   postJoke(joke: PostJokeInterface): Observable<Joke> {

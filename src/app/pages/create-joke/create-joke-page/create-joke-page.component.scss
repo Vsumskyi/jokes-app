@@ -3,11 +3,9 @@
 
 .container {
   width: 100%;
-  background: $backdrop-bgc;
   .form-container {
     width: 50%;
     margin: 0 auto;
-    border: 1px solid $backdrop-bgc;
     @include _836 {
       width: 60%;
     }

@@ -9,13 +9,13 @@ export class JokeService {
   private jokes: Joke[] = [];
   private createdJokes: Joke[] = [];
 
-  get newJokes(): Joke[] {
+  public get newJokes(): Joke[] {
     return this.createdJokes;
   }
-  get favorites(): Joke[] {
+  public get favorites(): Joke[] {
     return this.favoritesJokes;
   }
-  get apiJokes(): Joke[] {
+  public get apiJokes(): Joke[] {
     return this.jokes;
   }
 
@@ -34,13 +34,12 @@ export class JokeService {
     }
   }
 
-  mapJokes(data: Joke[], curetCategory: string): void {
+  mapJokes(data: Joke[], curetCategory?: string): void {
     this.jokes = data.flat().map(joke => {
       joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
       if (joke.categories.includes(curetCategory)) {
-        joke.categories = [curetCategory];
-      } else {
-        joke.categories = joke.categories.slice(0, 1);
+        joke.categories = joke.categories.filter(i => i !== curetCategory);
+        joke.categories.unshift(curetCategory);
       }
       return joke;
     });
@@ -59,11 +58,12 @@ export class JokeService {
       joke.favorite = false;
       return joke;
     });
+    this.favoritesJokes = [];
   }
 
   updateJokes(jokes: Joke[]): void {
     this.favoritesJokes = [...jokes].map(i => {
-      i.categories = i.categories.slice(0, 1);
+      i.favorite = true;
       return i;
     });
     this.jokes = this.jokes.map(joke => {

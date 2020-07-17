@@ -33,16 +33,12 @@ export class FavoriteCardComponent implements OnInit {
     if (!isFavorite) {
       this.jokesDataService
         .saveJokeToDb(id)
-        .subscribe(() => {
-          this.jokeService.saveToFavorites(id);
-        })
+        .subscribe(() => this.jokeService.saveToFavorites(id))
         .add(() => (this.loading = false));
     } else {
       this.jokesDataService
         .removeFromDb(id)
-        .subscribe(() => {
-          this.jokeService.saveToFavorites(id);
-        })
+        .subscribe(() => this.jokeService.saveToFavorites(id))
         .add(() => (this.loading = false));
     }
   }

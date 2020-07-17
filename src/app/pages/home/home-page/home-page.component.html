@@ -1,10 +1,8 @@
 <div class="wrapper">
 
   <div class="container">
-
     <div class="nav">
       <h3>MSI 2020</h3>
-
       <div class="drawer-trigger"
         (click)="toggleDrawer()"
         [ngClass]="{'active':openDrawer}">
@@ -20,18 +18,12 @@
       <h1>Hey! {{userName|titlecase}} </h1>
       <h2>Let’s try to find a joke for you:</h2>
     </div>
-    <app-joke-form (loadingChanged)="onLoading($event)"
-      (errorMessage)="onError($event)"></app-joke-form>
+    <app-joke-form (errorMessage)="onError($event)"></app-joke-form>
 
     <ng-container *ngIf="!errorMessage; else error">
-      <ng-container *ngIf="!loading;else loader">
-        <app-favorite-card *ngFor="let joke of jokeService.apiJokes"
-          [joke]="joke">
-        </app-favorite-card>
-      </ng-container>
-      <ng-template #loader>
-        <app-loader></app-loader>
-      </ng-template>
+      <app-favorite-card *ngFor="let joke of jokeService.apiJokes"
+        [joke]="joke">
+      </app-favorite-card>
 
     </ng-container>
 
@@ -51,13 +43,12 @@
     </ng-container>
 
     <ng-template #content>
-
       <ng-container *ngIf="jokeService.favorites.length; else empty">
         <div class="favorite-nav">
           <h3>Favorite</h3>
           <a href="#"
             class="btn"
-            (click)="logOut()">Log Out</a>
+            (click)="logOut()">Sign Out</a>
         </div>
 
         <app-favorite-card *ngFor="let joke of jokeService.favorites.slice(0,3)"
@@ -72,7 +63,6 @@
             [routerLink]="['/create-joke']">Create joke
           </a>
         </div>
-
       </ng-container>
 
       <ng-template #empty>
@@ -80,10 +70,7 @@
         <a class="btn"
           [routerLink]="['/create-joke']">Create joke
         </a>
-
       </ng-template>
-
-
     </ng-template>
   </div>
 

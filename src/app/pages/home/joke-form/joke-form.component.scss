@@ -23,7 +23,12 @@ p {
     left: 0;
   }
 }
-
-.btn {
+.submit-group {
   margin-top: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .btn {
+    margin-right: 10px;
+  }
 }

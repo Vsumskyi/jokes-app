@@ -54,18 +54,32 @@
           color: $dark-color;
           padding: 6px 20px;
           margin-left: 10px;
+          position: relative;
+          .others {
+            position: absolute;
+            bottom: -13px;
+            right: 0;
+            font-size: 0.6rem;
+            display: block;
+            letter-spacing: normal;
+          }
           @include _480 {
             padding: 6px 6px;
+            font-size: 0.6rem;
+            .others {
+              bottom: -10px;
+              font-size: 0.5rem;
+            }
           }
         }
       }
     }
   }
   @include _836 {
-    margin: 0 5px;
+    margin: 10px 5px;
   }
   @include _480 {
-    padding: 10px;
+    padding: 15px 10px;
     .card-content {
       flex-direction: row;
       padding: 15px;

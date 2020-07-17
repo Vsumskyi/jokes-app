@@ -8,15 +8,11 @@ import { JokeService } from 'src/app/services/joke.service';
   styleUrls: ['./create-joke-page.component.scss']
 })
 export class CreateJokePageComponent implements OnInit {
-  loading = false;
   errorMessage = '';
   constructor(public jokeService: JokeService) {}
 
   ngOnInit(): void {}
   onError(error: string): void {
     this.errorMessage = error;
-  }
-  onLoading(loading: boolean): void {
-    this.loading = loading;
   }
 }

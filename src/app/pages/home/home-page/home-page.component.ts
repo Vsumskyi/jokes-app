@@ -34,10 +34,6 @@ export class HomePageComponent implements OnInit {
     this.openDrawer = !this.openDrawer;
   }
 
-  onLoading(loading: boolean): void {
-    this.loading = loading;
-  }
-
   onError(error: string): void {
     this.errorMessage = error;
   }

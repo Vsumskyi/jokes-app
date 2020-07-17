@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getJoke();
     this.authService.refreshUserData();
     this.autoLogin();
   }
@@ -33,5 +34,11 @@ export class AppComponent implements OnInit {
         this.jokeService.updateJokes(data);
       })
       .add(() => (this.loading = false));
+  }
+
+  getJoke(): void {
+    this.jokesDataService
+      .getRandomJoke()
+      .subscribe(data => this.jokeService.mapJokes([data]));
   }
 }

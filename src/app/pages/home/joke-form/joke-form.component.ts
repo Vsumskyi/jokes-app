@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
   providers: [JokesDataService]
 })
 export class JokeFormComponent implements OnInit {
-  @Output() loadingChanged = new EventEmitter<boolean>();
   @Output() errorMessage = new EventEmitter<string>();
 
   public jokeTypeEnum = JokeTypeEnum;
@@ -54,7 +53,6 @@ export class JokeFormComponent implements OnInit {
 
   submit(): void {
     this.errorMessage.emit('');
-    this.loadingChanged.emit(true);
     this.loading = true;
     this.jokesDataService
       .fetchJoke(this.form.value)
@@ -77,7 +75,6 @@ export class JokeFormComponent implements OnInit {
         }
       )
       .add(() => {
-        this.loadingChanged.emit(false);
         this.loading = false;
       });
   }

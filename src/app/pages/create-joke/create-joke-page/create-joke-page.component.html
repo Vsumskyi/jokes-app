@@ -11,20 +11,13 @@
 
   <div class="form-container">
 
-    <app-create-joke-form (loadingChanged)="onLoading($event)"
-      (errorMessage)="onError($event)">
+    <app-create-joke-form (errorMessage)="onError($event)">
     </app-create-joke-form>
 
     <ng-container *ngIf="!errorMessage; else error">
-      <ng-container *ngIf="!loading; else loader">
-        <app-favorite-card *ngFor="let joke of jokeService.newJokes"
-          [joke]="joke"
-          favorite="true"></app-favorite-card>
-      </ng-container>
-
-      <ng-template #loader>
-        <app-loader></app-loader>
-      </ng-template>
+      <app-favorite-card *ngFor="let joke of jokeService.newJokes"
+        [joke]="joke"
+        favorite="true"></app-favorite-card>
     </ng-container>
 
     <ng-template #error>
