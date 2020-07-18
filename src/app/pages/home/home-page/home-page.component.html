@@ -47,7 +47,7 @@
         <h3 *ngIf="jokeService.favorites.length">Favorite</h3>
         <a href="#"
           class="btn"
-          (click)="logOut()">Sign Out</a>
+          (click)="logOut($event)">Sign Out</a>
       </div>
       <ng-container *ngIf="jokeService.favorites.length; else empty">
 

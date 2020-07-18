@@ -38,7 +38,8 @@ export class HomePageComponent implements OnInit {
     this.errorMessage = error;
   }
 
-  logOut(): void {
+  logOut(e: Event): void {
+    e.preventDefault();
     this.authService.logout();
     this.jokeService.restoreToDefault();
   }

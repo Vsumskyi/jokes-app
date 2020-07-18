@@ -3,7 +3,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatRadioModule,
     MatCheckboxModule
   ],
   exports: [
@@ -21,7 +19,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatRadioModule,
     MatCheckboxModule
   ]
 })

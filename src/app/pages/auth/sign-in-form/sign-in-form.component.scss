@@ -2,27 +2,37 @@
 @import 'media_mixin';
 
 form {
+  text-align: left;
   .form-group {
-    margin-bottom: 15px;
-  }
-  .invalid {
-    color: $error-color;
-    font-size: 0.9rem;
-    bottom: 0;
-    position: absolute;
-  }
-  .submit-group {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    .btn {
-      margin-bottom: 10px;
+    position: relative;
+    margin-bottom: 40px;
+
+    .validation {
+      color: $error-color;
+      font-style: italic;
+      position: absolute;
+      bottom: -20px;
+    }
+    .base-input {
+      border: 1px solid #8ea7ff;
+      border-radius: 5px;
+      margin: 0;
     }
   }
-  @include _420 {
-    .btn {
-      padding: 10px 20px;
+
+  .submit-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z .tags:checked + label {
+      background: $main-color;
+      color: $white-color;
+    }
+
+    @include _420 {
+      .btn {
+        padding: 10px 20px;
+      }
     }
   }
 }

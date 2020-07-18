@@ -2,22 +2,29 @@
 @import 'media_mixin';
 
 form {
+  text-align: left;
   .form-group {
-    margin-bottom: 15px;
+    position: relative;
+    margin-bottom: 40px;
+
+    .base-input {
+      border: 1px solid #8ea7ff;
+      border-radius: 5px;
+      margin: 0;
+    }
+
+    .validation {
+      color: $error-color;
+
+      position: absolute;
+      bottom: -20px;
+      font-style: italic;
+    }
   }
 
-  .btn {
-    margin: 0 auto;
-  }
   @include _420 {
     .btn {
       padding: 10px 20px;
     }
   }
-}
-.invalid {
-  color: $error-color;
-  font-size: 0.9rem;
-  position: absolute;
-  bottom: 0;
 }

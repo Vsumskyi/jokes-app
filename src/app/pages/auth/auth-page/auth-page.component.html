@@ -22,14 +22,20 @@
   <ng-template #authForm>
     <div class="content-wrapper">
       <form [formGroup]="form">
-        <mat-radio-group aria-label="Select an option"
-          class="radio"
-          formControlName="auth">
-          <mat-radio-button [value]="authPropertiesEnum['Sign in']">Sign In
-          </mat-radio-button>
-          <mat-radio-button [value]="authPropertiesEnum['Sign up']">Sign Up
-          </mat-radio-button>
-        </mat-radio-group>
+
+        <input type="radio"
+          class="tags"
+          formControlName="auth"
+          [value]="authPropertiesEnum['Sign in']"
+          id="signin" />
+        <label for="signin">Sign In</label>
+
+        <input type="radio"
+          class="tags"
+          formControlName="auth"
+          [value]="authPropertiesEnum['Sign up']"
+          id="signup" />
+        <label for="signup">Sign Up</label>
       </form>
 
       <app-sign-in-form

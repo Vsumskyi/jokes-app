@@ -1,5 +1,5 @@
 export interface Joke {
-  icon_url?: string;
+  iconUrl?: string;
   value: string;
   id: number | string;
   updatedAt?: Date;
