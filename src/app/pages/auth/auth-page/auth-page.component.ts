@@ -12,7 +12,6 @@ import { AuthPropertiesEnum } from 'src/app/enums/enums';
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent implements OnInit, OnDestroy {
-  public returnUrl: string;
   public form: FormGroup;
   public authPropertiesEnum = AuthPropertiesEnum;
 
@@ -33,7 +32,6 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
     this.form = this.fb.group({
       auth: [this.authPropertiesEnum['Sign in']]
     });

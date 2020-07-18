@@ -1,102 +1,82 @@
 <form [formGroup]="form"
   (ngSubmit)="submit()">
 
-  <div class="form-group"
-    [ngClass]="{
-        invalid: form.get('email').touched && form.get('email').invalid
-      }">
-    <label for="email">Email:</label>
-    <input class="base-input"
-      type="email"
-      id="email"
-      formControlName="email" />
-
-    <div class="validation"
-      *ngIf="form.get('email').touched && form.get('email').invalid">
-      <small *ngIf="form.get('email').errors.required">Email
-        is
-        required!</small>
-      <small *ngIf="form.get('email').errors.email">Email
-        it`s not
-        valid!</small>
-    </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Email:</mat-label>
+      <input matInput
+        formControlName="email"
+        required
+        placeholder="Type a email..." />
+      <mat-error *ngIf="form.get('email').errors?.required">
+        Email is required!</mat-error>
+      <mat-error *ngIf="form.get('email').errors?.email">
+        Email it`s not valid!</mat-error>
+    </mat-form-field>
   </div>
 
-  <div class="form-group"
-    [ngClass]="{
-            invalid: form.get('firstName').touched && form.get('firstName').invalid
-          }">
-    <label for="firstName">First Name:</label>
-    <input class="base-input"
-      type="text"
-      id="firstName"
-      formControlName="firstName" />
-    <div class="validation"
-      *ngIf="form.get('firstName').touched && form.get('firstName').invalid">
-      <small *ngIf="form.get('firstName').errors.required">First Name is
-        required!</small>
-      <small *ngIf="form.get('firstName').errors?.minlength">First Name
-        it`s not
-        valid!</small>
-    </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>First name:</mat-label>
+      <input matInput
+        formControlName="firstName"
+        required
+        placeholder="Type a First name ..." />
+      <mat-error *ngIf="form.get('firstName').errors?.required">
+        First name is required!</mat-error>
+      <mat-error *ngIf="form.get('firstName').errors?.minlength">
+        First name it`s not valid!</mat-error>
+    </mat-form-field>
   </div>
 
-  <div class="form-group"
-    [ngClass]="{invalid: form.get('lastName').touched && form.get('lastName').invalid} ">
-    <label for="lastName">Last Name:</label>
-    <input class="base-input"
-      type="text"
-      id="lastName"
-      formControlName="lastName" />
-
-    <div class="validation"
-      *ngIf="form.get('lastName').touched && form.get('lastName').invalid">
-      <small *ngIf="form.get('lastName').errors.required">Last Name is
-        required!</small>
-      <small *ngIf="form.get('lastName').errors?.minlength">Last Name it`s not
-        valid!</small>
-    </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Last Name:</mat-label>
+      <input matInput
+        formControlName="lastName"
+        required
+        placeholder="Type a Last Name..." />
+      <mat-error *ngIf="form.get('lastName').errors?.required">
+        Last Name is required!</mat-error>
+      <mat-error *ngIf="form.get('lastName').errors?.minlength">
+        Last Name it`s not valid!</mat-error>
+    </mat-form-field>
   </div>
 
   <div formGroupName="passwords">
-    <div class="form-group"
-      [ngClass]="{invalid: form.get('passwords.password').touched && form.get('passwords.password').invalid}">
-      <label for="password">Password:</label>
-      <input class="base-input"
-        type="password"
-        id="password"
-        formControlName="password" />
-
-      <div class="validation"
-        *ngIf="form.get('passwords.password').touched && form.get('passwords.password').invalid">
-        <small *ngIf="form.get('passwords.password').errors.required">Password
-          is
-          required!</small>
-        <small *ngIf="form.get('passwords.password').errors?.minlength">Password
-          it`s not
-          valid!</small>
-      </div>
+    <div class="form-group">
+      <mat-form-field appearance="legacy">
+        <mat-label>Password:</mat-label>
+        <input matInput
+          formControlName="password"
+          required
+          type="password"
+          placeholder="Type a password..." />
+        <mat-error *ngIf="form.get('passwords.password').errors?.required">
+          Password is required!</mat-error>
+        <mat-error *ngIf="form.get('passwords.password').errors?.minlength">
+          Password it`s not valid!</mat-error>
+      </mat-form-field>
     </div>
 
-    <div class="form-group"
-      [ngClass]="{invalid: form.get('passwords.confirmPassword').touched && form.hasError('notSame', 'passwords')
-    && form.hasError('notSame', 'passwords')}">
-      <label for="confirmPassword">Confirm Password:</label>
-      <input class="base-input"
-        type="password"
-        id="confirmPassword"
-        formControlName="confirmPassword" />
-      <div class="validation"
-        *ngIf="form.get('passwords.confirmPassword').touched && form.hasError('notSame', 'passwords')">
-        <small
-          *ngIf="form.get('passwords.confirmPassword').touched && form.hasError('notSame', 'passwords')">
-          Passwords not equal!</small>
-      </div>
+    <div class="form-group">
+      <mat-form-field appearance="legacy">
+        <mat-label>Confirm Password:</mat-label>
+        <input matInput
+          formControlName="confirmPassword"
+          required
+          type="password"
+          placeholder="Type a password..." />
+        <mat-error
+          *ngIf=" form.hasError('notSame', 'passwords')">
+          Passwords not equal
+        </mat-error>
+      </mat-form-field>
     </div>
   </div>
 
   <button class="btn"
-    [disabled]="loading ||  form.invalid">
+    [disabled]="loading || form.invalid">
     Sign In!
   </button>
 
