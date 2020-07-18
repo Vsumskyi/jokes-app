@@ -21,22 +21,20 @@
     </mat-form-field>
   </div>
 
-
   <div class="submit">
     <mat-form-field appearance="legacy">
       <mat-label>Choose a category</mat-label>
       <mat-select formControlName='categories'
         multiple>
         <mat-select-trigger>
-          {{(form.get('categories').value[0]|| '')|titlecase}}
-          <span *ngIf="form.get('categories').value?.length > 1"
-            class="example-additional-selection">
+          {{getCategoriesValue(form.get('categories').value[0])|titlecase}}
+          <span *ngIf="form.get('categories').value?.length > 1">
             (+{{form.get('categories').value.length - 1}}
             {{form.get('categories').value?.length === 2 ? 'other' : 'others'}})
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let category of categoriesList"
-          [value]="category.title">{{category.title |titlecase}}</mat-option>
+          [value]="category.id">{{category.title |titlecase}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

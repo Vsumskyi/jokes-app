@@ -1,10 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  CategoryInterface,
-  PostJokeInterface,
-  Joke
-} from 'src/app/interfaces/interfaces';
+import { CategoryInterface, Joke } from 'src/app/interfaces/interfaces';
 import { JokeService } from 'src/app/services/joke.service';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 
@@ -38,6 +34,10 @@ export class CreateJokeFormComponent implements OnInit {
     });
   }
 
+  getCategoriesValue(id: number): string {
+    return this.categoriesList.find(i => i.id === id)?.title;
+  }
+
   setForm(): void {
     this.form = this.fb.group({
       value: ['', [Validators.required, Validators.minLength(3)]],
@@ -50,11 +50,7 @@ export class CreateJokeFormComponent implements OnInit {
     this.errorMessage.emit('');
     this.loading = true;
 
-    const categories = [...this.form.get('categories').value];
-    const newJoke: PostJokeInterface = {
-      ...this.form.value,
-      categories: this.mapCategories(categories)
-    };
+    const newJoke = { ...this.form.value };
 
     this.jokesDataService
       .postJoke(newJoke)
@@ -73,13 +69,5 @@ export class CreateJokeFormComponent implements OnInit {
     this.jokeService.createJoke(joke);
     this.form.reset();
     this.form.get('categories').setValue([]);
-  }
-
-  mapCategories(categories: string[]): number[] {
-    return categories.reduce((acc: number[], curr: string) => {
-      const id = this.categoriesList.find(i => i.title === curr).id;
-      acc.push(id);
-      return acc;
-    }, []);
   }
 }
