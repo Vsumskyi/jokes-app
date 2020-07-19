@@ -10,7 +10,6 @@ import { AuthService } from './services/auth.service';
   providers: [JokesDataService]
 })
 export class AppComponent implements OnInit {
-  public loading = false;
   constructor(
     public jokeService: JokeService,
     public jokesDataService: JokesDataService,
@@ -27,13 +26,16 @@ export class AppComponent implements OnInit {
     if (!this.authService.authenticated) {
       return;
     }
-    this.loading = true;
+    this.jokesDataService.changeLoading(true);
+
     this.jokesDataService
       .getDataFromDb()
       .subscribe(data => {
         this.jokeService.updateJokes(data);
       })
-      .add(() => (this.loading = false));
+      .add(() => {
+        this.jokesDataService.changeLoading(false);
+      });
   }
 
   getJoke(): void {

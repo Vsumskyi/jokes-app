@@ -7,6 +7,10 @@
   flex-direction: column;
   width: 100%;
   &-inner {
+    form {
+      padding: 0;
+      margin-bottom: 10px;
+    }
     width: 80%;
     margin: 0 auto;
     @include _420 {
@@ -71,4 +75,7 @@
       display: block;
     }
   }
+}
+.spinner {
+  margin: 35px auto;
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 import { JokeService } from 'src/app/services/joke.service';
@@ -19,15 +18,19 @@ export class AuthPageComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     private jokesDataService: JokesDataService,
     private jokeService: JokeService,
-    private route: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
   ngOnDestroy(): void {
     if (this.authService.authenticated) {
-      this.jokesDataService.getDataFromDb().subscribe(data => {
-        this.jokeService.updateJokes(data);
-      });
+      this.jokesDataService.changeLoading(true);
+
+      this.jokesDataService
+        .getDataFromDb()
+        .subscribe(data => {
+          this.jokeService.updateJokes(data);
+        })
+        .add(() => this.jokesDataService.changeLoading(false));
     }
   }
 

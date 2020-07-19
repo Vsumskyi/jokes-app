@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeService } from 'src/app/services/joke.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { JokesDataService } from 'src/app/services/jokes-data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +10,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomePageComponent implements OnInit {
   public openDrawer = false;
-  public loading = false;
+  public loading = true;
   public errorMessage = '';
   public userName = '';
 
   constructor(
     public jokeService: JokeService,
-    public authService: AuthService
+    public authService: AuthService,
+    private jokesDataService: JokesDataService
   ) {}
 
   ngOnInit(): void {
     this.setUserName();
+    this.jokesDataService.currentLoadingState.subscribe(state => {
+      this.loading = state;
+    });
   }
 
   setUserName(): void {

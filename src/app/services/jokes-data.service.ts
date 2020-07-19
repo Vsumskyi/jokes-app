@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { JokeTypeEnum } from '../enums/enums';
 import {
   Joke,
@@ -14,8 +14,14 @@ import { environment } from 'src/environments/environment';
 export class JokesDataService {
   private jokeTypeEnum = JokeTypeEnum;
   private apiUrl = environment.apiUrl;
+  private loading = new BehaviorSubject(true);
+  public currentLoadingState = this.loading.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  changeLoading(state: boolean): void {
+    this.loading.next(state);
+  }
 
   fetchCategories(): Observable<CategoryInterface[]> {
     return this.http.get<CategoryInterface[]>(this.apiUrl + 'categories');
