@@ -8,10 +8,18 @@ import { JokeService } from 'src/app/services/joke.service';
   styleUrls: ['./create-joke-page.component.scss']
 })
 export class CreateJokePageComponent implements OnInit {
-  errorMessage = '';
+  public errorMessage = '';
+  public joke: Joke;
   constructor(public jokeService: JokeService) {}
 
   ngOnInit(): void {}
+
+  onNewJoke(joke: Joke): void {
+    console.log(joke);
+    this.jokeService.createJoke(joke);
+    this.joke = joke;
+  }
+
   onError(error: string): void {
     this.errorMessage = error;
   }

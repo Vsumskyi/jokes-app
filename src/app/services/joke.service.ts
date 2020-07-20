@@ -1,5 +1,6 @@
 import { Joke } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,7 @@ import { Injectable } from '@angular/core';
 export class JokeService {
   private favoritesJokes: Joke[] = [];
   private jokes: Joke[] = [];
-  private createdJokes: Joke[] = [];
 
-  public get newJokes(): Joke[] {
-    return this.createdJokes;
-  }
   public get favorites(): Joke[] {
     return this.favoritesJokes;
   }
@@ -20,12 +17,9 @@ export class JokeService {
   }
 
   saveToFavorites(id: string | number): void {
-    const joke = [
-      ...this.jokes,
-      ...this.createdJokes,
-      ...this.favoritesJokes
-    ].find(jokeItem => jokeItem.id === id);
-    console.log(joke);
+    const joke = [...this.jokes, ...this.favoritesJokes].find(
+      jokeItem => jokeItem.id === id
+    );
 
     if (joke.favorite) {
       this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
@@ -76,7 +70,7 @@ export class JokeService {
 
   createJoke(joke: Joke): void {
     joke.favorite = false;
-    this.createdJokes.unshift(joke);
+    this.jokes.unshift(joke);
   }
 
   getById(id: number): Joke {
@@ -85,18 +79,16 @@ export class JokeService {
 
   updateOldJoke(joke: Joke): void {
     joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
-    this.favoritesJokes = this.favoritesJokes.map(i => {
-      if (i.id === joke.id) {
-        i = { ...joke };
-      }
-      return i;
-    });
+    console.log(joke);
+    this.favoritesJokes = this.favoritesJokes.map(i =>
+      i.id === joke.id ? (i = joke) : i
+    );
 
-    this.jokes = this.jokes.map(i => {
-      if (i.id === joke.id) {
-        i = { ...joke };
-      }
-      return i;
-    });
+    this.jokes = this.jokes.map(i => (i.id === joke.id ? (i = joke) : i));
+  }
+
+  removeJoke(id: string | number): void {
+    this.jokes = this.jokes.filter(i => i.id !== id);
+    this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
   }
 }

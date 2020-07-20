@@ -11,14 +11,13 @@
 
   <div class="form-container">
 
-
-    <app-create-edit-joke (errorMessage)="onError($event)"></app-create-edit-joke>
+    <app-create-edit-joke (errorMessage)="onError($event)"
+      (modifyJoke)="onNewJoke($event)"></app-create-edit-joke>
 
     <div class="cards">
-      <ng-container *ngIf="jokeService.newJokes.length; else empty">
+      <ng-container *ngIf="joke; else empty">
         <ng-container *ngIf="!errorMessage; else error">
-          <app-favorite-card *ngFor="let joke of jokeService.newJokes"
-            [joke]="joke"
+          <app-favorite-card [joke]="joke"
             favorite="true"></app-favorite-card>
         </ng-container>
       </ng-container>

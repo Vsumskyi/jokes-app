@@ -62,7 +62,8 @@ export class JokesDataService {
   removeFromDb(id: number | string): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}favorite/${id}`);
   }
-  getById(id: number): Observable<Joke> {
-    return this.http.get<Joke>(this.apiUrl + id);
+
+  deleteJoke(id: number | string): Observable<string> {
+    return this.http.delete<string>(this.apiUrl + id);
   }
 }

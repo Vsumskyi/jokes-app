@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs';
 import { Joke, CategoryInterface } from 'src/app/interfaces/interfaces';
-import { JokeService } from 'src/app/services/joke.service';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
@@ -21,33 +19,17 @@ export class CreateEditJokeComponent implements OnInit {
   categoriesList: CategoryInterface[] = [];
   constructor(
     private jokesDataService: JokesDataService,
-    private fb: FormBuilder,
-    private jokeService: JokeService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.getCategories();
     this.setForm();
-    this.form.valueChanges.subscribe(data => {
-      this.modifyJoke.emit({
-        ...data,
-        categories: this.form
-          .get('categories')
-          .value.map((id: number) => this.getCategoriesValue(id))
-      });
-    });
   }
 
   getCategories(): void {
     this.jokesDataService.fetchCategories().subscribe(data => {
       this.categoriesList = [...data];
-      if (this.joke) {
-        this.form
-          .get('categories')
-          .setValue(
-            this.joke.categories.map(title => this.getCategoriesId(title))
-          );
-      }
     });
   }
 
@@ -61,10 +43,7 @@ export class CreateEditJokeComponent implements OnInit {
 
   setForm(): void {
     this.form = this.fb.group({
-      value: [
-        this.joke ? this.joke.value : '',
-        [Validators.required, Validators.minLength(3)]
-      ],
+      value: ['', [Validators.required, Validators.minLength(3)]],
       iconUrl: [''],
       categories: [[]]
     });
@@ -74,37 +53,45 @@ export class CreateEditJokeComponent implements OnInit {
     this.errorMessage.emit('');
     this.loading = true;
 
-    const newJoke = { ...this.form.value };
-
     if (this.joke) {
-      newJoke.id = this.joke.id;
-      this.jokesDataService
-        .editJoke(newJoke)
-        .subscribe(
-          joke => {
-            this.jokeService.updateOldJoke(joke);
-          },
-          () => this.errorMessage.emit('Something went wrong...')
-        )
-        .add(() => {
-          this.loading = false;
-        });
+      this.updateJoke();
     } else {
-      this.jokesDataService
-        .postJoke(newJoke)
-        .subscribe(
-          joke => {
-            this.jokeService.createJoke(joke);
-          },
-          () => this.errorMessage.emit('Something went wrong...')
-        )
-        .add(() => {
-          this.loading = false;
-        });
+      this.postJoke();
     }
   }
 
-  createNewJoke(joke: Joke): void {
-    this.jokeService.createJoke(joke);
+  postJoke(): void {
+    const newJoke = { ...this.form.value };
+    this.jokesDataService
+      .postJoke(newJoke)
+      .subscribe(
+        joke => {
+          this.modifyJoke.emit(joke);
+          this.form.reset();
+          this.form.get('categories').setValue([]);
+        },
+        () => this.errorMessage.emit('Something went wrong...')
+      )
+      .add(() => {
+        this.loading = false;
+      });
+  }
+
+  updateJoke(): void {
+    const newJoke = { ...this.form.value };
+    newJoke.id = this.joke.id;
+    this.jokesDataService
+      .editJoke(newJoke)
+      .subscribe(
+        joke => {
+          this.modifyJoke.emit(joke);
+          this.form.reset();
+          this.form.get('categories').setValue([]);
+        },
+        () => this.errorMessage.emit('Something went wrong...')
+      )
+      .add(() => {
+        this.loading = false;
+      });
   }
 }

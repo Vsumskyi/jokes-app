@@ -5,36 +5,13 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-  .card-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-    .heart {
-      align-self: flex-end;
-      cursor: pointer;
-      margin-left: auto;
-    }
-    .edit {
-      opacity: 0.4;
-      &:hover {
-        opacity: 1;
-      }
-    }
-    @include _480 {
-      flex-direction: column-reverse;
-      position: absolute;
-      right: 0;
-      bottom: 20px;
-      top: 0;
-      .heart {
-        margin-left: 0;
-        margin-bottom: auto;
-      }
-    }
-  }
   .card-content {
     display: flex;
     flex-direction: column;
+    .heart {
+      align-self: flex-end;
+      cursor: pointer;
+    }
 
     .comment {
       display: inline-block;
@@ -49,6 +26,31 @@
     &-wrapper {
       display: flex;
       flex-grow: 1;
+      position: relative;
+      .admin-panel {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        .edit,
+        .delete {
+          opacity: 0.4;
+          width: 20px;
+          height: 20px;
+          &:hover {
+            opacity: 1;
+          }
+        }
+        .edit {
+          margin-right: 10px;
+        }
+        @include _480 {
+          bottom: auto;
+          top: 20px;
+          left: 50px;
+        }
+      }
     }
     &-inner {
       display: inline-block;
@@ -99,6 +101,7 @@
       }
     }
   }
+
   @include _836 {
     margin: 10px 5px;
   }
@@ -109,11 +112,11 @@
       padding: 15px;
       position: relative;
       padding: 0;
-      // .heart {
-      //   position: absolute;
-      //   right: 15px;
-      //   top: 10px;
-      // }
+      .heart {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+      }
       &-wrapper {
         order: -1;
         flex-direction: column;

@@ -9,18 +9,18 @@
 
         <h3>Jokes editor</h3>
     </div>
+
     <div class="container-inner">
-        <div *ngIf="!loading; else loader">
+        <ng-container *ngIf="joke; else empty">
             <app-create-edit-joke [joke]="joke"
                 (modifyJoke)="newJoke($event)"></app-create-edit-joke>
 
             <app-favorite-card [joke]="joke"
                 [edit]="false"></app-favorite-card>
-        </div>
-        <ng-template #loader>
-            <mat-spinner class="spinner"></mat-spinner>
+        </ng-container>
+
+        <ng-template #empty>
+            <app-empty-container title="No joke selected"></app-empty-container>
         </ng-template>
     </div>
-
-
 </div>

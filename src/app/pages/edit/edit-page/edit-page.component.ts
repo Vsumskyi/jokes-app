@@ -26,11 +26,13 @@ export class EditPageComponent implements OnInit {
   }
 
   newJoke(joke: Joke): void {
-    this.joke = {
-      ...this.joke,
-      categories: joke.categories,
-      value: joke.value,
-      iconUrl: joke.iconUrl
-    };
+    console.log(joke);
+
+    this.jokeService.updateOldJoke(joke);
+    this.joke = this.jokeService.getById(+joke.id);
   }
+
+  // onUpdateJoke(joke: Joke): void {
+  // this.jokeService.updateOldJoke(joke)
+  // }
 }

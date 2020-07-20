@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AdminGuard } from 'src/app/guards/admin.guard';
 
 @NgModule({
   declarations: [EditPageComponent],
@@ -11,8 +11,9 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', component: EditPageComponent, canActivate: [AuthGuard] }
+      { path: '', component: EditPageComponent, canActivate: [AdminGuard] }
     ])
-  ]
+  ],
+  providers: [AdminGuard]
 })
 export class EditModule {}

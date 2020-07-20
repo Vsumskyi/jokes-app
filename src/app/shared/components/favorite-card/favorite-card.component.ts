@@ -24,10 +24,7 @@ export class FavoriteCardComponent implements OnInit {
   @Input() edit = true;
   ngOnInit(): void {}
 
-  like(id: string | number, event: Event, isFavorite: boolean): void {
-    console.log(this.joke);
-
-    event.preventDefault();
+  like(id: string | number, isFavorite: boolean): void {
     if (!this.authService.authenticated) {
       this.router.navigate(['/auth']);
       return;
@@ -44,5 +41,11 @@ export class FavoriteCardComponent implements OnInit {
         .subscribe(() => this.jokeService.saveToFavorites(id))
         .add(() => (this.loading = false));
     }
+  }
+
+  onRemove(id: string | number): void {
+    this.jokesDataService.deleteJoke(id).subscribe(() => {
+      this.jokeService.removeJoke(id);
+    });
   }
 }

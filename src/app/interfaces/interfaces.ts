@@ -38,6 +38,7 @@ export interface UserInterface {
   email: string;
   firstName: string;
   lastName: string;
+  roles: Array<string>;
 }
 
 export interface ApiUserInterface {
