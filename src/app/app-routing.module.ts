@@ -14,6 +14,11 @@ const routes: Routes = [
       import('./pages/auth/auth.module').then(module => module.AuthModule)
   },
   {
+    path: 'edit/:id',
+    loadChildren: () =>
+      import('./pages/edit/edit.module').then(module => module.EditModule)
+  },
+  {
     path: 'favorites',
     loadChildren: () =>
       import('./pages/favorites/favorites.module').then(

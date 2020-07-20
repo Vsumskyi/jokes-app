@@ -25,6 +25,8 @@ export class JokeService {
       ...this.createdJokes,
       ...this.favoritesJokes
     ].find(jokeItem => jokeItem.id === id);
+    console.log(joke);
+
     if (joke.favorite) {
       this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
       joke.favorite = false;
@@ -75,5 +77,26 @@ export class JokeService {
   createJoke(joke: Joke): void {
     joke.favorite = false;
     this.createdJokes.unshift(joke);
+  }
+
+  getById(id: number): Joke {
+    return [...this.favoritesJokes, ...this.jokes].find(i => i.id === id);
+  }
+
+  updateOldJoke(joke: Joke): void {
+    joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
+    this.favoritesJokes = this.favoritesJokes.map(i => {
+      if (i.id === joke.id) {
+        i = { ...joke };
+      }
+      return i;
+    });
+
+    this.jokes = this.jokes.map(i => {
+      if (i.id === joke.id) {
+        i = { ...joke };
+      }
+      return i;
+    });
   }
 }

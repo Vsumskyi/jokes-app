@@ -11,8 +11,8 @@
 
   <div class="form-container">
 
-    <app-create-joke-form (errorMessage)="onError($event)">
-    </app-create-joke-form>
+
+    <app-create-edit-joke (errorMessage)="onError($event)"></app-create-edit-joke>
 
     <div class="cards">
       <ng-container *ngIf="jokeService.newJokes.length; else empty">

@@ -10,6 +10,7 @@ export interface Joke {
 }
 
 export interface PostJokeInterface {
+  id?: string;
   value: string;
   url: string;
   iconUrl: string;

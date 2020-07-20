@@ -51,11 +51,18 @@ export class JokesDataService {
     return this.http.post<Joke>(this.apiUrl, joke);
   }
 
+  editJoke(joke: PostJokeInterface): Observable<Joke> {
+    return this.http.put<Joke>(this.apiUrl, joke);
+  }
+
   saveJokeToDb(id: number | string): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}favorite/${id}`, id);
   }
 
   removeFromDb(id: number | string): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}favorite/${id}`);
+  }
+  getById(id: number): Observable<Joke> {
+    return this.http.get<Joke>(this.apiUrl + id);
   }
 }

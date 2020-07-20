@@ -2,26 +2,35 @@
   <div class="card"
     [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
-      <a (click)="like(joke.id, $event, joke.favorite)"
-        [ngClass]="{'disabled': loading}"
-        href="#"
-        class="heart">
-        <img
-          [src]="joke.favorite?'assets/images/heart-active.svg':'assets/images/heart.svg'"
-          alt="" /></a>
+
+      <div class="card-header">
+        <a *ngIf="edit && authService.authenticated"
+          [routerLink]="['/edit', joke.id]"
+          class="edit">
+          <img src="assets/images/edit.svg"
+            alt="">
+        </a>
+
+        <a (click)="like(joke.id, $event, joke.favorite)"
+          [ngClass]="{'disabled': loading}"
+          href="#"
+          class="heart">
+          <img [src]="joke.favorite?'assets/images/heart-active.svg':'assets/images/heart.svg'"
+            alt="" /></a>
+      </div>
+
+
 
       <div class="card-content-wrapper">
         <div class="comment">
           <a href="#"
-            (click)="$event.preventDefault()"><img
-              [src]="'assets/images/comment.svg'"
+            (click)="$event.preventDefault()"><img [src]="'assets/images/comment.svg'"
               alt="" /></a>
         </div>
         <div class="card-content-inner">
           <span>ID: <a href="#">{{joke.id}}</a>
             <a href="#"
-              (click)="$event.preventDefault()"> <img
-                src="assets/images/link.svg"
+              (click)="$event.preventDefault()"> <img src="assets/images/link.svg"
                 alt="" /></a>
           </span>
           <p>

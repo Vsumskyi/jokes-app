@@ -1,0 +1,26 @@
+<div class="container">
+
+    <div class="nav">
+        <a href="#"
+            class="btn"
+            routerLink="/">
+            Home
+        </a>
+
+        <h3>Jokes editor</h3>
+    </div>
+    <div class="container-inner">
+        <div *ngIf="!loading; else loader">
+            <app-create-edit-joke [joke]="joke"
+                (modifyJoke)="newJoke($event)"></app-create-edit-joke>
+
+            <app-favorite-card [joke]="joke"
+                [edit]="false"></app-favorite-card>
+        </div>
+        <ng-template #loader>
+            <mat-spinner class="spinner"></mat-spinner>
+        </ng-template>
+    </div>
+
+
+</div>

@@ -5,13 +5,37 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-  .card-content {
+  .card-header {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 10px;
     .heart {
       align-self: flex-end;
       cursor: pointer;
+      margin-left: auto;
     }
+    .edit {
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    @include _480 {
+      flex-direction: column-reverse;
+      position: absolute;
+      right: 0;
+      bottom: 20px;
+      top: 0;
+      .heart {
+        margin-left: 0;
+        margin-bottom: auto;
+      }
+    }
+  }
+  .card-content {
+    display: flex;
+    flex-direction: column;
+
     .comment {
       display: inline-block;
       box-sizing: content-box;
@@ -85,11 +109,11 @@
       padding: 15px;
       position: relative;
       padding: 0;
-      .heart {
-        position: absolute;
-        right: 15px;
-        top: 10px;
-      }
+      // .heart {
+      //   position: absolute;
+      //   right: 15px;
+      //   top: 10px;
+      // }
       &-wrapper {
         order: -1;
         flex-direction: column;

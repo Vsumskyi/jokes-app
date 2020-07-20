@@ -16,14 +16,17 @@ export class FavoriteCardComponent implements OnInit {
   constructor(
     public jokeService: JokeService,
     public jokesDataService: JokesDataService,
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router
   ) {}
   @Input() joke: Joke;
   @Input() favorite: boolean;
+  @Input() edit = true;
   ngOnInit(): void {}
 
   like(id: string | number, event: Event, isFavorite: boolean): void {
+    console.log(this.joke);
+
     event.preventDefault();
     if (!this.authService.authenticated) {
       this.router.navigate(['/auth']);

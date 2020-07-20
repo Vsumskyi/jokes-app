@@ -1,3 +1,4 @@
+import { EditModule } from './pages/edit/edit.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Provider } from '@angular/core';
@@ -30,7 +31,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     CreateJokeModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    EditModule
   ],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

@@ -10,10 +10,12 @@ import { EmptyContainerComponent } from './components/empty-container/empty-cont
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { MaterialModule } from './material.module';
+import { CreateEditJokeComponent } from './components/create-edit-joke/create-edit-joke.component';
 
 @NgModule({
   declarations: [
     FavoriteCardComponent,
+    CreateEditJokeComponent,
     EmptyContainerComponent,
     DiffDatePipe,
     SearchPipe,
@@ -37,6 +39,7 @@ import { MaterialModule } from './material.module';
     FormsModule,
     ReactiveFormsModule,
     NotAuthorizedComponent,
+    CreateEditJokeComponent,
     MaterialModule
   ]
 })
