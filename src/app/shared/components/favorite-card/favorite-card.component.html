@@ -7,20 +7,23 @@
         [ngClass]="{'disabled': loading}"
         href="#"
         class="heart">
-        <img [src]="joke.favorite?'assets/images/heart-active.svg':'assets/images/heart.svg'"
+        <img
+          [src]="joke.favorite?'assets/images/heart-active.svg':'assets/images/heart.svg'"
           alt="" /></a>
 
       <div class="card-content-wrapper">
         <div class="comment">
           <a href="#"
-            (click)="$event.preventDefault()"><img [src]="'assets/images/comment.svg'"
+            (click)="$event.preventDefault()"><img
+              [src]="'assets/images/comment.svg'"
               alt="" /></a>
 
         </div>
         <div class="card-content-inner">
           <span>ID: <a href="#">{{joke.id}}</a>
             <a href="#"
-              (click)="$event.preventDefault()"> <img src="assets/images/link.svg"
+              (click)="$event.preventDefault()"> <img
+                src="assets/images/link.svg"
                 alt="" /></a>
           </span>
           <p>
@@ -28,7 +31,7 @@
           </p>
           <div class="subtitles">
             <span>
-              Last update: {{joke.updatedAt | diffDate}} hours ago
+              Last update: {{joke.updatedAt | diffDate }} hours ago
             </span>
             <span class="tag"
               [matTooltip]="joke.categories.slice(1).join(', ') | titlecase"

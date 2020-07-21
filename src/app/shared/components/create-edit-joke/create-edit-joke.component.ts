@@ -18,7 +18,7 @@ export class CreateEditJokeComponent implements OnInit {
 
   @Output() errorMessage = new EventEmitter<string>();
   @Output() modifyJoke = new EventEmitter<Joke>();
-  @Input() formControls: any;
+  @Input() formControls: Joke;
   @Input() joke: Joke;
 
   categoriesList: CategoryInterface[] = [];
@@ -95,7 +95,7 @@ export class CreateEditJokeComponent implements OnInit {
     const customCategory = this.form.value.customCategory;
     if (customCategory) {
       this.jokesDataService.postCategory(customCategory).subscribe(data => {
-        newJoke.categories.push(data.id);
+        newJoke.categories.unshift(data.id);
         this.postJoke(newJoke);
       });
     } else {
@@ -121,7 +121,6 @@ export class CreateEditJokeComponent implements OnInit {
 
   updateJoke(): void {
     const newJoke = { ...this.form.value };
-
     newJoke.id = this.joke.id;
 
     this.jokesDataService

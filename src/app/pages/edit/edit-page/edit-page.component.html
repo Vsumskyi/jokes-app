@@ -12,24 +12,25 @@
     <div class="container-inner">
         <ng-container *ngIf="!loading; else loader"
             class="cards">
-            <ng-container *ngIf="jokeService.updatedJoke.length; else empty">
-
-                <app-create-edit-joke [joke]="jokeService.updatedJoke[0]"
-                    (modifyJoke)="newJoke($event)"
-                    [formControls]="jokeService.updatedJoke[0]"
-                    (errorMessage)="openSnackBar($event)"></app-create-edit-joke>
+            <ng-container *ngIf="jokeService.getBufferJoke.length; else empty">
+                <app-create-edit-joke [joke]="jokeService.getBufferJoke[0]"
+                    (modifyJoke)="onEditJoke($event)"
+                    [formControls]="jokeService.getBufferJoke[0]"
+                    (errorMessage)="openSnackBar($event)">
+                </app-create-edit-joke>
                 <div class="cards">
-                    <app-favorite-card *ngFor="let joke of jokeService.updatedJoke"
+                    <app-favorite-card
+                        *ngFor="let joke of jokeService.getBufferJoke"
                         [joke]="joke"
                         [remove]="true"
                         [edit]="false"></app-favorite-card>
                 </div>
             </ng-container>
-
         </ng-container>
 
         <ng-template #empty>
-            <app-empty-container title="No jokes to update"></app-empty-container>
+            <app-empty-container title="No jokes to update">
+            </app-empty-container>
         </ng-template>
 
         <ng-template #loader>

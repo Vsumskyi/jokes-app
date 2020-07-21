@@ -10,10 +10,11 @@ export class DiffDatePipe implements PipeTransform {
     const milliseconds = 1000;
     const seconds = 60;
     const minutes = 60;
+    const timeOffset = new Date().getTimezoneOffset() / minutes;
+    const result = Math.abs(
+      (currentTime - apiDate) / (milliseconds * seconds * minutes)
+    );
 
-    return (
-      (currentTime - apiDate) /
-      (milliseconds * seconds * minutes)
-    ).toFixed(0);
+    return (result < 1 ? result : result - Math.abs(timeOffset)).toFixed(0);
   }
 }

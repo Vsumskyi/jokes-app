@@ -15,9 +15,9 @@
       (modifyJoke)="onNewJoke($event)"></app-create-edit-joke>
 
     <div class="cards">
-      <ng-container *ngIf="jokeService.getNewJokes.length; else empty">
-        <app-favorite-card [joke]="joke"
-          *ngFor="let joke of jokeService.getNewJokes"></app-favorite-card>
+      <ng-container *ngIf="jokeService.getBufferJoke.length; else empty">
+        <app-favorite-card *ngFor="let joke of jokeService.getBufferJoke"
+          [joke]="joke"></app-favorite-card>
       </ng-container>
     </div>
 
@@ -26,10 +26,4 @@
 
 <ng-template #empty>
   <app-empty-container title="Create your first joke :)"></app-empty-container>
-</ng-template>
-
-<ng-template #error>
-  <div class="error">
-    <h3> {{errorMessage}} </h3>
-  </div>
 </ng-template>

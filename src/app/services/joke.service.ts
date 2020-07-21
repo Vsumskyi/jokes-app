@@ -7,20 +7,16 @@ import { Injectable } from '@angular/core';
 export class JokeService {
   private favoritesJokes: Joke[] = [];
   private jokes: Joke[] = [];
-  private editedJoke: Joke[] = [];
-  private newJokes: Joke[] = [];
+  private bufferJokes: Joke[] = [];
 
+  public get getBufferJoke(): Joke[] {
+    return this.bufferJokes;
+  }
   public get favorites(): Joke[] {
     return this.favoritesJokes;
   }
   public get apiJokes(): Joke[] {
     return this.jokes;
-  }
-  public get getNewJokes(): Joke[] {
-    return this.newJokes;
-  }
-  public get updatedJoke(): Joke[] {
-    return this.editedJoke;
   }
 
   saveToFavorites(joke: Joke): void {
@@ -71,42 +67,37 @@ export class JokeService {
     });
   }
 
-  containsJoke(joke: Joke): boolean {
-    return this.favorites.some(i => i.id === joke.id);
-  }
-
-  currentEditedJoke(joke: Joke): void {
-    joke.favorite = this.containsJoke(joke);
-    this.editedJoke = [joke];
-
-    this.favoritesJokes = this.favoritesJokes.map(i => {
-      if (i.id === joke.id) {
-        i = joke;
-      }
-      return i;
-    });
-
-    this.jokes = this.jokes.map(i => {
-      if (i.id === joke.id) {
-        i = joke;
-      }
-      return i;
-    });
-  }
-
-  updateNewJokes(joke: Joke): void {
-    joke.favorite = false;
-    this.newJokes.unshift(joke);
+  setBufferJoke(joke?: Joke): void {
+    if (joke) {
+      joke.favorite = this.containsJoke(joke);
+      this.bufferJokes = [joke];
+    } else {
+      this.bufferJokes = [];
+    }
   }
 
   removeJoke(id: string | number): void {
     this.jokes = this.clear(this.jokes, id);
-    this.newJokes = this.clear(this.newJokes, id);
     this.favoritesJokes = this.clear(this.favoritesJokes, id);
-    this.editedJoke = this.clear(this.editedJoke, id);
+    this.bufferJokes = this.clear(this.bufferJokes, id);
+  }
+
+  refreshJokes(joke: Joke): void {
+    const jokesChanger = (jokes: Joke[]) =>
+      jokes.map(jokeItem => {
+        if (jokeItem.id === joke.id) {
+          jokeItem = joke;
+        }
+        return jokeItem;
+      });
+    this.favoritesJokes = jokesChanger(this.favoritesJokes);
+    this.jokes = jokesChanger(this.jokes);
   }
 
   clear(joke: Joke[], id: string | number): Joke[] {
     return joke.filter(i => i.id !== id);
+  }
+  containsJoke(joke: Joke): boolean {
+    return this.favorites.some(i => i.id === joke.id);
   }
 }

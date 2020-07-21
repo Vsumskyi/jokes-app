@@ -36,14 +36,17 @@
         .edit,
         .delete {
           opacity: 0.4;
-          width: 20px;
-          height: 20px;
+          transition: opacity 0.45s ease;
+          img {
+            width: 20px;
+            height: 20px;
+          }
           &:hover {
             opacity: 1;
           }
         }
-        .edit {
-          margin-right: 10px;
+        .delete {
+          margin-left: 10px;
         }
         @include _480 {
           bottom: auto;
