@@ -6,21 +6,34 @@
             routerLink="/">
             Home
         </a>
-
         <h3>Jokes editor</h3>
     </div>
 
     <div class="container-inner">
-        <ng-container *ngIf="joke; else empty">
-            <app-create-edit-joke [joke]="joke"
-                (modifyJoke)="newJoke($event)"></app-create-edit-joke>
+        <ng-container *ngIf="!loading; else loader"
+            class="cards">
+            <ng-container *ngIf="jokeService.updatedJoke.length; else empty">
 
-            <app-favorite-card [joke]="joke"
-                [edit]="false"></app-favorite-card>
+                <app-create-edit-joke [joke]="jokeService.updatedJoke[0]"
+                    (modifyJoke)="newJoke($event)"
+                    [formControls]="jokeService.updatedJoke[0]"
+                    (errorMessage)="openSnackBar($event)"></app-create-edit-joke>
+                <div class="cards">
+                    <app-favorite-card *ngFor="let joke of jokeService.updatedJoke"
+                        [joke]="joke"
+                        [remove]="true"
+                        [edit]="false"></app-favorite-card>
+                </div>
+            </ng-container>
+
         </ng-container>
 
         <ng-template #empty>
-            <app-empty-container title="No joke selected"></app-empty-container>
+            <app-empty-container title="No jokes to update"></app-empty-container>
+        </ng-template>
+
+        <ng-template #loader>
+            <mat-spinner></mat-spinner>
         </ng-template>
     </div>
 </div>

@@ -51,6 +51,18 @@ export class JokesDataService {
     return this.http.post<Joke>(this.apiUrl, joke);
   }
 
+  postCategory(category: string): Observable<CategoryInterface> {
+    return this.http.post<CategoryInterface>(this.apiUrl + 'categories', {
+      title: category
+    });
+  }
+
+  deleteCategory(id: string | number): Observable<CategoryInterface> {
+    return this.http.delete<CategoryInterface>(
+      `${this.apiUrl}categories/${id}`
+    );
+  }
+
   editJoke(joke: PostJokeInterface): Observable<Joke> {
     return this.http.put<Joke>(this.apiUrl, joke);
   }
@@ -65,5 +77,9 @@ export class JokesDataService {
 
   deleteJoke(id: number | string): Observable<string> {
     return this.http.delete<string>(this.apiUrl + id);
+  }
+
+  getByIdFromApi(id: string | number): Observable<Joke> {
+    return this.http.get<Joke>(this.apiUrl + id);
   }
 }

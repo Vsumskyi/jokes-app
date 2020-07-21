@@ -13,3 +13,12 @@
     }
   }
 }
+
+.cards {
+  height: 80vh;
+  overflow-y: auto;
+  width: 480px;
+  @include _600 {
+    width: 100%;
+  }
+}

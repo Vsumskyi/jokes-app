@@ -87,6 +87,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.isAdmin = false;
     this.isAuthenticated = false;
     localStorage.removeItem(this.localStorageKey);
   }

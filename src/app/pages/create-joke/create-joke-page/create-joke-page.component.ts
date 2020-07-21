@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Joke } from 'src/app/interfaces/interfaces';
 import { JokeService } from 'src/app/services/joke.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-joke-page',
@@ -9,18 +10,18 @@ import { JokeService } from 'src/app/services/joke.service';
 })
 export class CreateJokePageComponent implements OnInit {
   public errorMessage = '';
-  public joke: Joke;
-  constructor(public jokeService: JokeService) {}
+  constructor(public jokeService: JokeService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {}
 
   onNewJoke(joke: Joke): void {
-    console.log(joke);
-    this.jokeService.createJoke(joke);
-    this.joke = joke;
+    this.jokeService.updateNewJokes(joke);
+    this.openSnackBar('Created!');
   }
 
-  onError(error: string): void {
-    this.errorMessage = error;
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
   }
 }

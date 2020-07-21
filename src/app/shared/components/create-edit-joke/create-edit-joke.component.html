@@ -28,7 +28,7 @@
             <mat-select formControlName='categories'
                 multiple>
                 <mat-select-trigger>
-                    {{getCategoriesValue(form.get('categories').value[0])|titlecase}}
+                    {{getCategoriesValue(form.get('categories').value[0])  |titlecase}}
                     <span *ngIf="form.get('categories').value?.length > 1">
                         (+{{form.get('categories').value.length - 1}}
                         {{form.get('categories').value?.length === 2 ? 'other' : 'others'}})
@@ -38,15 +38,27 @@
                     [value]="category.id">{{category.title |titlecase}}</mat-option>
             </mat-select>
         </mat-form-field>
+
+
     </div>
+
+    <div *ngIf="!formControls"
+        class="
+    form-group">
+        <mat-form-field appearance="legacy">
+            <mat-label>Add custom category</mat-label>
+            <input matInput
+                formControlName="customCategory"
+                placeholder="Type a joke..." />
+        </mat-form-field>
+    </div>
+
 
     <div class="submit-group">
         <mat-spinner [diameter]="25"
             *ngIf="loading">
         </mat-spinner>
         <button class="btn"
-            [disabled]="loading || this.form.invalid">Create!</button>
+            [disabled]="loading || this.form.invalid">{{!joke? 'Create!': 'Update!'}}</button>
     </div>
-
-
 </form>

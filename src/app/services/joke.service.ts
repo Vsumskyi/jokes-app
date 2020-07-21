@@ -1,6 +1,5 @@
 import { Joke } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +7,8 @@ import { Observable } from 'rxjs';
 export class JokeService {
   private favoritesJokes: Joke[] = [];
   private jokes: Joke[] = [];
+  private editedJoke: Joke[] = [];
+  private newJokes: Joke[] = [];
 
   public get favorites(): Joke[] {
     return this.favoritesJokes;
@@ -15,14 +16,16 @@ export class JokeService {
   public get apiJokes(): Joke[] {
     return this.jokes;
   }
+  public get getNewJokes(): Joke[] {
+    return this.newJokes;
+  }
+  public get updatedJoke(): Joke[] {
+    return this.editedJoke;
+  }
 
-  saveToFavorites(id: string | number): void {
-    const joke = [...this.jokes, ...this.favoritesJokes].find(
-      jokeItem => jokeItem.id === id
-    );
-
+  saveToFavorites(joke: Joke): void {
     if (joke.favorite) {
-      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
+      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== joke.id);
       joke.favorite = false;
     } else {
       joke.favorite = true;
@@ -32,7 +35,7 @@ export class JokeService {
 
   mapJokes(data: Joke[], curetCategory?: string): void {
     this.jokes = data.flat().map(joke => {
-      joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
+      joke.favorite = this.containsJoke(joke);
       if (joke.categories.includes(curetCategory)) {
         joke.categories = joke.categories.filter(i => i !== curetCategory);
         joke.categories.unshift(curetCategory);
@@ -63,32 +66,47 @@ export class JokeService {
       return i;
     });
     this.jokes = this.jokes.map(joke => {
-      joke.favorite = jokes.some(i => i.id === joke.id);
+      joke.favorite = this.containsJoke(joke);
       return joke;
     });
   }
 
-  createJoke(joke: Joke): void {
+  containsJoke(joke: Joke): boolean {
+    return this.favorites.some(i => i.id === joke.id);
+  }
+
+  currentEditedJoke(joke: Joke): void {
+    joke.favorite = this.containsJoke(joke);
+    this.editedJoke = [joke];
+
+    this.favoritesJokes = this.favoritesJokes.map(i => {
+      if (i.id === joke.id) {
+        i = joke;
+      }
+      return i;
+    });
+
+    this.jokes = this.jokes.map(i => {
+      if (i.id === joke.id) {
+        i = joke;
+      }
+      return i;
+    });
+  }
+
+  updateNewJokes(joke: Joke): void {
     joke.favorite = false;
-    this.jokes.unshift(joke);
-  }
-
-  getById(id: number): Joke {
-    return [...this.favoritesJokes, ...this.jokes].find(i => i.id === id);
-  }
-
-  updateOldJoke(joke: Joke): void {
-    joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
-    console.log(joke);
-    this.favoritesJokes = this.favoritesJokes.map(i =>
-      i.id === joke.id ? (i = joke) : i
-    );
-
-    this.jokes = this.jokes.map(i => (i.id === joke.id ? (i = joke) : i));
+    this.newJokes.unshift(joke);
   }
 
   removeJoke(id: string | number): void {
-    this.jokes = this.jokes.filter(i => i.id !== id);
-    this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
+    this.jokes = this.clear(this.jokes, id);
+    this.newJokes = this.clear(this.newJokes, id);
+    this.favoritesJokes = this.clear(this.favoritesJokes, id);
+    this.editedJoke = this.clear(this.editedJoke, id);
+  }
+
+  clear(joke: Joke[], id: string | number): Joke[] {
+    return joke.filter(i => i.id !== id);
   }
 }

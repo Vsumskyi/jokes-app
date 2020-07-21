@@ -3,6 +3,7 @@ import { JokeService } from 'src/app//services/joke.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Joke } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-page',
@@ -10,29 +11,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-page.component.scss']
 })
 export class EditPageComponent implements OnInit {
-  public joke: Joke;
   public loading = true;
   constructor(
     private route: ActivatedRoute,
-    private jokeService: JokeService,
+    public jokeService: JokeService,
+    private snackBar: MatSnackBar,
     public jokesDataService: JokesDataService
   ) {}
 
   ngOnInit(): void {
-    this.loading = false;
-    this.route.params.subscribe((params: Params) => {
-      this.joke = this.jokeService.getById(+params.id);
-    });
+    this.getCurrentJoke();
   }
 
   newJoke(joke: Joke): void {
-    console.log(joke);
-
-    this.jokeService.updateOldJoke(joke);
-    this.joke = this.jokeService.getById(+joke.id);
+    this.jokeService.currentEditedJoke(joke);
+    this.openSnackBar('Updated!');
   }
 
-  // onUpdateJoke(joke: Joke): void {
-  // this.jokeService.updateOldJoke(joke)
-  // }
+  getCurrentJoke(): void {
+    this.loading = true;
+    this.route.params.subscribe((params: Params) => {
+      this.jokesDataService
+        .getByIdFromApi(params.id)
+        .subscribe(joke => {
+          if (joke) {
+            this.jokeService.currentEditedJoke(joke);
+          }
+        })
+        .add(() => (this.loading = false));
+    });
+  }
+
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
+  }
 }

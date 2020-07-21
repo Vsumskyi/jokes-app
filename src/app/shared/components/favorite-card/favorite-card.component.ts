@@ -22,9 +22,11 @@ export class FavoriteCardComponent implements OnInit {
   @Input() joke: Joke;
   @Input() favorite: boolean;
   @Input() edit = true;
+  @Input() remove = true;
   ngOnInit(): void {}
 
-  like(id: string | number, isFavorite: boolean): void {
+  like(joke: Joke, isFavorite: boolean, event: Event): void {
+    event.preventDefault();
     if (!this.authService.authenticated) {
       this.router.navigate(['/auth']);
       return;
@@ -32,18 +34,19 @@ export class FavoriteCardComponent implements OnInit {
     this.loading = true;
     if (!isFavorite) {
       this.jokesDataService
-        .saveJokeToDb(id)
-        .subscribe(() => this.jokeService.saveToFavorites(id))
+        .saveJokeToDb(joke.id)
+        .subscribe(() => this.jokeService.saveToFavorites(joke))
         .add(() => (this.loading = false));
     } else {
       this.jokesDataService
-        .removeFromDb(id)
-        .subscribe(() => this.jokeService.saveToFavorites(id))
+        .removeFromDb(joke.id)
+        .subscribe(() => this.jokeService.saveToFavorites(joke))
         .add(() => (this.loading = false));
     }
   }
 
-  onRemove(id: string | number): void {
+  onRemove(id: string | number, event: Event): void {
+    event.preventDefault();
     this.jokesDataService.deleteJoke(id).subscribe(() => {
       this.jokeService.removeJoke(id);
     });

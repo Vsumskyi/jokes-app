@@ -41,6 +41,6 @@ export class AppComponent implements OnInit {
   getJoke(): void {
     this.jokesDataService
       .getRandomJoke()
-      .subscribe(data => this.jokeService.mapJokes([data]));
+      .subscribe(data => data && this.jokeService.mapJokes([data]));
   }
 }
