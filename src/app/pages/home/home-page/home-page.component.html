@@ -65,6 +65,10 @@
 
     <ng-template #empty>
       <app-empty-container title="No jokes saved..."></app-empty-container>
+      <a class="btn"
+        *ngIf="authService.adminStatus"
+        [routerLink]="['/create-joke']">Create joke
+      </a>
     </ng-template>
 
     <ng-template #notAuth
