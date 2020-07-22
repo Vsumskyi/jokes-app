@@ -16,7 +16,9 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     loadChildren: () =>
-      import('./pages/edit/edit.module').then(module => module.EditModule)
+      import('./pages/joke-customization/edit-joke/edit-joke.module').then(
+        module => module.EditJokeModule
+      )
   },
   {
     path: 'favorites',
@@ -28,7 +30,7 @@ const routes: Routes = [
   {
     path: 'create-joke',
     loadChildren: () =>
-      import('./pages/create-joke/create-joke.module').then(
+      import('./pages/joke-customization/create-joke/create-joke.module').then(
         module => module.CreateJokeModule
       )
   },

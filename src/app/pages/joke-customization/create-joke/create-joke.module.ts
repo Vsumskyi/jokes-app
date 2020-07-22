@@ -1,9 +1,9 @@
+import { SharedModule } from 'src/app/shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CreateJokePageComponent } from './create-joke-page/create-joke-page.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AdminGuard } from 'src/app/guards/admin.guard';
 
 @NgModule({
   declarations: [CreateJokePageComponent],
@@ -14,9 +14,10 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
       {
         path: '',
         component: CreateJokePageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
       }
     ])
-  ]
+  ],
+  providers: [AdminGuard]
 })
 export class CreateJokeModule {}

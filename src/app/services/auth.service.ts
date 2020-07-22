@@ -8,7 +8,7 @@ import {
   ApiUserInterface
 } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
-import { AuthPropertiesEnum } from '../enums/enums';
+import { AuthPropertiesEnum, RolesEnum } from '../enums/enums';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -21,6 +21,7 @@ export class AuthService {
   private isAdmin = false;
   private isAuthenticated = false;
   private authPropertiesEnum = AuthPropertiesEnum;
+  private rolesEnum = RolesEnum;
 
   constructor(private http: HttpClient) {}
 
@@ -51,7 +52,7 @@ export class AuthService {
   }
 
   getAdminRole(user: UserInterface): boolean {
-    return user.roles.some(i => i === 'SuperAdmin');
+    return user.roles.some(i => i === this.rolesEnum['Super Admin']);
   }
 
   setAuthData(user: UserInterface, remember: boolean): void {

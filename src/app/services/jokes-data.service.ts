@@ -9,6 +9,7 @@ import {
   CategoryInterface
 } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class JokesDataService {
@@ -17,7 +18,7 @@ export class JokesDataService {
   private loading = new BehaviorSubject(true);
   public currentLoadingState = this.loading.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
   changeLoading(state: boolean): void {
     this.loading.next(state);
@@ -79,7 +80,13 @@ export class JokesDataService {
     return this.http.delete<string>(this.apiUrl + id);
   }
 
-  getByIdFromApi(id: string | number): Observable<Joke> {
+  getJokeByIdFromApi(id: string | number): Observable<Joke> {
     return this.http.get<Joke>(this.apiUrl + id);
+  }
+
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
   }
 }

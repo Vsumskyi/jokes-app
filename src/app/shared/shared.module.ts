@@ -1,3 +1,4 @@
+import { CreateEditJokeFormComponent } from '../pages/joke-customization/create-edit-joke-form/create-edit-joke-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,12 +11,11 @@ import { EmptyContainerComponent } from './components/empty-container/empty-cont
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { MaterialModule } from './material.module';
-import { CreateEditJokeComponent } from './components/create-edit-joke/create-edit-joke.component';
 
 @NgModule({
   declarations: [
     FavoriteCardComponent,
-    CreateEditJokeComponent,
+    CreateEditJokeFormComponent,
     EmptyContainerComponent,
     DiffDatePipe,
     SearchPipe,
@@ -39,7 +39,7 @@ import { CreateEditJokeComponent } from './components/create-edit-joke/create-ed
     FormsModule,
     ReactiveFormsModule,
     NotAuthorizedComponent,
-    CreateEditJokeComponent,
+    CreateEditJokeFormComponent,
     MaterialModule
   ]
 })

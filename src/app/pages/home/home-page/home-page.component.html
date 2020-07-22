@@ -7,8 +7,7 @@
         (click)="toggleDrawer()"
         [ngClass]="{'active':openDrawer}">
         <div class="drawer-link"
-          [ngClass]="{'active':openDrawer}"><span
-            class="drawer-link_lines"></span>
+          [ngClass]="{'active':openDrawer}"><span class="drawer-link_lines"></span>
         </div>
         <h3>Favorite</h3>
       </div>
@@ -47,8 +46,7 @@
 
       <ng-container *ngIf="!loading else loader">
         <ng-container *ngIf="jokeService.favorites.length; else empty">
-          <app-favorite-card
-            *ngFor="let joke of jokeService.favorites.slice(0,3)"
+          <app-favorite-card *ngFor="let joke of jokeService.favorites.slice(0,3)"
             [joke]="joke"
             [favorite]="true">
           </app-favorite-card>
@@ -57,6 +55,7 @@
               [routerLink]="['/favorites']">Go to all Favorites
             </a>
             <a class="btn"
+              *ngIf="authService.adminStatus"
               [routerLink]="['/create-joke']">Create joke
             </a>
           </div>
@@ -66,9 +65,6 @@
 
     <ng-template #empty>
       <app-empty-container title="No jokes saved..."></app-empty-container>
-      <a class="btn"
-        [routerLink]="['/create-joke']">Create joke
-      </a>
     </ng-template>
 
     <ng-template #notAuth

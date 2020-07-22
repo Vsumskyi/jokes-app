@@ -1,5 +1,6 @@
-import { Joke } from './../interfaces/interfaces';
+import { Joke } from 'src/app/interfaces/interfaces';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,9 @@ import { Injectable } from '@angular/core';
 export class JokeService {
   private favoritesJokes: Joke[] = [];
   private jokes: Joke[] = [];
-  private bufferJokes: Joke[] = [];
+  private bufferJoke = new BehaviorSubject(null);
+  public currentBufferJoke = this.bufferJoke.asObservable();
 
-  public get getBufferJoke(): Joke[] {
-    return this.bufferJokes;
-  }
   public get favorites(): Joke[] {
     return this.favoritesJokes;
   }
@@ -27,6 +26,7 @@ export class JokeService {
       joke.favorite = true;
       this.favoritesJokes.unshift(joke);
     }
+    this.refreshJokes(joke);
   }
 
   mapJokes(data: Joke[], curetCategory?: string): void {
@@ -67,19 +67,18 @@ export class JokeService {
     });
   }
 
-  setBufferJoke(joke?: Joke): void {
-    if (joke) {
-      joke.favorite = this.containsJoke(joke);
-      this.bufferJokes = [joke];
-    } else {
-      this.bufferJokes = [];
-    }
+  setBufferJoke(joke: Joke): void {
+    joke.favorite = this.containsJoke(joke);
+    this.bufferJoke.next(joke);
+  }
+  removeBufferJoke(): void {
+    this.bufferJoke.next(null);
   }
 
   removeJoke(id: string | number): void {
     this.jokes = this.clear(this.jokes, id);
     this.favoritesJokes = this.clear(this.favoritesJokes, id);
-    this.bufferJokes = this.clear(this.bufferJokes, id);
+    this.bufferJoke.next(null);
   }
 
   refreshJokes(joke: Joke): void {

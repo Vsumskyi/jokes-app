@@ -10,11 +10,12 @@ export interface Joke {
 }
 
 export interface PostJokeInterface {
-  id?: string;
+  id?: string | number;
   value: string;
   url: string;
   iconUrl: string;
   categories: Array<number>;
+  customCategories?: string;
 }
 
 export interface JokeSearchFormValue {

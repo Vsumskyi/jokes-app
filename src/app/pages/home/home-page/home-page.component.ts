@@ -22,9 +22,22 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUserName();
+    this.updateJokes();
     this.jokesDataService.currentLoadingState.subscribe(state => {
       this.loading = state;
     });
+  }
+
+  updateJokes(): void {
+    if (this.authService.authenticated) {
+      this.jokesDataService.changeLoading(true);
+      this.jokesDataService
+        .getDataFromDb()
+        .subscribe(data => {
+          this.jokeService.updateJokes(data);
+        })
+        .add(() => this.jokesDataService.changeLoading(false));
+    }
   }
 
   setUserName(): void {
@@ -45,6 +58,7 @@ export class HomePageComponent implements OnInit {
 
   logOut(e: Event): void {
     e.preventDefault();
+    this.userName = '';
     this.authService.logout();
     this.jokeService.restoreToDefault();
   }
