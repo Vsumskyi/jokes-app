@@ -1,5 +1,5 @@
-import { JokesDataService } from './../../../services/jokes-data.service';
-import { CategoryExist } from './../../../validators/categories.validator';
+import { JokesDataService } from 'src/app/services/jokes-data.service';
+import { CategoryExist } from 'src/app/validators/categories.validator';
 import { CategoryInterface } from 'src/app/interfaces/interfaces';
 import { Joke } from 'src/app/interfaces/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

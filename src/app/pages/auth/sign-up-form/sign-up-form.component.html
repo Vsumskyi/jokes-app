@@ -1,10 +1,7 @@
 <form [formGroup]="form"
   (ngSubmit)="submit()">
 
-  <div class="form-group"
-    [ngClass]="{
-        invalid: form.get('email').touched && form.get('email').invalid
-      }">
+  <div class="form-group">
     <label for="email">Email:</label>
     <input class="base-input"
       type="email"
@@ -84,10 +81,13 @@
     </div>
   </div>
 
-  <button class="btn"
-    [disabled]="loading || form.invalid">
-    Sign In!
-  </button>
+  <div class="submit-group">
+    <button class="btn"
+      [disabled]="loading || form.invalid">
+      Sign In!
+    </button>
+    <mat-checkbox formControlName="roles">Admin</mat-checkbox>
+  </div>
 
   <small class="invalid">{{errorMessage}}</small>
 </form>

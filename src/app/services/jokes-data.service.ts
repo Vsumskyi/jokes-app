@@ -84,8 +84,6 @@ export class JokesDataService {
     return this.http.get<Joke>(this.apiUrl + id);
   }
 
-  // /api/jokes/categories/exists
-
   categoriesExist(category: string): Observable<boolean> {
     return this.http.get<boolean>(
       this.apiUrl + `/categories/exists?categoryTitle=${category}`
@@ -93,7 +91,7 @@ export class JokesDataService {
   }
 
   openSnackBar(message: string): void {
-    this.snackBar.open(message, '', {
+    this.snackBar.open(message, 'Close', {
       duration: 2000
     });
   }

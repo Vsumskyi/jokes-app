@@ -58,6 +58,7 @@ export interface RegistryUser {
   firstName: string;
   lastName: string;
   password: string;
+  roles?: Array<string>;
 }
 
 export interface LoginUser {

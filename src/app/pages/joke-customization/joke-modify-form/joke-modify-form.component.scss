@@ -11,9 +11,6 @@ form {
   margin-bottom: 20px;
   @include _600 {
     margin-right: 0;
-    .form-group {
-      margin-bottom: 15px;
-    }
   }
   textarea {
     margin: 0;
@@ -23,18 +20,7 @@ form {
   }
   .form-group {
     position: relative;
-    margin-bottom: 25px;
-  }
-  .submit {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin: 20px 0;
-    margin-bottom: 0;
-
-    @include _600 {
-      flex-direction: column;
-    }
+    margin-bottom: 15px;
   }
 }
 .submit-group {

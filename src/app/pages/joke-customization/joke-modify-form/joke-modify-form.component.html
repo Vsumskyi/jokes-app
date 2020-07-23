@@ -7,10 +7,12 @@
         <mat-form-field appearance="legacy">
             <mat-label>Type a joke</mat-label>
             <textarea matInput
+                rows="2"
                 [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
-            <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
+            <mat-error
+                *ngIf="form.get('value').touched && form.get('value').invalid">
                 Joke is required!</mat-error>
         </mat-form-field>
     </div>
@@ -24,7 +26,7 @@
         </mat-form-field>
     </div>
 
-    <div class="submit">
+    <div class="form-group">
         <mat-form-field appearance="legacy">
             <mat-label>Choose a category</mat-label>
             <mat-select formControlName='categories'
@@ -37,11 +39,10 @@
                     </span>
                 </mat-select-trigger>
                 <mat-option *ngFor="let category of categoryList"
-                    [value]="category.title">{{category.title | titlecase}}</mat-option>
+                    [value]="category.title">{{category.title | titlecase}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
-
-
     </div>
 
     <div class="form-group"
@@ -52,18 +53,18 @@
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
 
-            <mat-error *ngIf="form.get('customCategories').invalid ">
+            <mat-error
+                *ngIf="form.get('customCategories').invalid && form.get('customCategories').touched">
                 Category already exist!</mat-error>
         </mat-form-field>
 
     </div>
-
 
     <div class="submit-group">
         <mat-spinner [diameter]="25"
             *ngIf="loadingState || form.pending">
         </mat-spinner>
         <button class="btn"
-            [disabled]="(loadingState || this.form.invalid)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
+            [disabled]="(loadingState || this.form.invalid || form.pending)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>

@@ -52,13 +52,13 @@ export class JokeFormComponent implements OnInit {
   }
 
   submit(): void {
-    this.errorMessage.emit('');
     this.loading = true;
     this.jokesDataService
       .fetchJoke(this.form.value)
       .subscribe(
         data => {
           if (data) {
+            this.errorMessage.emit('');
             this.jokeService.mapJokes(
               [data],
               this.form.get('apiValue.categories').value
