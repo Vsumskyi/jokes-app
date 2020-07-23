@@ -68,6 +68,9 @@ export class JokeService {
   }
 
   setBufferJoke(joke: Joke): void {
+    if (!joke) {
+      return;
+    }
     joke.favorite = this.containsJoke(joke);
     this.bufferJoke.next(joke);
   }

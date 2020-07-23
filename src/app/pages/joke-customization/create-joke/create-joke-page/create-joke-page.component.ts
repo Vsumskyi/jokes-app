@@ -16,7 +16,6 @@ export class CreateJokePageComponent implements OnInit {
   public errorMessage = '';
   public loading = false;
   public joke: Joke;
-  public jokeTemplate: Joke;
   public categoriesList: CategoryInterface[] = [];
 
   constructor(

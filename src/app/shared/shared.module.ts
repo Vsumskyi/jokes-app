@@ -1,4 +1,4 @@
-import { CreateEditJokeFormComponent } from '../pages/joke-customization/create-edit-joke-form/create-edit-joke-form.component';
+import { JokeModifyFormComponent } from './../pages/joke-customization/joke-modify-form/joke-modify-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,7 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [
     FavoriteCardComponent,
-    CreateEditJokeFormComponent,
+    JokeModifyFormComponent,
     EmptyContainerComponent,
     DiffDatePipe,
     SearchPipe,
@@ -39,7 +39,7 @@ import { MaterialModule } from './material.module';
     FormsModule,
     ReactiveFormsModule,
     NotAuthorizedComponent,
-    CreateEditJokeFormComponent,
+    JokeModifyFormComponent,
     MaterialModule
   ]
 })

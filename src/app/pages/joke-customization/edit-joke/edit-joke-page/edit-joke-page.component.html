@@ -13,12 +13,12 @@
         <ng-container *ngIf="!loading; else loader"
             class="cards">
             <ng-container *ngIf="joke; else empty">
-                <app-create-edit-joke-form (modifyJoke)="onEditJoke($event)"
+                <app-joke-modify-form (modifyOnJoke)="onEditJoke($event)"
                     [joke]="joke"
-                    [modify]="true"
+                    [modifyJokeMode]="true"
                     [categoryList]="categoriesList"
                     [loadingState]="loadingForm">
-                </app-create-edit-joke-form>
+                </app-joke-modify-form>
                 <div class="cards">
                     <app-favorite-card [joke]="joke"
                         [remove]="true"

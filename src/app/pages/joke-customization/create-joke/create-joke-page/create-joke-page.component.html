@@ -11,10 +11,9 @@
 
   <div class="form-container">
 
-    <app-create-edit-joke-form [joke]="jokeTemplate"
-      [loadingState]='loading'
+    <app-joke-modify-form [loadingState]='loading'
       [categoryList]="categoriesList"
-      (modifyJoke)="onNewJoke($event)"></app-create-edit-joke-form>
+      (modifyOnJoke)="onNewJoke($event)"></app-joke-modify-form>
 
     <div class="cards">
       <ng-container *ngIf="joke; else empty">

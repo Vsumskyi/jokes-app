@@ -1,5 +1,6 @@
 <form [formGroup]="form"
-    (ngSubmit)="submit()">
+    (ngSubmit)="submit()"
+    autocomplete="off">
 
     <div class="
     form-group">
@@ -28,14 +29,14 @@
             <mat-select formControlName='categories'
                 multiple>
                 <mat-select-trigger>
-                    {{form.get('categories').value[0]  |titlecase}}
+                    {{form.get('categories').value && form.get('categories').value[0]  | titlecase}}
                     <span *ngIf="form.get('categories').value?.length > 1">
                         (+{{form.get('categories').value.length - 1}}
                         {{form.get('categories').value?.length === 2 ? 'other' : 'others'}})
                     </span>
                 </mat-select-trigger>
                 <mat-option *ngFor="let category of categoryList"
-                    [value]="category.title">{{category.title |titlecase}}</mat-option>
+                    [value]="category.title">{{category.title | titlecase}}</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -43,7 +44,7 @@
     </div>
 
     <div class="form-group"
-        *ngIf="!modify">
+        *ngIf="!modifyJokeMode">
         <mat-form-field appearance="legacy">
             <mat-label>Add custom category</mat-label>
             <input matInput
@@ -58,6 +59,6 @@
             *ngIf="loadingState">
         </mat-spinner>
         <button class="btn"
-            [disabled]="loadingState || this.form.invalid">{{!joke? 'Create!': 'Update!'}}</button>
+            [disabled]="loadingState || this.form.invalid">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>
