@@ -84,6 +84,14 @@ export class JokesDataService {
     return this.http.get<Joke>(this.apiUrl + id);
   }
 
+  // /api/jokes/categories/exists
+
+  categoriesExist(category: string): Observable<boolean> {
+    return this.http.get<boolean>(
+      `https://reenbit-chuck-norris.azurewebsites.net/api/jokes/categories/exists?categoryTitle=${category}`
+    );
+  }
+
   openSnackBar(message: string): void {
     this.snackBar.open(message, '', {
       duration: 2000

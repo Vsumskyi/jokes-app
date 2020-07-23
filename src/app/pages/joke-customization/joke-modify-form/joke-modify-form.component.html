@@ -7,6 +7,7 @@
         <mat-form-field appearance="legacy">
             <mat-label>Type a joke</mat-label>
             <textarea matInput
+                [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
             <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
@@ -50,15 +51,19 @@
             <input matInput
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
+
+            <mat-error *ngIf="form.get('customCategories').invalid ">
+                Category already exist!</mat-error>
         </mat-form-field>
+
     </div>
 
 
     <div class="submit-group">
         <mat-spinner [diameter]="25"
-            *ngIf="loadingState">
+            *ngIf="loadingState || form.pending">
         </mat-spinner>
         <button class="btn"
-            [disabled]="loadingState || this.form.invalid">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
+            [disabled]="(loadingState || this.form.invalid)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>
