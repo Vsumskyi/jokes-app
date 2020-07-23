@@ -1,3 +1,4 @@
+import { ValidationErrors } from '@angular/forms';
 import { of } from 'rxjs';
 import { JokesDataService } from './../services/jokes-data.service';
 import { Observable } from 'rxjs';
@@ -5,8 +6,9 @@ import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 export class CategoryExist {
-  // tslint:disable-next-line: typedef
-  static emailExist(jokesDataService: JokesDataService) {
+  static categoryExistValidator(
+    jokesDataService: JokesDataService
+  ): ValidationErrors {
     return (
       control: FormControl
     ):

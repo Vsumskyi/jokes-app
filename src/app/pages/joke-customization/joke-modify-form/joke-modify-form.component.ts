@@ -36,7 +36,7 @@ export class JokeModifyFormComponent implements OnInit {
       customCategories: [
         '',
         null,
-        [CategoryExist.emailExist(this.jokesDataService)]
+        [CategoryExist.categoryExistValidator(this.jokesDataService)]
       ]
     });
   }
