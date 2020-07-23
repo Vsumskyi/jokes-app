@@ -1,5 +1,5 @@
 export interface Joke {
-  icon_url?: string;
+  iconUrl?: string;
   value: string;
   id: number | string;
   updatedAt?: Date;
@@ -10,10 +10,12 @@ export interface Joke {
 }
 
 export interface PostJokeInterface {
+  id?: string | number;
   value: string;
   url: string;
   iconUrl: string;
   categories: Array<number>;
+  customCategories?: string;
 }
 
 export interface JokeSearchFormValue {
@@ -37,6 +39,7 @@ export interface UserInterface {
   email: string;
   firstName: string;
   lastName: string;
+  roles: Array<string>;
 }
 
 export interface ApiUserInterface {

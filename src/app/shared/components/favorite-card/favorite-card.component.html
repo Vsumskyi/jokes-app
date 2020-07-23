@@ -2,7 +2,8 @@
   <div class="card"
     [ngClass]=" {'joke-card': !favorite, 'favorite-card': favorite} ">
     <div class="card-content">
-      <a (click)="like(joke.id, $event, joke.favorite)"
+
+      <a (click)="like(joke, joke.favorite, $event)"
         [ngClass]="{'disabled': loading}"
         href="#"
         class="heart">
@@ -12,12 +13,17 @@
 
       <div class="card-content-wrapper">
         <div class="comment">
-          <a href="##"><img src="assets/images/comment.svg"
+          <a href="#"
+            (click)="$event.preventDefault()"><img
+              [src]="'assets/images/comment.svg'"
               alt="" /></a>
+
         </div>
         <div class="card-content-inner">
           <span>ID: <a href="#">{{joke.id}}</a>
-            <a href="#"> <img src="assets/images/link.svg"
+            <a href="#"
+              (click)="$event.preventDefault()"> <img
+                src="assets/images/link.svg"
                 alt="" /></a>
           </span>
           <p>
@@ -25,7 +31,7 @@
           </p>
           <div class="subtitles">
             <span>
-              Last update: {{joke.updatedAt | diffDate}} hours ago
+              Last update: {{joke.updatedAt | diffDate }} hours ago
             </span>
             <span class="tag"
               [matTooltip]="joke.categories.slice(1).join(', ') | titlecase"
@@ -36,6 +42,23 @@
                 (+{{joke.categories.length - 1}} others)</span>
             </span>
           </div>
+        </div>
+        <div class="admin-panel"
+          *ngIf="authService.adminStatus">
+          <a [routerLink]="['/edit', joke.id]"
+            *ngIf="edit"
+            class="edit">
+            <img src="assets/images/edit.svg"
+              alt="">
+          </a>
+
+          <a href="#"
+            *ngIf="remove"
+            class="delete"
+            (click)="onRemove(joke.id, $event)">
+            <img src="assets/images/delete.svg"
+              alt="">
+          </a>
         </div>
       </div>
     </div>

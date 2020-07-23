@@ -1,0 +1,29 @@
+<div class="container">
+
+  <div class="nav">
+    <a href="#"
+      class="btn route"
+      routerLink="/">
+      Home
+    </a>
+    <h3>Create Joke</h3>
+  </div>
+
+  <div class="form-container">
+
+    <app-joke-modify-form [loadingState]='loading'
+      [categoryList]="categoriesList"
+      (modifyOnJoke)="onNewJoke($event)"></app-joke-modify-form>
+
+    <div class="cards">
+      <ng-container *ngIf="joke; else empty">
+        <app-favorite-card [joke]="joke"></app-favorite-card>
+      </ng-container>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #empty>
+  <app-empty-container title="Create your first joke :)"></app-empty-container>
+</ng-template>

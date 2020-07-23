@@ -1,26 +1,2 @@
 @import 'variables';
 @import 'media_mixin';
-
-form {
-  .form-group {
-    position: relative;
-    margin-bottom: 25px;
-
-    .validation {
-      position: absolute;
-      bottom: -20px;
-    }
-  }
-
-  .invalid {
-    color: $error-color;
-  }
-  input {
-    margin: 0;
-  }
-  @include _420 {
-    .btn {
-      padding: 10px 20px;
-    }
-  }
-}

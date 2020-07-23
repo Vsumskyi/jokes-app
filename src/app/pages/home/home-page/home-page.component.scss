@@ -8,6 +8,7 @@
   margin-bottom: 50px;
 
   h3 {
+    color: $dark-color;
     font-size: 1.3rem;
   }
 }
@@ -173,12 +174,13 @@
   @include _836 {
     display: flex;
   }
-
-  @include _480 {
-    right: 20px;
-  }
 }
 
 .error {
   text-align: center;
+}
+
+.spinner {
+  align-self: center;
+  margin: auto;
 }

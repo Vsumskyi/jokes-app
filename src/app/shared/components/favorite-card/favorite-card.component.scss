@@ -12,6 +12,7 @@
       align-self: flex-end;
       cursor: pointer;
     }
+
     .comment {
       display: inline-block;
       box-sizing: content-box;
@@ -25,6 +26,34 @@
     &-wrapper {
       display: flex;
       flex-grow: 1;
+      position: relative;
+      .admin-panel {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        .edit,
+        .delete {
+          opacity: 0.4;
+          transition: opacity 0.45s ease;
+          img {
+            width: 20px;
+            height: 20px;
+          }
+          &:hover {
+            opacity: 1;
+          }
+        }
+        .delete {
+          margin-left: 10px;
+        }
+        @include _480 {
+          bottom: auto;
+          top: 20px;
+          left: 50px;
+        }
+      }
     }
     &-inner {
       display: inline-block;
@@ -57,17 +86,18 @@
           position: relative;
           .others {
             position: absolute;
-            bottom: -13px;
+            bottom: -15px;
             right: 0;
             font-size: 0.6rem;
             display: block;
             letter-spacing: normal;
+            white-space: pre;
           }
           @include _480 {
             padding: 6px 6px;
             font-size: 0.6rem;
             .others {
-              bottom: -10px;
+              bottom: -12px;
               font-size: 0.5rem;
             }
           }
@@ -75,6 +105,7 @@
       }
     }
   }
+
   @include _836 {
     margin: 10px 5px;
   }

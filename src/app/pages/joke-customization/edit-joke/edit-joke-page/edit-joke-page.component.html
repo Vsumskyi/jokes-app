@@ -1,0 +1,39 @@
+<div class="container">
+
+    <div class="nav">
+        <a href="#"
+            class="btn"
+            routerLink="/">
+            Home
+        </a>
+        <h3>Jokes editor</h3>
+    </div>
+
+    <div class="container-inner">
+        <ng-container *ngIf="!loading; else loader"
+            class="cards">
+            <ng-container *ngIf="joke; else empty">
+                <app-joke-modify-form (modifyOnJoke)="onEditJoke($event)"
+                    [joke]="joke"
+                    [modifyJokeMode]="true"
+                    [categoryList]="categoriesList"
+                    [loadingState]="loadingForm">
+                </app-joke-modify-form>
+                <div class="cards">
+                    <app-favorite-card [joke]="joke"
+                        [remove]="true"
+                        [edit]="false"></app-favorite-card>
+                </div>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #empty>
+            <app-empty-container title="No jokes to update">
+            </app-empty-container>
+        </ng-template>
+
+        <ng-template #loader>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { JokeTypeEnum } from '../enums/enums';
 import {
   Joke,
@@ -9,13 +9,20 @@ import {
   CategoryInterface
 } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class JokesDataService {
   private jokeTypeEnum = JokeTypeEnum;
   private apiUrl = environment.apiUrl;
+  private loading = new BehaviorSubject(true);
+  public currentLoadingState = this.loading.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+
+  changeLoading(state: boolean): void {
+    this.loading.next(state);
+  }
 
   fetchCategories(): Observable<CategoryInterface[]> {
     return this.http.get<CategoryInterface[]>(this.apiUrl + 'categories');
@@ -45,11 +52,41 @@ export class JokesDataService {
     return this.http.post<Joke>(this.apiUrl, joke);
   }
 
+  postCategory(category: string): Observable<CategoryInterface> {
+    return this.http.post<CategoryInterface>(this.apiUrl + 'categories', {
+      title: category
+    });
+  }
+
+  deleteCategory(id: string | number): Observable<CategoryInterface> {
+    return this.http.delete<CategoryInterface>(
+      `${this.apiUrl}categories/${id}`
+    );
+  }
+
+  editJoke(joke: PostJokeInterface): Observable<Joke> {
+    return this.http.put<Joke>(this.apiUrl, joke);
+  }
+
   saveJokeToDb(id: number | string): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}favorite/${id}`, id);
   }
 
   removeFromDb(id: number | string): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}favorite/${id}`);
+  }
+
+  deleteJoke(id: number | string): Observable<string> {
+    return this.http.delete<string>(this.apiUrl + id);
+  }
+
+  getJokeByIdFromApi(id: string | number): Observable<Joke> {
+    return this.http.get<Joke>(this.apiUrl + id);
+  }
+
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
   }
 }

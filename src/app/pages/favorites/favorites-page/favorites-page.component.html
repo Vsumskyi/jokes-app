@@ -1,76 +1,82 @@
 <div class="container">
+  <div class="nav">
+    <a href="#"
+      class="btn"
+      routerLink="/">
+      Home
+    </a>
+
+    <h3>My favorites jokes</h3>
+  </div>
   <div class="container-inner">
+    <ng-container *ngIf="!loading; else loader">
+      <ng-container *ngIf="jokeService.favorites.length; else empty">
+        <form [formGroup]="form"
+          (submit)="reset()">
 
-    <div class="nav">
-      <a href="#"
-        class="btn"
-        routerLink="/">
-        Home
-      </a>
+          <div class="tag-group show-search">
+            <input type="checkbox"
+              class="tags"
+              id="showSearch"
+              formControlName="showSearch" />
+            <label for="showSearch"> show search </label>
+            <button class="btn"
+              *ngIf="getControlValue('showSearch')">&times;</button>
+          </div>
 
-      <h3>My favorites jokes</h3>
-    </div>
+          <ng-container *ngIf="getControlValue('showSearch')">
+            <input type="text"
+              appInputFocus
+              class="base-input"
+              placeholder="Search..."
+              formControlName="value">
+            <div class="category-wrapper">
+              <p> Search in: </p>
 
-    <ng-container *ngIf="jokeService.favorites.length; else empty">
-      <form [formGroup]="form"
-        (submit)="reset()">
+              <div class="category">
+                <div *ngFor="let item of jokeCategories"
+                  class="tag-group">
+                  <input type="radio"
+                    class="tags"
+                    [id]="item"
+                    formControlName="category"
+                    [value]="item" />
+                  <label [for]="item"> {{item}} </label>
+                </div>
 
-        <div class="tag-group show-search">
-          <input type="checkbox"
-            class="tags"
-            id="showSearch"
-            formControlName="showSearch" />
-          <label for="showSearch"> show search </label>
-          <button class="btn"
-            *ngIf="getControlValue('showSearch')">&times;</button>
-        </div>
-
-        <ng-container *ngIf="getControlValue('showSearch')">
-          <input type="text"
-            appInputFocus
-            class="base-input"
-            placeholder="Search..."
-            formControlName="value">
-          <div class="category-wrapper">
-            <p> Search in: </p>
-
-            <div class="category">
-              <div *ngFor="let item of jokeCategories"
-                class="tag-group">
-                <input type="radio"
-                  class="tags"
-                  [id]="item"
-                  formControlName="category"
-                  [value]="item" />
-                <label [for]="item"> {{item}} </label>
-              </div>
-
-              <div class="tag-group everywhere">
-                <input type="radio"
-                  class="tags"
-                  id="search-everywhere"
-                  formControlName="category"
-                  value="" />
-                <label for="search-everywhere"> search everywhere </label>
+                <div class="tag-group everywhere">
+                  <input type="radio"
+                    class="tags"
+                    id="search-everywhere"
+                    formControlName="category"
+                    value="" />
+                  <label for="search-everywhere"> search everywhere </label>
+                </div>
               </div>
             </div>
-          </div>
-        </ng-container>
-      </form>
+          </ng-container>
+        </form>
 
-      <div>
-        <app-favorite-card *ngFor="let joke of jokeService.favorites | search:
+        <div>
+          <app-favorite-card *ngFor="let joke of jokeService.favorites | search:
           getControlValue('value') || '':
           getControlValue('category') || ''"
-          [joke]="joke">
-        </app-favorite-card>
-      </div>
-
+            [joke]="joke">
+          </app-favorite-card>
+        </div>
+      </ng-container>
     </ng-container>
 
+
     <ng-template #empty>
-      <app-empty-container></app-empty-container>
+      <app-empty-container title="No jokes saved..."></app-empty-container>
+    </ng-template>
+
+    <ng-template #loader>
+      <mat-spinner class="spinner"></mat-spinner>
     </ng-template>
   </div>
+
+
 
 </div>
