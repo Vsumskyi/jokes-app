@@ -1,5 +1,6 @@
-import { Joke } from './../interfaces/interfaces';
+import { Joke } from 'src/app/interfaces/interfaces';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,9 @@ import { Injectable } from '@angular/core';
 export class JokeService {
   private favoritesJokes: Joke[] = [];
   private jokes: Joke[] = [];
-  private createdJokes: Joke[] = [];
+  private bufferJoke = new BehaviorSubject(null);
+  public currentBufferJoke = this.bufferJoke.asObservable();
 
-  public get newJokes(): Joke[] {
-    return this.createdJokes;
-  }
   public get favorites(): Joke[] {
     return this.favoritesJokes;
   }
@@ -19,24 +18,20 @@ export class JokeService {
     return this.jokes;
   }
 
-  saveToFavorites(id: string | number): void {
-    const joke = [
-      ...this.jokes,
-      ...this.createdJokes,
-      ...this.favoritesJokes
-    ].find(jokeItem => jokeItem.id === id);
+  saveToFavorites(joke: Joke): void {
     if (joke.favorite) {
-      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== id);
+      this.favoritesJokes = this.favoritesJokes.filter(i => i.id !== joke.id);
       joke.favorite = false;
     } else {
       joke.favorite = true;
       this.favoritesJokes.unshift(joke);
     }
+    this.refreshJokes(joke);
   }
 
   mapJokes(data: Joke[], curetCategory?: string): void {
     this.jokes = data.flat().map(joke => {
-      joke.favorite = this.favoritesJokes.some(i => i.id === joke.id);
+      joke.favorite = this.containsJoke(joke);
       if (joke.categories.includes(curetCategory)) {
         joke.categories = joke.categories.filter(i => i !== curetCategory);
         joke.categories.unshift(curetCategory);
@@ -67,13 +62,44 @@ export class JokeService {
       return i;
     });
     this.jokes = this.jokes.map(joke => {
-      joke.favorite = jokes.some(i => i.id === joke.id);
+      joke.favorite = this.containsJoke(joke);
       return joke;
     });
   }
 
-  createJoke(joke: Joke): void {
-    joke.favorite = false;
-    this.createdJokes.unshift(joke);
+  setBufferJoke(joke: Joke): void {
+    if (!joke) {
+      return;
+    }
+    joke.favorite = this.containsJoke(joke);
+    this.bufferJoke.next(joke);
+  }
+  removeBufferJoke(): void {
+    this.bufferJoke.next(null);
+  }
+
+  removeJoke(id: string | number): void {
+    this.jokes = this.clear(this.jokes, id);
+    this.favoritesJokes = this.clear(this.favoritesJokes, id);
+    this.bufferJoke.next(null);
+  }
+
+  refreshJokes(joke: Joke): void {
+    const jokesChanger = (jokes: Joke[]) =>
+      jokes.map(jokeItem => {
+        if (jokeItem.id === joke.id) {
+          jokeItem = joke;
+        }
+        return jokeItem;
+      });
+    this.favoritesJokes = jokesChanger(this.favoritesJokes);
+    this.jokes = jokesChanger(this.jokes);
+  }
+
+  clear(joke: Joke[], id: string | number): Joke[] {
+    return joke.filter(i => i.id !== id);
+  }
+  containsJoke(joke: Joke): boolean {
+    return this.favorites.some(i => i.id === joke.id);
   }
 }

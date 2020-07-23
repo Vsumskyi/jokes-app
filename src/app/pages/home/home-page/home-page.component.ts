@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeService } from 'src/app/services/joke.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { JokesDataService } from 'src/app/services/jokes-data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +10,34 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomePageComponent implements OnInit {
   public openDrawer = false;
-  public loading = false;
+  public loading = true;
   public errorMessage = '';
   public userName = '';
 
   constructor(
     public jokeService: JokeService,
-    public authService: AuthService
+    public authService: AuthService,
+    private jokesDataService: JokesDataService
   ) {}
 
   ngOnInit(): void {
     this.setUserName();
+    this.updateJokes();
+    this.jokesDataService.currentLoadingState.subscribe(state => {
+      this.loading = state;
+    });
+  }
+
+  updateJokes(): void {
+    if (this.authService.authenticated) {
+      this.jokesDataService.changeLoading(true);
+      this.jokesDataService
+        .getDataFromDb()
+        .subscribe(data => {
+          this.jokeService.updateJokes(data);
+        })
+        .add(() => this.jokesDataService.changeLoading(false));
+    }
   }
 
   setUserName(): void {
@@ -38,7 +56,9 @@ export class HomePageComponent implements OnInit {
     this.errorMessage = error;
   }
 
-  logOut(): void {
+  logOut(e: Event): void {
+    e.preventDefault();
+    this.userName = '';
     this.authService.logout();
     this.jokeService.restoreToDefault();
   }

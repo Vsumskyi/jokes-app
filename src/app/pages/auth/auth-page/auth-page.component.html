@@ -2,7 +2,7 @@
   <div class="nav">
     <a href="#"
       class="btn"
-      [routerLink]="returnUrl">
+      [routerLink]="['/']">
       Home
     </a>
     <h3>Authentication</h3>
@@ -24,14 +24,14 @@
       <form [formGroup]="form">
 
         <input type="radio"
-          class="base-radio"
+          class="tags"
           formControlName="auth"
           [value]="authPropertiesEnum['Sign in']"
           id="signin" />
         <label for="signin">Sign In</label>
 
         <input type="radio"
-          class="base-radio"
+          class="tags"
           formControlName="auth"
           [value]="authPropertiesEnum['Sign up']"
           id="signup" />

@@ -1,10 +1,7 @@
 <form [formGroup]="form"
   (ngSubmit)="submit()">
 
-  <div class="form-group"
-    [ngClass]="{
-      invalid: form.get('email').touched && form.get('email').invalid
-    }">
+  <div class="form-group">
 
     <label for="email">Email:</label>
     <input class="base-input"
@@ -14,20 +11,14 @@
 
     <div class="validation"
       *ngIf="form.get('email').touched && form.get('email').invalid">
-      <small *ngIf="form.get('email').errors.required">Email
-        is
+      <small *ngIf="form.get('email').errors.required">*Email is
         required!</small>
-      <small *ngIf="form.get('email').errors.email">Email
-        it`s not
+      <small *ngIf="form.get('email').errors.email">*Email it`s not
         valid!</small>
     </div>
   </div>
 
-  <div class="form-group"
-    [ngClass]="{
-          invalid: form.get('password').touched && form.get('password').invalid
-        }">
-
+  <div class="form-group">
     <label for="password">Password:</label>
     <input class="base-input"
       type="password"
@@ -36,27 +27,21 @@
 
     <div class="validation"
       *ngIf="form.get('password').touched && form.get('password').invalid">
-      <small *ngIf="form.get('password').errors.required">Password
-        is
+      <small *ngIf="form.get('password').errors.required">*Password is
         required!</small>
-      <small *ngIf="form.get('password').errors?.minlength">Password
-        it`s not
+      <small *ngIf="form.get('password').errors?.minlength">*Password it`s not
         valid!</small>
     </div>
   </div>
 
-
   <div class="submit-group">
     <button class="btn"
-      [disabled]="loading ||  form.invalid">
+      [disabled]="loading || form.invalid">
       Sign In
     </button>
-    <input type="checkbox"
-      class="tags"
-      formControlName="remember"
-      id="remember" />
-    <label for="remember">Remember</label>
+
+    <mat-checkbox formControlName="remember">Remember Me!</mat-checkbox>
   </div>
 
-  <p class="invalid">{{errorMessage}}</p>
+  <small class="invalid">{{errorMessage}}</small>
 </form>

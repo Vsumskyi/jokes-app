@@ -17,3 +17,7 @@ export enum AuthPropertiesEnum {
   'Sign in' = 'signin',
   'Sign up' = 'signup'
 }
+
+export enum RolesEnum {
+  'Super Admin' = 'SuperAdmin'
+}

@@ -2,11 +2,11 @@
 @import 'media_mixin';
 
 .container {
-  background: $backdrop-bgc;
   position: relative;
   width: 100%;
   .content-wrapper {
-    max-width: 620px;
+    max-width: 400px;
+    text-align: center;
     margin: 0 auto;
     margin-bottom: 20px;
     background: $white-color;
@@ -14,10 +14,66 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 5px;
+    .btn {
+      display: inline-flex;
+      margin-top: 20px;
+    }
     form {
       display: flex;
       justify-content: space-evenly;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
+  }
+
+  .tags {
+    &:checked + label {
+      color: white;
+      background-color: $main-color;
+    }
+  }
+}
+
+::ng-deep form {
+  text-align: left;
+  position: relative;
+  padding-bottom: 20px;
+  .form-group {
+    position: relative;
+    margin-bottom: 30px;
+
+    .validation {
+      color: $error-color;
+      font-style: italic;
+      position: absolute;
+      bottom: -20px;
+    }
+    .base-input {
+      border: 1px solid #8ea7ff;
+      border-radius: 5px;
+      margin: 0;
+    }
+  }
+
+  .submit-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z .tags:checked + label {
+      background: $main-color;
+      color: $white-color;
+    }
+
+    @include _420 {
+      .btn {
+        padding: 10px 20px;
+      }
+    }
+  }
+
+  .invalid {
+    color: $error-color;
+    position: absolute;
+    bottom: -5px;
+    font-style: italic;
   }
 }

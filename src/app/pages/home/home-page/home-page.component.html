@@ -7,8 +7,7 @@
         (click)="toggleDrawer()"
         [ngClass]="{'active':openDrawer}">
         <div class="drawer-link"
-          [ngClass]="{'active':openDrawer}"><span
-            class="drawer-link_lines"></span>
+          [ngClass]="{'active':openDrawer}"><span class="drawer-link_lines"></span>
         </div>
         <h3>Favorite</h3>
       </div>
@@ -37,40 +36,48 @@
   <div class="favorite-container"
     [ngClass]="{'active':openDrawer}">
 
-    <ng-container *ngIf="!authService.authenticated; else content"
-      class="notAuth">
-      <app-not-authorized></app-not-authorized>
-    </ng-container>
-
-    <ng-template #content>
+    <ng-container *ngIf="authService.authenticated;else notAuth">
       <div class="favorite-nav">
         <h3 *ngIf="jokeService.favorites.length">Favorite</h3>
         <a href="#"
           class="btn"
-          (click)="logOut()">Sign Out</a>
+          (click)="logOut($event)">Sign Out</a>
       </div>
-      <ng-container *ngIf="jokeService.favorites.length; else empty">
 
-        <app-favorite-card *ngFor="let joke of jokeService.favorites.slice(0,3)"
-          [joke]="joke"
-          [favorite]="true">
-        </app-favorite-card>
-        <div class="route-group">
-          <a class="btn"
-            [routerLink]="['/favorites']">Go to all Favorites
-          </a>
-          <a class="btn"
-            [routerLink]="['/create-joke']">Create joke
-          </a>
-        </div>
+      <ng-container *ngIf="!loading else loader">
+        <ng-container *ngIf="jokeService.favorites.length; else empty">
+          <app-favorite-card *ngFor="let joke of jokeService.favorites.slice(0,3)"
+            [joke]="joke"
+            [favorite]="true">
+          </app-favorite-card>
+          <div class="route-group">
+            <a class="btn"
+              [routerLink]="['/favorites']">Go to all Favorites
+            </a>
+            <a class="btn"
+              *ngIf="authService.adminStatus"
+              [routerLink]="['/create-joke']">Create joke
+            </a>
+          </div>
+        </ng-container>
       </ng-container>
+    </ng-container>
 
-      <ng-template #empty>
-        <app-empty-container title="No jokes saved..."></app-empty-container>
-        <a class="btn"
-          [routerLink]="['/create-joke']">Create joke
-        </a>
-      </ng-template>
+    <ng-template #empty>
+      <app-empty-container title="No jokes saved..."></app-empty-container>
+      <a class="btn"
+        *ngIf="authService.adminStatus"
+        [routerLink]="['/create-joke']">Create joke
+      </a>
+    </ng-template>
+
+    <ng-template #notAuth
+      class="notAuth">
+      <app-not-authorized></app-not-authorized>
+    </ng-template>
+
+    <ng-template #loader>
+      <mat-spinner class="spinner"></mat-spinner>
     </ng-template>
   </div>
 
