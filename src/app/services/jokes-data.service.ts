@@ -88,7 +88,7 @@ export class JokesDataService {
 
   categoriesExist(category: string): Observable<boolean> {
     return this.http.get<boolean>(
-      `https://reenbit-chuck-norris.azurewebsites.net/api/jokes/categories/exists?categoryTitle=${category}`
+      this.apiUrl + `/categories/exists?categoryTitle=${category}`
     );
   }
 
