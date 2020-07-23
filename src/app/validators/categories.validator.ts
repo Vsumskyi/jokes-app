@@ -1,17 +1,11 @@
 import { of } from 'rxjs';
 import { JokesDataService } from './../services/jokes-data.service';
-import { timer, pipe, BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  startWith,
-  take
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export class CategoryExist {
+  // tslint:disable-next-line: typedef
   static emailExist(jokesDataService: JokesDataService) {
     return (
       control: FormControl
