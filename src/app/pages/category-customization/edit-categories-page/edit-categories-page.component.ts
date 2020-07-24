@@ -4,7 +4,7 @@ import {
   FormCategoriesInterface
 } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
-
+import { CategoryPropertyEnum } from 'src/app/enums/enums';
 @Component({
   selector: 'app-edit-categories-page',
   templateUrl: './edit-categories-page.component.html',
@@ -14,7 +14,7 @@ export class EditCategoriesPageComponent implements OnInit {
   public categoriesList: CategoryInterface[] = [];
   public loadingState: boolean;
   public errorMessage = '';
-
+  public categoryPropertyEnum = CategoryPropertyEnum;
   constructor(private jokesDataService: JokesDataService) {}
 
   ngOnInit(): void {
@@ -28,22 +28,22 @@ export class EditCategoriesPageComponent implements OnInit {
   }
 
   onModifyCategories(categories: FormCategoriesInterface): void {
-    console.log(categories);
+    const { categoryOption, customCategory, categoryList } = categories;
+    this.loadingState = true;
 
-    // this.loadingState = true;
-    // if (categories.categoryList) {
-    //   this.removeCategories(categories.categoryList);
-    // }
-    // if (categories.customCategory) {
-    //   this.addNewCategory(categories.customCategory);
-    // }
+    if (categoryOption === this.categoryPropertyEnum['Remove Category']) {
+      this.removeCategories(categoryList);
+    }
+    if (categoryOption === this.categoryPropertyEnum['Add Category']) {
+      this.addNewCategory(customCategory);
+    }
   }
 
   addNewCategory(category: string): void {
     this.jokesDataService
       .postCategory(category)
       .subscribe(
-        resp => {
+        () => {
           this.jokesDataService.openSnackBar('Updated!');
           this.getCategories();
         },
@@ -59,7 +59,7 @@ export class EditCategoriesPageComponent implements OnInit {
       this.jokesDataService
         .deleteCategory(category)
         .subscribe(
-          resp => {
+          () => {
             this.jokesDataService.openSnackBar('Updated!');
             this.getCategories();
           },

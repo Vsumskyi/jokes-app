@@ -36,7 +36,8 @@ export interface CategoryInterface {
 
 export interface FormCategoriesInterface {
   categoryList: Array<number>;
-  customCategory?: string;
+  customCategory: string;
+  categoryOption: string;
 }
 
 export interface UserInterface {

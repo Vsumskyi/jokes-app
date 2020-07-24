@@ -3,49 +3,57 @@
     class="form-modify"
     (submit)="submit()">
 
-    <div class="mat-form">
-        <mat-radio-group formControlName="categoryProperty"
-            (change)="checkValue($event)">
-            <mat-radio-button [value]="categoryPropertyEnum['Add Category']"> <img src="assets/images/create.svg"
-                    alt=""> </mat-radio-button>
-            <mat-radio-button value="remove"
-                [value]="categoryPropertyEnum['Remove Category']"><img src="assets/images/delete.svg"
+    <div class="radio-group">
+        <mat-radio-group formControlName="categoryOption"
+            name="radio">
+            <mat-radio-button [value]="categoryPropertyEnum['Add Category']">
+                <img src="assets/images/create.svg"
                     alt=""> </mat-radio-button>
         </mat-radio-group>
+        <strong>OR</strong>
+        <mat-radio-group formControlName="categoryOption"
+            name="radio">
+            <mat-radio-button [value]="categoryPropertyEnum['Remove Category']">
+                <img src="assets/images/delete.svg"
+                    alt=""> </mat-radio-button>
+        </mat-radio-group>
+    </div>
 
-        <div class="form-group"
-            formGroupName="categories">
-            <mat-form-field appearance="legacy">
-                <mat-label>Add new category</mat-label>
-                <input matInput
-                    class="h"
-                    appCategoryExistValidator
-                    placeholder="Type category"
-                    formControlName="customCategory">
+    <div class="form-group"
+        *ngIf="form.get('categoryOption').value === categoryPropertyEnum['Add Category']">
+        <mat-form-field appearance="legacy">
+            <mat-label>Add new category</mat-label>
+            <input matInput
+                class="h"
+                appCategoryExistValidator
+                placeholder="Type category"
+                formControlName="customCategory">
+            <mat-error
+                *ngIf="form.get('customCategory').hasError('duplicate') ">
+                Category already exist!</mat-error>
+        </mat-form-field>
+    </div>
 
-                <mat-error *ngIf="form.get('categories.customCategory').hasError('duplicate') ">
-                    Category already exist!</mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="legacy">
-                <mat-label>Remove category</mat-label>
-                <mat-select formControlName='categoryList'
-                    multiple>
-                    <mat-select-trigger>
-                        {{!!form.get('categories.categoryList').value 
-                    ?  getCategoriesValue(form.get('categories.categoryList').value[0])
+    <div class="form-group"
+        *ngIf="form.get('categoryOption').value === categoryPropertyEnum['Remove Category']">
+        <mat-form-field appearance="legacy">
+            <mat-label>Remove category</mat-label>
+            <mat-select formControlName='categoryList'
+                multiple>
+                <mat-select-trigger>
+                    {{!!form.get('categoryList').value 
+                    ?  getCategoriesValue(form.get('categoryList').value[0])
                     : '' | titlecase}}
-                        <span *ngIf="form.get('categories.categoryList').value?.length > 1">
-                            (+{{form.get('categories.categoryList').value.length - 1}}
-                            {{form.get('categories.categoryList').value?.length === 2 ? 'other' : 'others'}})
-                        </span>
-                    </mat-select-trigger>
-                    <mat-option *ngFor="let category of categories"
-                        [value]="category.id">{{category.title | titlecase}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+                    <span *ngIf="form.get('categoryList').value?.length > 1">
+                        (+{{form.get('categoryList').value.length - 1}}
+                        {{form.get('categoryList').value?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let category of categories"
+                    [value]="category.id">{{category.title | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
     <div class="submit-group">
@@ -53,7 +61,11 @@
             *ngIf="loadingState ">
         </mat-spinner>
         <button class="btn"
-            [disabled]="(loadingState || this.form.invalid  || form.pending)">Update!</button>
-
+            [disabled]="(loadingState || this.form.invalid )">{{
+                form.get('categoryOption').value === categoryPropertyEnum['Add Category']
+                ? 'Create!'
+                : 'Delete!'
+            }}</button>
     </div>
+
 </form>
