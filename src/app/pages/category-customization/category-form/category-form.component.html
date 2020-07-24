@@ -6,21 +6,21 @@
     <div class="radio-group">
         <mat-radio-group formControlName="categoryOption"
             name="radio">
-            <mat-radio-button [value]="categoryPropertyEnum['Add Category']">
+            <mat-radio-button value="add">
                 <img src="assets/images/create.svg"
                     alt=""> </mat-radio-button>
         </mat-radio-group>
         <strong>OR</strong>
         <mat-radio-group formControlName="categoryOption"
             name="radio">
-            <mat-radio-button [value]="categoryPropertyEnum['Remove Category']">
+            <mat-radio-button value="delete">
                 <img src="assets/images/delete.svg"
                     alt=""> </mat-radio-button>
         </mat-radio-group>
     </div>
 
     <div class="form-group"
-        *ngIf="form.get('categoryOption').value === categoryPropertyEnum['Add Category']">
+        *ngIf="form.get('categoryOption').value === 'add'">
         <mat-form-field appearance="legacy">
             <mat-label>Add new category</mat-label>
             <input matInput
@@ -35,7 +35,7 @@
     </div>
 
     <div class="form-group"
-        *ngIf="form.get('categoryOption').value === categoryPropertyEnum['Remove Category']">
+        *ngIf="form.get('categoryOption').value === 'delete'">
         <mat-form-field appearance="legacy">
             <mat-label>Remove category</mat-label>
             <mat-select formControlName='categoryList'
@@ -62,7 +62,7 @@
         </mat-spinner>
         <button class="btn"
             [disabled]="(loadingState || this.form.invalid )">{{
-                form.get('categoryOption').value === categoryPropertyEnum['Add Category']
+                form.get('categoryOption').value === 'add'
                 ? 'Create!'
                 : 'Delete!'
             }}</button>

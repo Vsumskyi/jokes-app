@@ -21,24 +21,6 @@ export class EditCategoriesPageComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories(): void {
-    this.jokesDataService.fetchCategories().subscribe(category => {
-      this.categoriesList = category;
-    });
-  }
-
-  onModifyCategories(categories: FormCategoriesInterface): void {
-    const { categoryOption, customCategory, categoryList } = categories;
-    this.loadingState = true;
-
-    if (categoryOption === this.categoryPropertyEnum['Remove Category']) {
-      this.removeCategories(categoryList);
-    }
-    if (categoryOption === this.categoryPropertyEnum['Add Category']) {
-      this.addNewCategory(customCategory);
-    }
-  }
-
   addNewCategory(category: string): void {
     this.jokesDataService
       .postCategory(category)
@@ -68,6 +50,12 @@ export class EditCategoriesPageComponent implements OnInit {
         .add(() => {
           this.loadingState = false;
         });
+    });
+  }
+
+  getCategories(): void {
+    this.jokesDataService.fetchCategories().subscribe(category => {
+      this.categoriesList = category;
     });
   }
 }

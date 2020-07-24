@@ -10,7 +10,8 @@
     </div>
 
     <app-category-form [categories]="categoriesList"
-        (modifyOnCategories)="onModifyCategories($event)"
+        (addCategory)="addNewCategory($event)"
+        (deleteCategory)="removeCategories($event)"
         [loadingState]="loadingState">
     </app-category-form>
 

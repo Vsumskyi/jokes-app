@@ -16,7 +16,8 @@ export class CategoryFormComponent implements OnInit {
   public categoryPropertyEnum = CategoryPropertyEnum;
   @Input() categories: CategoryInterface[];
   @Input() loadingState: boolean;
-  @Output() modifyOnCategories = new EventEmitter<FormCategoriesInterface>();
+  @Output() addCategory = new EventEmitter<string>();
+  @Output() deleteCategory = new EventEmitter<number[]>();
 
   constructor(private fb: FormBuilder) {}
 
@@ -26,14 +27,17 @@ export class CategoryFormComponent implements OnInit {
 
   setForm(): void {
     this.form = this.fb.group({
-      categoryOption: [this.categoryPropertyEnum['Add Category']],
-      customCategory: [null, [Validators.required, Validators.minLength(3)]],
+      categoryOption: ['add'],
+      customCategory: [null, [Validators.required]],
       categoryList: [null, [Validators.required]]
     });
   }
 
   submit(): void {
-    this.modifyOnCategories.emit(this.form.value);
+    this.form.value.categoryOption === 'add'
+      ? this.addCategory.emit(this.form.value.customCategory)
+      : this.deleteCategory.emit(this.form.value.categoryList);
+
     this.form.get('customCategory').reset();
   }
 
