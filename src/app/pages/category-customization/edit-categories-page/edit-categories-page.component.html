@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="nav">
+        <a href="#"
+            class="btn"
+            routerLink="/">
+            Home
+        </a>
+
+        <h3>My favorites jokes</h3>
+    </div>
+
+    <app-category-form [categories]="categoriesList"
+        (modifyOnCategories)="onModifyCategories($event)"
+        [loadingState]="loadingState">
+    </app-category-form>
+
+</div>

@@ -39,9 +39,25 @@
     <ng-container *ngIf="authService.authenticated;else notAuth">
       <div class="favorite-nav">
         <h3 *ngIf="jokeService.favorites.length">Favorite</h3>
-        <a href="#"
+
+        <button mat-button
           class="btn"
-          (click)="logOut($event)">Sign Out</a>
+          [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+          <a href="#"
+            mat-menu-item
+            [routerLink]="['/create-joke']">Create Joke</a>
+
+          <a href="#"
+            mat-menu-item
+            [routerLink]="['/edit-categories']">Edit Category</a>
+
+          <a href="#"
+            mat-menu-item
+            (click)="logOut($event)">Sign Out</a>
+
+        </mat-menu>
+
       </div>
 
       <ng-container *ngIf="!loading else loader">

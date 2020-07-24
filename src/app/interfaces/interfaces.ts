@@ -34,6 +34,11 @@ export interface CategoryInterface {
   title: string;
 }
 
+export interface FormCategoriesInterface {
+  categoryList: Array<number>;
+  customCategory?: string;
+}
+
 export interface UserInterface {
   token: string;
   email: string;

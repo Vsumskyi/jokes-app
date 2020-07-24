@@ -1,0 +1,31 @@
+@import 'variables';
+@import 'media_mixin';
+
+form {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
+  background: $white-color;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  mat-form-field {
+    margin-top: 20px;
+  }
+
+  .submit-group {
+    align-self: center;
+    position: relative;
+    margin-bottom: 20px;
+
+    .btn {
+      margin: 0;
+    }
+    .mat-spinner {
+      position: absolute;
+      right: -30px;
+      top: 10px;
+    }
+  }
+}
