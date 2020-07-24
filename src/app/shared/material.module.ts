@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatProgressSpinnerModule,
     MatInputModule,
     MatCheckboxModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRadioModule
   ],
   exports: [
     MatSelectModule,
@@ -24,7 +26,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {}
