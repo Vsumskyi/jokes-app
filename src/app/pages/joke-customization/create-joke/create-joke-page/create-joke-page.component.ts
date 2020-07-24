@@ -35,6 +35,8 @@ export class CreateJokePageComponent implements OnInit {
   }
 
   onNewJoke(joke: PostJokeInterface): void {
+    console.log(!!joke.customCategories);
+
     this.loading = true;
     if (!!joke.customCategories) {
       this.jokesDataService
@@ -62,6 +64,7 @@ export class CreateJokePageComponent implements OnInit {
           });
           this.jokesDataService.openSnackBar('Created!');
           this.getCategories();
+          this.loading = false;
         },
         () => this.jokesDataService.openSnackBar('Something went wrong...')
       )

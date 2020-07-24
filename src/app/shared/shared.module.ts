@@ -1,3 +1,4 @@
+import { CategoryExistValidator } from './../validators/categories.validator';
 import { JokeModifyFormComponent } from './../pages/joke-customization/joke-modify-form/joke-modify-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,7 +21,8 @@ import { MaterialModule } from './material.module';
     DiffDatePipe,
     SearchPipe,
     InputFocusDirective,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    CategoryExistValidator
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { MaterialModule } from './material.module';
     ReactiveFormsModule,
     NotAuthorizedComponent,
     JokeModifyFormComponent,
-    MaterialModule
+    MaterialModule,
+    CategoryExistValidator
   ]
 })
 export class SharedModule {}

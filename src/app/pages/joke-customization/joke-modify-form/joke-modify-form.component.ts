@@ -1,5 +1,3 @@
-import { JokesDataService } from 'src/app/services/jokes-data.service';
-import { CategoryExist } from 'src/app/validators/categories.validator';
 import { CategoryInterface } from 'src/app/interfaces/interfaces';
 import { Joke } from 'src/app/interfaces/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -19,10 +17,7 @@ export class JokeModifyFormComponent implements OnInit {
   @Input() joke = {} as Joke;
   @Input() loadingState: boolean;
 
-  constructor(
-    private fb: FormBuilder,
-    private jokesDataService: JokesDataService
-  ) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.setForm(this.joke);
@@ -33,20 +28,17 @@ export class JokeModifyFormComponent implements OnInit {
       value: [jokeModel.value, [Validators.required, Validators.minLength(3)]],
       iconUrl: [jokeModel.iconUrl],
       categories: [jokeModel.categories || []],
-      customCategories: [
-        '',
-        null,
-        [CategoryExist.categoryExistValidator(this.jokesDataService)]
-      ]
+      customCategories: ['']
     });
   }
 
   submit(): void {
-    if (this.form.valid && this.form.enabled) {
+    if (this.form.valid) {
       this.modifyOnJoke.emit(this.form.value);
     }
     if (!this.modifyJokeMode) {
       this.form.reset(this.joke);
+      this.form.get('categories').setValue([]);
     }
   }
 }

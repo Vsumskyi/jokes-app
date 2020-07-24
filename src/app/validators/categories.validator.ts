@@ -1,25 +1,38 @@
-import { ValidationErrors } from '@angular/forms';
-import { of } from 'rxjs';
-import { JokesDataService } from './../services/jokes-data.service';
+import { JokesDataService } from 'src/app/services/jokes-data.service';
+import {
+  ValidationErrors,
+  AsyncValidator,
+  AbstractControl,
+  NG_ASYNC_VALIDATORS
+} from '@angular/forms';
+import { of, timer } from 'rxjs';
 import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { Directive } from '@angular/core';
 
-export class CategoryExist {
-  static categoryExistValidator(
-    jokesDataService: JokesDataService
-  ): ValidationErrors {
-    return (
-      control: FormControl
-    ):
-      | Promise<{ [key: string]: boolean }>
-      | Observable<{ [key: string]: boolean }> => {
-      if (!control || String(control.value).length === 0) {
-        return of(null);
-      }
-      return jokesDataService
-        .categoriesExist(control.value)
-        .pipe(map(i => (i === true ? { emailExist: true } : null)));
-    };
+@Directive({
+  selector: '[appCategoryExistValidator]',
+  providers: [
+    {
+      provide: NG_ASYNC_VALIDATORS,
+      useExisting: CategoryExistValidator,
+      multi: true
+    }
+  ]
+})
+export class CategoryExistValidator implements AsyncValidator {
+  constructor(private jokesDataService: JokesDataService) {}
+  validate(
+    control: AbstractControl
+  ): Promise<ValidationErrors> | Observable<ValidationErrors | null> {
+    if (!control || String(control.value).length === 0) {
+      return of(null);
+    }
+    return timer(1000).pipe(
+      switchMap(() => {
+        return this.jokesDataService.categoriesExist(control.value);
+      }),
+      map(resp => (resp ? { duplicate: true } : null))
+    );
   }
 }

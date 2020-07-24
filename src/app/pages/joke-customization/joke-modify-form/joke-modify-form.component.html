@@ -11,8 +11,7 @@
                 [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
-            <mat-error
-                *ngIf="form.get('value').touched && form.get('value').invalid">
+            <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
                 Joke is required!</mat-error>
         </mat-form-field>
     </div>
@@ -50,21 +49,20 @@
         <mat-form-field appearance="legacy">
             <mat-label>Add custom category</mat-label>
             <input matInput
+                appCategoryExistValidator
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
 
-            <mat-error
-                *ngIf="form.get('customCategories').invalid && form.get('customCategories').touched">
+            <mat-error *ngIf="form.get('customCategories').hasError('duplicate') ">
                 Category already exist!</mat-error>
         </mat-form-field>
-
     </div>
 
     <div class="submit-group">
         <mat-spinner [diameter]="25"
-            *ngIf="loadingState || form.pending">
+            *ngIf="loadingState ">
         </mat-spinner>
         <button class="btn"
-            [disabled]="(loadingState || this.form.invalid || form.pending)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
+            [disabled]="(loadingState || this.form.invalid  || form.pending)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>
