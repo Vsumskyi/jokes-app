@@ -3,4 +3,13 @@
 
 .container {
   width: 100%;
+
+  mat-radio-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    mat-radio-button {
+      margin: 10px;
+    }
+  }
 }

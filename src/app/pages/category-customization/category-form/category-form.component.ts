@@ -1,8 +1,4 @@
-import { CategoryPropertyEnum } from 'src/app/enums/enums';
-import {
-  CategoryInterface,
-  FormCategoriesInterface
-} from 'src/app/interfaces/interfaces';
+import { CategoryInterface } from 'src/app/interfaces/interfaces';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
@@ -13,11 +9,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CategoryFormComponent implements OnInit {
   public form: FormGroup;
-  public categoryPropertyEnum = CategoryPropertyEnum;
+  @Input() addCategoryMode = false;
   @Input() categories: CategoryInterface[];
   @Input() loadingState: boolean;
-  @Output() addCategory = new EventEmitter<string>();
-  @Output() deleteCategory = new EventEmitter<number[]>();
+  @Output() modifyCategories = new EventEmitter();
 
   constructor(private fb: FormBuilder) {}
 
@@ -26,19 +21,23 @@ export class CategoryFormComponent implements OnInit {
   }
 
   setForm(): void {
-    this.form = this.fb.group({
-      categoryOption: ['add'],
-      customCategory: [null, [Validators.required]],
-      categoryList: [null, [Validators.required]]
-    });
+    if (this.addCategoryMode) {
+      this.form = this.fb.group({
+        customCategory: [null, [Validators.required, Validators.minLength(3)]]
+      });
+    } else {
+      this.form = this.fb.group({
+        categoryList: [null, [Validators.required]]
+      });
+    }
   }
 
   submit(): void {
-    this.form.value.categoryOption === 'add'
-      ? this.addCategory.emit(this.form.value.customCategory)
-      : this.deleteCategory.emit(this.form.value.categoryList);
+    if (this.form.valid && this.form.enable) {
+      this.modifyCategories.emit(this.form.value);
 
-    this.form.get('customCategory').reset();
+      this.form.reset();
+    }
   }
 
   getCategoriesValue(id: string | number): string {

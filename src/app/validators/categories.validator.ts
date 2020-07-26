@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { of, timer } from 'rxjs';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, filter } from 'rxjs/operators';
 import { Directive } from '@angular/core';
 
 @Directive({
@@ -29,6 +29,7 @@ export class CategoryExistValidator implements AsyncValidator {
       return of(null);
     }
     return timer(1000).pipe(
+      filter(() => control.value != null),
       switchMap(() => {
         return this.jokesDataService.categoriesExist(control.value);
       }),

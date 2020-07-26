@@ -5,14 +5,30 @@
             routerLink="/">
             Home
         </a>
-
         <h3>My favorites jokes</h3>
     </div>
 
-    <app-category-form [categories]="categoriesList"
-        (addCategory)="addNewCategory($event)"
-        (deleteCategory)="removeCategories($event)"
+    <mat-radio-group name="radio"
+        (change)="addCategoryMode = !addCategoryMode">
+        <mat-radio-button value="add"
+            checked>
+            <img src="assets/images/create.svg"
+                alt=""> </mat-radio-button>
+        <mat-radio-button value="delete">
+            <img src="assets/images/delete.svg"
+                alt=""> </mat-radio-button>
+    </mat-radio-group>
+
+    <app-category-form *ngIf="addCategoryMode"
+        [addCategoryMode]="addCategoryMode"
+        (modifyCategories)="addNewCategory($event.customCategory)"
         [loadingState]="loadingState">
     </app-category-form>
 
+    <app-category-form [categories]="categoriesList"
+        *ngIf="!addCategoryMode"
+        [addCategoryMode]="addCategoryMode"
+        (modifyCategories)="removeCategories($event.categoryList)"
+        [loadingState]="loadingState">
+    </app-category-form>
 </div>

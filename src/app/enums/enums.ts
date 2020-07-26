@@ -22,8 +22,3 @@ export enum RolesEnum {
   'Super Admin' = 'SuperAdmin',
   User = 'User'
 }
-
-export enum CategoryPropertyEnum {
-  'Add Category' = 'addCategory',
-  'Remove Category' = 'removeCategory'
-}

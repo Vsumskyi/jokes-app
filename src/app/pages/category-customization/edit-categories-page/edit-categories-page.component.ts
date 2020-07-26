@@ -1,10 +1,7 @@
 import { JokesDataService } from 'src/app/services/jokes-data.service';
-import {
-  CategoryInterface,
-  FormCategoriesInterface
-} from 'src/app/interfaces/interfaces';
+import { CategoryInterface } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
-import { CategoryPropertyEnum } from 'src/app/enums/enums';
+import { zip } from 'rxjs';
 @Component({
   selector: 'app-edit-categories-page',
   templateUrl: './edit-categories-page.component.html',
@@ -13,8 +10,8 @@ import { CategoryPropertyEnum } from 'src/app/enums/enums';
 export class EditCategoriesPageComponent implements OnInit {
   public categoriesList: CategoryInterface[] = [];
   public loadingState: boolean;
+  public addCategoryMode = true;
   public errorMessage = '';
-  public categoryPropertyEnum = CategoryPropertyEnum;
   constructor(private jokesDataService: JokesDataService) {}
 
   ngOnInit(): void {
@@ -22,11 +19,12 @@ export class EditCategoriesPageComponent implements OnInit {
   }
 
   addNewCategory(category: string): void {
+    this.loadingState = true;
     this.jokesDataService
       .postCategory(category)
       .subscribe(
         () => {
-          this.jokesDataService.openSnackBar('Updated!');
+          this.jokesDataService.openSnackBar(`Category ${category} was added!`);
           this.getCategories();
         },
         e => this.jokesDataService.openSnackBar('Something went wrong...')
@@ -37,20 +35,22 @@ export class EditCategoriesPageComponent implements OnInit {
   }
 
   removeCategories(categories: number[]): void {
-    categories.forEach(category => {
-      this.jokesDataService
-        .deleteCategory(category)
-        .subscribe(
-          () => {
-            this.jokesDataService.openSnackBar('Updated!');
-            this.getCategories();
-          },
-          e => this.jokesDataService.openSnackBar('Something went wrong...')
-        )
-        .add(() => {
-          this.loadingState = false;
-        });
-    });
+    this.loadingState = true;
+    const observables = categories.map(category =>
+      this.jokesDataService.deleteCategory(category)
+    );
+    // combine array of observables to on stream
+    zip(...observables)
+      .subscribe(
+        () => {
+          this.jokesDataService.openSnackBar('Deleted!');
+          this.getCategories();
+        },
+        e => this.jokesDataService.openSnackBar('Something went wrong...')
+      )
+      .add(() => {
+        this.loadingState = false;
+      });
   }
 
   getCategories(): void {
