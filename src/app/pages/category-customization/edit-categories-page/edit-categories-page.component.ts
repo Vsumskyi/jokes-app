@@ -39,7 +39,7 @@ export class EditCategoriesPageComponent implements OnInit {
     const observables = categories.map(category =>
       this.jokesDataService.deleteCategory(category)
     );
-    // combine array of observables to on stream
+    // combine array of observables to one stream
     zip(...observables)
       .subscribe(
         () => {

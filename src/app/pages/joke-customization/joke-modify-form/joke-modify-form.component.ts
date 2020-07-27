@@ -27,7 +27,6 @@ export class JokeModifyFormComponent implements OnInit {
   setForm(jokeModel: Joke): void {
     this.form = this.fb.group({
       value: [jokeModel.value, [Validators.required, Validators.minLength(3)]],
-      imageUrls: [jokeModel.imageUrls],
       categories: [jokeModel.categories || []],
       customCategories: ['']
     });
@@ -35,12 +34,11 @@ export class JokeModifyFormComponent implements OnInit {
 
   submit(): void {
     if (this.form.valid) {
-      this.modifyOnJoke.emit({ ...this.form.value, imageUrls: this.image });
+      this.modifyOnJoke.emit({ ...this.form.value, image: this.image });
     }
     if (!this.modifyJokeMode) {
       this.form.reset(this.joke);
       this.form.get('categories').setValue([]);
-      this.form.get('imageUrls').setValue([]);
     }
   }
 

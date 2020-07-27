@@ -11,13 +11,13 @@
                 [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
-            <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
+            <mat-error
+                *ngIf="form.get('value').touched && form.get('value').invalid">
                 Joke is required!</mat-error>
         </mat-form-field>
     </div>
 
     <div class="form-group">
-        <mat-label>Type icon url</mat-label>
         <button type="button"
             md-button
             (click)="imgFileInput.click()">Add a photo</button>
@@ -27,16 +27,14 @@
             #imgFileInput
             appInputUpload
             type="file"
-            placeholder="Type icon url"
-            formControlName="imageUrls">
+            placeholder="Type icon url">
     </div>
-
 
     <div class="form-group">
         <mat-form-field appearance="legacy">
             <mat-label>Choose a category</mat-label>
             <mat-select formControlName='categories'
-                multiple>
+                multiple>Y
                 <mat-select-trigger>
                     {{form.get('categories').value && form.get('categories').value[0]  | titlecase}}
                     <span *ngIf="form.get('categories').value?.length > 1">
@@ -60,7 +58,8 @@
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
 
-            <mat-error *ngIf="form.get('customCategories').hasError('duplicate') ">
+            <mat-error
+                *ngIf="form.get('customCategories').hasError('duplicate') ">
                 Category already exist!</mat-error>
         </mat-form-field>
     </div>

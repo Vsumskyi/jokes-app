@@ -1,5 +1,5 @@
 export interface Joke {
-  imageUrls?: File;
+  imageUrls?: string[];
   value: string;
   id: number | string;
   updatedAt?: Date;
@@ -13,9 +13,10 @@ export interface PostJokeInterface {
   id?: string | number;
   value: string;
   url: string;
-  imageUrls: File;
+  image?: File;
   categories: Array<number>;
   customCategories?: string;
+  imageNames: string[];
 }
 
 export interface JokeSearchFormValue {

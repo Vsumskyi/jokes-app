@@ -1,8 +1,7 @@
-import { JokesDataService } from 'src/app/services/jokes-data.service';
 import { map } from 'rxjs/operators';
 import { Directive, OnInit, ElementRef } from '@angular/core';
-import { fromEvent, zip } from 'rxjs';
-import { AbstractControl, NgControl } from '@angular/forms';
+import { fromEvent } from 'rxjs';
+import { JokesMediaService } from 'src/app/services/jokes-media.service';
 
 @Directive({
   selector: '[appInputUpload]'
@@ -10,8 +9,7 @@ import { AbstractControl, NgControl } from '@angular/forms';
 export class InputUploadDirective implements OnInit {
   constructor(
     public element: ElementRef,
-    private control: NgControl,
-    private jokesDataService: JokesDataService
+    private jokesMediaService: JokesMediaService
   ) {}
 
   ngOnInit(): void {
@@ -21,8 +19,8 @@ export class InputUploadDirective implements OnInit {
         const imagesExtension = Object.values(icons).reduce((acc, curr) => {
           return curr.name.slice(curr.name.lastIndexOf('.') + 1);
         }, '');
-        this.jokesDataService.getImageLink(imagesExtension).subscribe(data => {
-          this.jokesDataService.setImageLink(data.imageUploadUrl);
+        this.jokesMediaService.getImageData(imagesExtension).subscribe(data => {
+          this.jokesMediaService.setImageData(data);
         });
       });
   }
