@@ -1,5 +1,5 @@
 export interface Joke {
-  iconUrl?: string;
+  imageUrls?: File;
   value: string;
   id: number | string;
   updatedAt?: Date;
@@ -13,7 +13,7 @@ export interface PostJokeInterface {
   id?: string | number;
   value: string;
   url: string;
-  iconUrl: string;
+  imageUrls: File;
   categories: Array<number>;
   customCategories?: string;
 }
@@ -70,4 +70,9 @@ export interface RegistryUser {
 export interface LoginUser {
   email: string;
   password: string;
+}
+
+export interface ImageInterface {
+  imageName: string;
+  imageUploadUrl: string;
 }

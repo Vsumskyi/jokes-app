@@ -28,30 +28,12 @@
       flex-grow: 1;
       position: relative;
       .admin-panel {
-        display: flex;
         position: absolute;
-        bottom: -3px;
-        left: -3px;
+        right: -2px;
 
-        .edit,
-        .delete {
-          opacity: 0.4;
-          transition: opacity 0.45s ease;
-          img {
-            width: 20px;
-            height: 20px;
-          }
-          &:hover {
-            opacity: 1;
-          }
-        }
-        .delete {
-          margin-left: 10px;
-        }
         @include _480 {
-          bottom: auto;
-          top: 20px;
-          left: 50px;
+          right: 12px;
+          top: 45px;
         }
       }
     }

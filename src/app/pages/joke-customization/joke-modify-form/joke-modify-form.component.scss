@@ -9,6 +9,10 @@ form {
   width: fit-content;
   margin-right: 30px;
   margin-bottom: 20px;
+  @include _768 {
+    padding: 20px 25px 15px;
+    margin-right: 10px;
+  }
   @include _600 {
     margin-right: 0;
   }

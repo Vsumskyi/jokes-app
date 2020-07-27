@@ -54,23 +54,32 @@ export class CreateJokePageComponent implements OnInit {
   }
 
   postJoke(newJoke: PostJokeInterface): void {
-    this.jokesDataService
-      .postJoke(newJoke)
-      .subscribe(
-        joke => {
-          this.jokeService.setBufferJoke(joke);
-          this.jokeService.currentBufferJoke.subscribe(currentJoke => {
-            this.joke = currentJoke;
-          });
-          this.jokesDataService.openSnackBar('Created!');
-          this.getCategories();
-          this.loading = false;
-        },
-        () => this.jokesDataService.openSnackBar('Something went wrong...')
-      )
-      .add(() => {
-        this.loading = false;
-      });
+    // console.log(this.jokesDataService.getImageOptions);
+    // console.log(newJoke);
+
+    this.jokesDataService.putImage(
+      newJoke.imageUrls,
+      this.jokesDataService.imageLink
+    );
+
+    // this.jokesDataService
+    //   .postJoke(newJoke)
+    //   .subscribe(
+    //     joke => {
+    //       this.jokeService.setBufferJoke(joke);
+    //       this.jokeService.currentBufferJoke.subscribe(currentJoke => {
+    //         this.joke = currentJoke;
+    //       });
+    //       this.jokesDataService.openSnackBar('Created!');
+    //       this.getCategories();
+    //       this.loading = false;
+    //     },
+    //     () => this.jokesDataService.openSnackBar('Something went wrong...')
+    //   )
+    //   .add(() => {
+    //     this.loading = false;
+    //   });
+    this.loading = false;
   }
 
   getCategoriesId(value: string): number {

@@ -48,6 +48,7 @@ export class JokeFormComponent implements OnInit {
   getCategories(): void {
     this.jokesDataService.fetchCategories().subscribe(categories => {
       this.jokeCategories = categories.map(i => i.title);
+      this.form.get('apiValue.categories').setValue(this.jokeCategories[0]);
     });
   }
 

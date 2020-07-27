@@ -1,3 +1,4 @@
+import { InputUploadDirective } from './../directives/input-upload.directive';
 import { CategoryExistValidator } from './../validators/categories.validator';
 import { JokeModifyFormComponent } from './../pages/joke-customization/joke-modify-form/joke-modify-form.component';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,8 @@ import { MaterialModule } from './material.module';
     SearchPipe,
     InputFocusDirective,
     NotAuthorizedComponent,
-    CategoryExistValidator
+    CategoryExistValidator,
+    InputUploadDirective
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { MaterialModule } from './material.module';
     NotAuthorizedComponent,
     JokeModifyFormComponent,
     MaterialModule,
-    CategoryExistValidator
+    CategoryExistValidator,
+    InputUploadDirective
   ]
 })
 export class SharedModule {}

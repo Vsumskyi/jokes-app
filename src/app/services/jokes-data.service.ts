@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { ImageInterface } from './../interfaces/interfaces';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { JokeTypeEnum } from '../enums/enums';
@@ -15,8 +16,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class JokesDataService {
   private jokeTypeEnum = JokeTypeEnum;
   private apiUrl = environment.apiUrl;
+  private mediaUrl = environment.mediaUrl;
+  private iconLink: string;
   private loading = new BehaviorSubject(true);
   public currentLoadingState = this.loading.asObservable();
+
+  get imageLink(): string {
+    return this.iconLink;
+  }
+
+  setImageLink(imageLink: string): void {
+    this.iconLink = imageLink;
+  }
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -90,9 +101,39 @@ export class JokesDataService {
     );
   }
 
+  getImageLink(names: string): Observable<ImageInterface> {
+    return this.http.post<ImageInterface>(
+      `${this.mediaUrl}?fileExtencion=${names}`,
+      names
+    );
+  }
+
+  putImage(image: File, ulr: string): void {
+    const headers = new HttpHeaders({
+      'x-ms-blob-type': 'BlockBlob',
+      'Content-Type': 'application/octet-stream'
+    });
+    // console.log(toBase64(image));
+    toBase64(image).then(i => {
+      this.http
+        .put<ImageInterface>(ulr, i, { headers })
+        .subscribe(i => {
+          console.log(i);
+        });
+    });
+  }
+
   openSnackBar(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 2000
     });
   }
 }
+
+const toBase64 = file =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });

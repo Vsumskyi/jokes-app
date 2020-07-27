@@ -42,15 +42,16 @@
 
         <button mat-button
           class="btn"
-          [matMenuTriggerFor]="menu">Menu</button>
-        <mat-menu #menu="matMenu">
+          [matMenuTriggerFor]="beforeMenu">Menu</button>
+        <mat-menu #beforeMenu="matMenu"
+          xPosition="before">
           <a href="#"
             mat-menu-item
             [routerLink]="['/create-joke']">Create Joke</a>
 
           <a href="#"
             mat-menu-item
-            [routerLink]="['/edit-categories']">Edit Category</a>
+            [routerLink]="['/edit-categories']">Edit Categories</a>
 
           <a href="#"
             mat-menu-item
@@ -70,10 +71,6 @@
             <a class="btn"
               [routerLink]="['/favorites']">Go to all Favorites
             </a>
-            <a class="btn"
-              *ngIf="authService.adminStatus"
-              [routerLink]="['/create-joke']">Create joke
-            </a>
           </div>
         </ng-container>
       </ng-container>
@@ -81,10 +78,6 @@
 
     <ng-template #empty>
       <app-empty-container title="No jokes saved..."></app-empty-container>
-      <a class="btn"
-        *ngIf="authService.adminStatus"
-        [routerLink]="['/create-joke']">Create joke
-      </a>
     </ng-template>
 
     <ng-template #notAuth

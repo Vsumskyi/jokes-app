@@ -10,6 +10,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 })
 export class JokeModifyFormComponent implements OnInit {
   public form: FormGroup;
+  private image: File;
 
   @Output() modifyOnJoke = new EventEmitter<Joke>();
   @Input() categoryList: CategoryInterface;
@@ -26,7 +27,7 @@ export class JokeModifyFormComponent implements OnInit {
   setForm(jokeModel: Joke): void {
     this.form = this.fb.group({
       value: [jokeModel.value, [Validators.required, Validators.minLength(3)]],
-      iconUrl: [jokeModel.iconUrl],
+      imageUrls: [jokeModel.imageUrls],
       categories: [jokeModel.categories || []],
       customCategories: ['']
     });
@@ -34,11 +35,16 @@ export class JokeModifyFormComponent implements OnInit {
 
   submit(): void {
     if (this.form.valid) {
-      this.modifyOnJoke.emit(this.form.value);
+      this.modifyOnJoke.emit({ ...this.form.value, imageUrls: this.image });
     }
     if (!this.modifyJokeMode) {
       this.form.reset(this.joke);
       this.form.get('categories').setValue([]);
+      this.form.get('imageUrls').setValue([]);
     }
+  }
+
+  loadImg(image: File): void {
+    this.image = image;
   }
 }

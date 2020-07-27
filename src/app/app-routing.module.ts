@@ -41,6 +41,11 @@ const routes: Routes = [
         './pages/category-customization/category-customization.module'
       ).then(module => module.CategoryCustomizationModule)
   },
+  {
+    path: 'joke/:id',
+    loadChildren: () =>
+      import('./pages/joke/joke.module').then(module => module.JokeModule)
+  },
 
   { path: '**', redirectTo: '/' }
 ];
