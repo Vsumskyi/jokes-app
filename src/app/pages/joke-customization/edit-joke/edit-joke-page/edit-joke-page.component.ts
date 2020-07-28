@@ -35,12 +35,12 @@ export class EditJokePageComponent implements OnInit {
     this.loadingForm = true;
     joke.id = this.joke.id;
     joke.categories = joke.categories.map(i => this.getCategoriesId(`${i}`));
-
     this.jokesDataService
       .editJoke(joke)
       .subscribe(
         newJoke => {
           this.jokesDataService.openSnackBar('Updated!');
+          newJoke.imageUrls = this.joke.imageUrls;
           this.jokeService.setBufferJoke(newJoke);
           this.jokeService.refreshJokes(newJoke);
         },
