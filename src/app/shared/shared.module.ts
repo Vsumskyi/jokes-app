@@ -1,3 +1,4 @@
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { InputUploadDirective } from './../directives/input-upload.directive';
 import { CategoryExistValidator } from './../validators/categories.validator';
 import { JokeModifyFormComponent } from './../pages/joke-customization/joke-modify-form/joke-modify-form.component';
@@ -24,7 +25,8 @@ import { MaterialModule } from './material.module';
     InputFocusDirective,
     NotAuthorizedComponent,
     CategoryExistValidator,
-    InputUploadDirective
+    InputUploadDirective,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { MaterialModule } from './material.module';
     JokeModifyFormComponent,
     MaterialModule,
     CategoryExistValidator,
-    InputUploadDirective
+    InputUploadDirective,
+    ToolbarComponent
   ]
 })
 export class SharedModule {}

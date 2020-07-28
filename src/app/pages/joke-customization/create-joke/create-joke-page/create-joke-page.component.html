@@ -1,16 +1,7 @@
+<app-toolbar title="Create Joke"></app-toolbar>
+
 <div class="container">
-
-  <div class="nav">
-    <a href="#"
-      class="btn route"
-      routerLink="/">
-      Home
-    </a>
-    <h3>Create Joke</h3>
-  </div>
-
   <div class="form-container">
-
     <app-joke-modify-form [loadingState]='loading'
       [categoryList]="categoriesList"
       (modifyOnJoke)="onNewJoke($event)"></app-joke-modify-form>

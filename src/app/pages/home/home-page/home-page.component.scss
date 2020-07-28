@@ -13,6 +13,10 @@
   }
 }
 
+.container {
+  height: 100vh;
+}
+
 .title {
   margin-bottom: 40px;
 
@@ -34,7 +38,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-top: 5px;
     h3 {
       color: $sub-title-color;
     }
@@ -56,9 +61,11 @@
   }
   &.active {
     padding-top: 0;
+    z-index: 5;
   }
   &.active::before {
     padding: 40px;
+    padding-bottom: 35px;
     content: '';
     position: sticky;
     top: 0;
@@ -93,6 +100,9 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
+    @include _836 {
+      margin-bottom: 30px;
+    }
   }
 
   @include _836 {
@@ -117,9 +127,8 @@
 .drawer-trigger {
   position: relative;
   display: none;
-  z-index: 4;
+  z-index: 6;
   cursor: pointer;
-
   h3 {
     color: $sub-title-color;
     margin-bottom: 0;

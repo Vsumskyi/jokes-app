@@ -1,12 +1,6 @@
+<app-toolbar title="Authentication"></app-toolbar>
+
 <div class="container">
-  <div class="nav">
-    <a href="#"
-      class="btn"
-      [routerLink]="['/']">
-      Home
-    </a>
-    <h3>Authentication</h3>
-  </div>
 
   <div *ngIf="authService.authenticated;else authForm"
     class="content-wrapper">
@@ -38,12 +32,10 @@
         <label for="signup">Sign Up</label>
       </form>
 
-      <app-sign-in-form
-        *ngIf="form.get('auth').value === authPropertiesEnum['Sign in']">
+      <app-sign-in-form *ngIf="form.get('auth').value === authPropertiesEnum['Sign in']">
       </app-sign-in-form>
 
-      <app-sign-up-form
-        *ngIf="form.get('auth').value === authPropertiesEnum['Sign up']">
+      <app-sign-up-form *ngIf="form.get('auth').value === authPropertiesEnum['Sign up']">
       </app-sign-up-form>
     </div>
   </ng-template>

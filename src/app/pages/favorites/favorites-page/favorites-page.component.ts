@@ -23,7 +23,6 @@ export class FavoritesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateJokes();
-    this.jokeCategories = this.jokeService.getActualCategories();
     this.setForm();
     this.jokesDataService.currentLoadingState.subscribe(state => {
       this.loading = state;
@@ -36,6 +35,7 @@ export class FavoritesPageComponent implements OnInit {
       this.jokesDataService
         .getDataFromDb()
         .subscribe(data => {
+          this.jokeCategories = this.jokeService.getActualCategories();
           this.jokeService.updateJokes(data);
         })
         .add(() => this.jokesDataService.changeLoading(false));

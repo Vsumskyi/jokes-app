@@ -2,21 +2,16 @@
 @import 'media_mixin';
 
 .container {
-  padding: 40px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  &-inner {
-    form {
-      padding: 0;
-      margin-bottom: 10px;
-    }
-    width: 80%;
-    margin: 0 auto;
-    @include _420 {
-      width: 90%;
-    }
+  form {
+    padding: 0;
+    margin-bottom: 10px;
   }
+  width: 80%;
+  margin: 0 auto;
+
   .base-input {
     width: 40%;
     display: block;
@@ -51,7 +46,6 @@
 
   .show-search {
     margin-left: 0;
-    margin-bottom: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: baseline;
