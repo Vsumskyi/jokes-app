@@ -1,3 +1,4 @@
+import { JokesMediaService } from 'src/app/services/jokes-media.service';
 import { CategoryInterface } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -8,7 +9,8 @@ import { Joke, PostJokeInterface } from 'src/app/interfaces/interfaces';
 @Component({
   selector: 'app-edit-joke-page',
   templateUrl: './edit-joke-page.component.html',
-  styleUrls: ['./edit-joke-page.component.scss']
+  styleUrls: ['./edit-joke-page.component.scss'],
+  providers: [JokesMediaService]
 })
 export class EditJokePageComponent implements OnInit {
   public loading = false;
@@ -20,7 +22,8 @@ export class EditJokePageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private jokeService: JokeService,
-    private jokesDataService: JokesDataService
+    private jokesDataService: JokesDataService,
+    private jokesMediaService: JokesMediaService
   ) {}
 
   ngOnInit(): void {

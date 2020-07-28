@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+import { zip, Observable, of } from 'rxjs';
 import { JokesDataService } from 'src/app/services/jokes-data.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -39,18 +41,19 @@ export class CreateJokePageComponent implements OnInit {
 
   onNewJoke(joke: PostJokeInterface): void {
     this.loading = true;
-
-    // FIX ME!
-    if (joke.customCategories) {
-      this.postCategory(joke);
-    }
-    if (joke.image) {
-      this.postIcon(joke);
-    }
-
-    if (!joke.customCategories && !joke.image) {
+    zip(this.postCategory(joke), this.postIcon(joke)).subscribe(data => {
+      const [id, imageNames] = data;
+      if (joke.customCategories) {
+        joke.categories = joke.categories.map(i =>
+          this.getCategoriesId(`${i}`)
+        );
+        joke.categories.unshift(id);
+      }
+      if (joke.image) {
+        joke.imageNames = imageNames;
+      }
       this.postJoke(joke);
-    }
+    });
   }
 
   postJoke(newJoke: PostJokeInterface): void {
@@ -73,26 +76,32 @@ export class CreateJokePageComponent implements OnInit {
       });
   }
 
-  postCategory(joke: PostJokeInterface): void {
-    this.jokesDataService
-      .postCategory(joke.customCategories)
-      .subscribe(data => {
-        joke.categories = joke.categories.map(i =>
-          this.getCategoriesId(`${i}`)
-        );
-        joke.categories.unshift(data.id);
-        this.postJoke(joke);
-      });
+  postCategory(joke: PostJokeInterface): Observable<number> {
+    if (!joke.customCategories) {
+      return of(null);
+    }
+    return this.jokesDataService.postCategory(joke.customCategories).pipe(
+      map(i => {
+        return i.id;
+      })
+    );
   }
 
-  postIcon(joke: PostJokeInterface): void {
-    this.jokesMediaService
-      .putImage(joke.image, this.jokesMediaService.getImageInfo.imageUploadUrl)
-      .subscribe(() => {
-        joke.imageNames = [this.jokesMediaService.getImageInfo.imageName];
-        this.jokesMediaService.clearImageData();
-        this.jokesDataService.postJoke(joke);
-      });
+  postIcon(joke: PostJokeInterface): Observable<string[]> {
+    if (!joke.image) {
+      return of(null);
+    }
+    const observables = this.jokesMediaService.getImageInfo.map(
+      (image, index) => {
+        return this.jokesMediaService.putImage(
+          joke.image[index],
+          image.imageUploadUrl
+        );
+      }
+    );
+    return zip(...observables).pipe(
+      map(() => this.jokesMediaService.getImageInfo.map(i => i.imageName))
+    );
   }
 
   getCategoriesId(value: string): number {

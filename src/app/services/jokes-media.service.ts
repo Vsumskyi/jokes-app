@@ -7,21 +7,18 @@ import { ImageInterface } from 'src/app/interfaces/interfaces';
 @Injectable()
 export class JokesMediaService {
   private mediaUrl = environment.mediaUrl;
-  private imageData: ImageInterface;
+  private imageData: ImageInterface[];
 
   constructor(private http: HttpClient) {}
 
-  get getImageInfo(): ImageInterface {
+  get getImageInfo(): ImageInterface[] {
     return this.imageData;
   }
 
-  setImageData(image: ImageInterface): void {
+  setImageData(image: ImageInterface[]): void {
     this.imageData = image;
   }
-  clearImageData(): void {
-    this.imageData.imageName = '';
-    this.imageData.imageUploadUrl = '';
-  }
+
   getImageData(names: string): Observable<ImageInterface> {
     return this.http.post<ImageInterface>(
       `${this.mediaUrl}?fileExtencion=${names}`,

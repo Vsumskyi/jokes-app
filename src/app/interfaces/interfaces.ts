@@ -13,7 +13,7 @@ export interface PostJokeInterface {
   id?: string | number;
   value: string;
   url: string;
-  image?: File;
+  image?: File[];
   categories: Array<number>;
   customCategories?: string;
   imageNames: string[];

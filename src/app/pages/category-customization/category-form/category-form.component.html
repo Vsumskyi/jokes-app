@@ -12,8 +12,7 @@
                 appCategoryExistValidator
                 placeholder="Type category"
                 formControlName="customCategory">
-            <mat-error
-                *ngIf="form.get('customCategory').hasError('duplicate') ">
+            <mat-error *ngIf="form.get('customCategory').hasError('duplicate') ">
                 Category already exist!</mat-error>
         </mat-form-field>
     </div>
@@ -44,11 +43,14 @@
         <mat-spinner [diameter]="25"
             *ngIf="loadingState || form.pending">
         </mat-spinner>
-        <button class="btn"
+
+        <button mat-raised-button
+            [color]="addCategoryMode? 'primary': 'accent'"
             [disabled]="(loadingState || this.form.invalid ) || form.pending">{{
-                addCategoryMode
-                ? 'Create!'
-                : 'Delete!'
-            }}</button>
+            addCategoryMode
+            ? 'Create!'
+            : 'Delete!'
+        }}
+        </button>
     </div>
 </form>

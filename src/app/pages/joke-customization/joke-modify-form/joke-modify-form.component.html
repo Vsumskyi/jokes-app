@@ -11,30 +11,16 @@
                 [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
-            <mat-error
-                *ngIf="form.get('value').touched && form.get('value').invalid">
+            <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
                 Joke is required!</mat-error>
         </mat-form-field>
-    </div>
-
-    <div class="form-group">
-        <button type="button"
-            md-button
-            (click)="imgFileInput.click()">Add a photo</button>
-        <input hidden
-            (change)="loadImg($event.target.files[0])"
-            type="file"
-            #imgFileInput
-            appInputUpload
-            type="file"
-            placeholder="Type icon url">
     </div>
 
     <div class="form-group">
         <mat-form-field appearance="legacy">
             <mat-label>Choose a category</mat-label>
             <mat-select formControlName='categories'
-                multiple>Y
+                multiple>
                 <mat-select-trigger>
                     {{form.get('categories').value && form.get('categories').value[0]  | titlecase}}
                     <span *ngIf="form.get('categories').value?.length > 1">
@@ -58,17 +44,43 @@
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
 
-            <mat-error
-                *ngIf="form.get('customCategories').hasError('duplicate') ">
+            <mat-error *ngIf="form.get('customCategories').hasError('duplicate') ">
                 Category already exist!</mat-error>
         </mat-form-field>
     </div>
 
+    <div class="form-group upload-group">
+
+        <button mat-raised-button
+            color="accent"
+            type="button"
+            (click)="imgFileInput.click()">Add a photos</button>
+        <input hidden
+            (change)="loadImg($event.target.files)"
+            multiple
+            type="file"
+            #imgFileInput
+            appInputUpload
+            type="file"
+            id="upload"
+            placeholder="Type icon url">
+
+        <span for="upload"
+            class="upload"
+            [matTooltip]="imageNames.join(', ') | titlecase ">
+            {{imageNames[0]}}
+            <span class="others"
+                *ngIf="imageNames.length > 1">
+                (+{{imageNames.length - 1}} others)</span>
+        </span>
+    </div>
+
     <div class="submit-group">
         <mat-spinner [diameter]="25"
-            *ngIf="loadingState ">
+            *ngIf="loadingState">
         </mat-spinner>
-        <button class="btn"
+        <button mat-raised-button
+            color="primary"
             [disabled]="(loadingState || this.form.invalid  || form.pending)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>

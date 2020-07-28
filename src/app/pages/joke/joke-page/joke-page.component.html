@@ -1,1 +1,23 @@
-<p>joke-page works!</p>
+<div class="container">
+    <div class="nav">
+        <a href="#"
+            class="btn"
+            routerLink="/">
+            Home
+        </a>
+
+        <h3>Joke</h3>
+    </div>
+
+
+
+    <div class="content">
+        <app-favorite-card [joke]="joke"
+            *ngIf="!loading; else loader"></app-favorite-card>
+    </div>
+
+    <ng-template #loader>
+        <mat-spinner></mat-spinner>
+    </ng-template>
+
+</div>

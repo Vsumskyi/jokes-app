@@ -42,7 +42,8 @@
       margin: 0;
       margin-left: auto;
       padding: 5px 20px;
-      background: $sub-title-color;
+      // background: $sub-title-color;
+      color: white;
       opacity: 0.6;
       transition: all 0.45s ease;
       &:hover {

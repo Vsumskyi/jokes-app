@@ -4,12 +4,16 @@
 .container {
   width: 100%;
 
-  mat-radio-group {
+  .buttons {
     width: 100%;
     display: flex;
     justify-content: center;
-    mat-radio-button {
+    button {
       margin: 10px;
+      margin-bottom: 0;
+      img {
+        filter: invert(1);
+      }
     }
   }
 }

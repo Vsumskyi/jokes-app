@@ -5,19 +5,26 @@
             routerLink="/">
             Home
         </a>
-        <h3>My favorites jokes</h3>
+        <h3>Edit Categories</h3>
     </div>
 
-    <mat-radio-group name="radio"
-        (change)="addCategoryMode = !addCategoryMode">
-        <mat-radio-button value="add"
-            checked>
+    <div class="buttons">
+        <button mat-raised-button
+            (click)="addCategoryMode = true"
+            color="primary"
+            type="button">
             <img src="assets/images/create.svg"
-                alt=""> </mat-radio-button>
-        <mat-radio-button value="delete">
+                alt="">
+        </button>
+
+        <button mat-raised-button
+            (click)="addCategoryMode = false"
+            color="accent"
+            type="button">
             <img src="assets/images/delete.svg"
-                alt=""> </mat-radio-button>
-    </mat-radio-group>
+                alt="">
+        </button>
+    </div>
 
     <app-category-form *ngIf="addCategoryMode"
         [addCategoryMode]="addCategoryMode"

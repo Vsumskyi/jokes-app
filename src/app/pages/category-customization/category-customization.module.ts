@@ -14,8 +14,8 @@ import { CategoryFormComponent } from './category-form/category-form.component';
     RouterModule.forChild([
       {
         path: '',
-        component: EditCategoriesPageComponent
-        // canActivate: [AdminGuard]
+        component: EditCategoriesPageComponent,
+        canActivate: [AdminGuard]
       }
     ])
   ],

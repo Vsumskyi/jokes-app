@@ -40,8 +40,9 @@
       <div class="favorite-nav">
         <h3 *ngIf="jokeService.favorites.length">Favorite</h3>
 
-        <button mat-button
-          class="btn"
+        <button class="btn"
+          *ngIf="authService.adminStatus; else signOut"
+          color="primary"
           [matMenuTriggerFor]="beforeMenu">Menu</button>
         <mat-menu #beforeMenu="matMenu"
           xPosition="before">
@@ -56,8 +57,14 @@
           <a href="#"
             mat-menu-item
             (click)="logOut($event)">Sign Out</a>
-
         </mat-menu>
+        <ng-template #signOut>
+          <button class="btn"
+            (click)="logOut($event)">
+            Sign Out
+          </button>
+        </ng-template>
+
 
       </div>
 
