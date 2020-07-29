@@ -1,7 +1,7 @@
 import { ImageInterface } from './../interfaces/interfaces';
 import { map } from 'rxjs/operators';
 import { Directive, OnInit, ElementRef } from '@angular/core';
-import { fromEvent, zip, Observable } from 'rxjs';
+import { fromEvent, zip } from 'rxjs';
 import { JokesMediaService } from 'src/app/services/jokes-media.service';
 
 @Directive({
