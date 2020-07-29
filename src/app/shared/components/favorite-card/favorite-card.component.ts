@@ -47,8 +47,12 @@ export class FavoriteCardComponent implements OnInit {
 
   onRemove(id: string | number, event: Event): void {
     event.preventDefault();
-    this.jokesDataService.deleteJoke(id).subscribe(() => {
-      this.jokeService.removeJoke(id);
-    });
+    this.jokesDataService.deleteJoke(id).subscribe(
+      () => {
+        this.jokeService.removeJoke(id);
+        this.jokesDataService.openSnackBar('Deleted!');
+      },
+      e => this.jokesDataService.openSnackBar('Something went wrong...')
+    );
   }
 }

@@ -7,23 +7,17 @@
         <mat-form-field appearance="legacy">
             <mat-label>Type a joke</mat-label>
             <textarea matInput
+                rows="2"
+                [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
-            <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
+            <mat-error
+                *ngIf="form.get('value').touched && form.get('value').invalid">
                 Joke is required!</mat-error>
         </mat-form-field>
     </div>
 
     <div class="form-group">
-        <mat-form-field appearance="legacy">
-            <mat-label>Type icon url</mat-label>
-            <input matInput
-                placeholder="Type icon url"
-                formControlName="iconUrl">
-        </mat-form-field>
-    </div>
-
-    <div class="submit">
         <mat-form-field appearance="legacy">
             <mat-label>Choose a category</mat-label>
             <mat-select formControlName='categories'
@@ -36,11 +30,10 @@
                     </span>
                 </mat-select-trigger>
                 <mat-option *ngFor="let category of categoryList"
-                    [value]="category.title">{{category.title | titlecase}}</mat-option>
+                    [value]="category.title">{{category.title | titlecase}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
-
-
     </div>
 
     <div class="form-group"
@@ -48,17 +41,50 @@
         <mat-form-field appearance="legacy">
             <mat-label>Add custom category</mat-label>
             <input matInput
+                appCategoryExistValidator
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
+
+            <mat-error
+                *ngIf="form.get('customCategories').hasError('duplicate') ">
+                Category already exist!</mat-error>
         </mat-form-field>
     </div>
 
+    <div class="form-group upload-group">
+
+        <button mat-raised-button
+            color="accent"
+            type="button"
+            [disabled]="modifyJokeMode"
+            (click)="imgFileInput.click()">Add a photos</button>
+        <input hidden
+            (change)="loadImg($event.target.files)"
+            multiple
+            type="file"
+            #imgFileInput
+            appInputUpload
+            type="file"
+            id="upload"
+            placeholder="Type icon url">
+
+        <span for="upload"
+            class="upload"
+            [matTooltip]="imageNames.join(', ') | titlecase ">
+            {{imageNames[0]}}
+            <span class="others"
+                *ngIf="imageNames.length > 1">
+                (+{{imageNames.length - 1}} others)</span>
+        </span>
+    </div>
 
     <div class="submit-group">
         <mat-spinner [diameter]="25"
             *ngIf="loadingState">
         </mat-spinner>
-        <button class="btn"
-            [disabled]="loadingState || this.form.invalid">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
+        <button mat-raised-button
+            color="primary"
+            [disabled]="(loadingState || this.form.invalid  || form.pending)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>
+{{ form.value.imageUrls | json}}

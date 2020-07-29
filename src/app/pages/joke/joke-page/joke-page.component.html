@@ -1,0 +1,11 @@
+<app-toolbar title="Joke"></app-toolbar>
+
+<div class="container">
+    <div class="content">
+        <app-favorite-card [joke]="joke"
+            *ngIf="!loading; else loader"></app-favorite-card>
+    </div>
+    <ng-template #loader>
+        <mat-spinner></mat-spinner>
+    </ng-template>
+</div>

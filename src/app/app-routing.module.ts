@@ -14,17 +14,17 @@ const routes: Routes = [
       import('./pages/auth/auth.module').then(module => module.AuthModule)
   },
   {
-    path: 'edit/:id',
-    loadChildren: () =>
-      import('./pages/joke-customization/edit-joke/edit-joke.module').then(
-        module => module.EditJokeModule
-      )
-  },
-  {
     path: 'favorites',
     loadChildren: () =>
       import('./pages/favorites/favorites.module').then(
         module => module.FavoritesModule
+      )
+  },
+  {
+    path: 'edit/:id',
+    loadChildren: () =>
+      import('./pages/joke-customization/edit-joke/edit-joke.module').then(
+        module => module.EditJokeModule
       )
   },
   {
@@ -33,6 +33,18 @@ const routes: Routes = [
       import('./pages/joke-customization/create-joke/create-joke.module').then(
         module => module.CreateJokeModule
       )
+  },
+  {
+    path: 'edit-categories',
+    loadChildren: () =>
+      import(
+        './pages/category-customization/category-customization.module'
+      ).then(module => module.CategoryCustomizationModule)
+  },
+  {
+    path: 'joke/:id',
+    loadChildren: () =>
+      import('./pages/joke/joke.module').then(module => module.JokeModule)
   },
 
   { path: '**', redirectTo: '/' }

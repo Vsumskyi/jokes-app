@@ -39,9 +39,33 @@
     <ng-container *ngIf="authService.authenticated;else notAuth">
       <div class="favorite-nav">
         <h3 *ngIf="jokeService.favorites.length">Favorite</h3>
-        <a href="#"
-          class="btn"
-          (click)="logOut($event)">Sign Out</a>
+
+        <button class="btn"
+          *ngIf="authService.adminStatus; else signOut"
+          color="primary"
+          [matMenuTriggerFor]="beforeMenu">Menu</button>
+        <mat-menu #beforeMenu="matMenu"
+          xPosition="before">
+          <a href="#"
+            mat-menu-item
+            [routerLink]="['/create-joke']">Create Joke</a>
+
+          <a href="#"
+            mat-menu-item
+            [routerLink]="['/edit-categories']">Edit Categories</a>
+
+          <a href="#"
+            mat-menu-item
+            (click)="logOut($event)">Sign Out</a>
+        </mat-menu>
+        <ng-template #signOut>
+          <button class="btn"
+            (click)="logOut($event)">
+            Sign Out
+          </button>
+        </ng-template>
+
+
       </div>
 
       <ng-container *ngIf="!loading else loader">
@@ -54,10 +78,6 @@
             <a class="btn"
               [routerLink]="['/favorites']">Go to all Favorites
             </a>
-            <a class="btn"
-              *ngIf="authService.adminStatus"
-              [routerLink]="['/create-joke']">Create joke
-            </a>
           </div>
         </ng-container>
       </ng-container>
@@ -65,10 +85,6 @@
 
     <ng-template #empty>
       <app-empty-container title="No jokes saved..."></app-empty-container>
-      <a class="btn"
-        *ngIf="authService.adminStatus"
-        [routerLink]="['/create-joke']">Create joke
-      </a>
     </ng-template>
 
     <ng-template #notAuth

@@ -33,9 +33,8 @@
 .container {
   display: block;
   margin: 0 auto;
-  padding: 40px 40px 0 40px;
+  padding: 40px 40px 10px 40px;
   width: 680px;
-  height: 100vh;
   overflow-y: auto;
   &::-webkit-scrollbar {
     // hide scrollbar
@@ -126,24 +125,6 @@
   }
   &:first-child {
     margin-left: 0;
-  }
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-
-  h3 {
-    color: $sub-title-color;
-  }
-  @include _480 {
-    font-size: 0.9rem;
-    .btn {
-      font-size: 0.9rem;
-      padding: 5px 20px;
-    }
   }
 }
 

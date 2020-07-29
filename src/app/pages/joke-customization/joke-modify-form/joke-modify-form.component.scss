@@ -9,11 +9,12 @@ form {
   width: fit-content;
   margin-right: 30px;
   margin-bottom: 20px;
+  @include _768 {
+    padding: 20px 25px 15px;
+    margin-right: 10px;
+  }
   @include _600 {
     margin-right: 0;
-    .form-group {
-      margin-bottom: 15px;
-    }
   }
   textarea {
     margin: 0;
@@ -23,18 +24,10 @@ form {
   }
   .form-group {
     position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
   }
-  .submit {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin: 20px 0;
-    margin-bottom: 0;
-
-    @include _600 {
-      flex-direction: column;
-    }
+  button {
+    color: white;
   }
 }
 .submit-group {
@@ -43,11 +36,36 @@ form {
   justify-content: center;
   position: relative;
   width: 100%;
-  .btn {
-    margin: 0;
-  }
+
   .mat-spinner {
     position: absolute;
     right: -5px;
+  }
+}
+
+.form-group {
+  button {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+.upload-group {
+  margin-bottom: 20px;
+}
+
+.upload {
+  position: relative;
+  text-align: center;
+  display: block;
+  height: 15px;
+  .others {
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    font-size: 0.6rem;
+    letter-spacing: normal;
+    white-space: pre;
   }
 }

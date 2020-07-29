@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistryUser, LoginUser } from 'src/app/interfaces/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { RolesEnum } from 'src/app/enums/enums';
+import { checkPasswords } from 'src/app/validators/customs.validator';
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
@@ -14,6 +15,7 @@ export class SignUpFormComponent implements OnInit {
   private returnUrl: string;
   public errorMessage = '';
   public loading = false;
+  public rolesEnum = RolesEnum;
 
   constructor(
     private fb: FormBuilder,
@@ -40,27 +42,23 @@ export class SignUpFormComponent implements OnInit {
             [Validators.required, Validators.minLength(6)]
           ]
         },
-        { validator: this.checkPasswords }
-      )
+        { validator: checkPasswords() }
+      ),
+      roles: [null]
     });
-  }
-
-  checkPasswords(group: FormGroup): any {
-    const pass = group.get('password').value;
-    const confirmPass = group.get('confirmPassword').value;
-    return pass === confirmPass ? null : { notSame: true };
   }
 
   submit(): void {
     this.loading = true;
     this.errorMessage = '';
-    const { email, firstName, lastName } = this.form.value;
+    const { email, firstName, lastName, roles } = this.form.value;
     const { password } = this.form.value.passwords;
     const registryUser: RegistryUser = {
       email,
       firstName,
       lastName,
-      password
+      password,
+      roles: roles && [this.rolesEnum['Super Admin']]
     };
     this.authService
       .signup(registryUser)

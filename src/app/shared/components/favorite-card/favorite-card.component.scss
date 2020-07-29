@@ -8,13 +8,27 @@
   .card-content {
     display: flex;
     flex-direction: column;
+    position: relative;
     .heart {
       align-self: flex-end;
       cursor: pointer;
     }
 
+    .admin-panel {
+      position: absolute;
+      top: -10px;
+      right: 15px;
+
+      @include _480 {
+        top: -3px;
+        right: 30px;
+      }
+    }
+
     .comment {
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-sizing: content-box;
       height: 20px;
       width: 20px;
@@ -22,38 +36,15 @@
       margin-right: 20px;
       padding: 15px;
       vertical-align: top;
+      img {
+        width: 25px;
+        margin-top: 5px;
+      }
     }
     &-wrapper {
       display: flex;
       flex-grow: 1;
       position: relative;
-      .admin-panel {
-        display: flex;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-
-        .edit,
-        .delete {
-          opacity: 0.4;
-          transition: opacity 0.45s ease;
-          img {
-            width: 20px;
-            height: 20px;
-          }
-          &:hover {
-            opacity: 1;
-          }
-        }
-        .delete {
-          margin-left: 10px;
-        }
-        @include _480 {
-          bottom: auto;
-          top: 20px;
-          left: 50px;
-        }
-      }
     }
     &-inner {
       display: inline-block;
@@ -117,6 +108,7 @@
       position: relative;
       padding: 0;
       .heart {
+        z-index: 4;
         position: absolute;
         right: 15px;
         top: 10px;
@@ -183,5 +175,14 @@
   cursor: pointer;
   img {
     filter: grayscale(100%);
+  }
+}
+
+.edit,
+.delete {
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 5px;
   }
 }

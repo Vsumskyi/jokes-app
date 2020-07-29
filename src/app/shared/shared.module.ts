@@ -1,9 +1,12 @@
-import { JokeModifyFormComponent } from './../pages/joke-customization/joke-modify-form/joke-modify-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CategoryExistValidator } from '../directives/categories.validator';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { InputUploadDirective } from './../directives/input-upload.directive';
+import { JokeModifyFormComponent } from './../pages/joke-customization/joke-modify-form/joke-modify-form.component';
 import { InputFocusDirective } from '../directives/input-focus.directive';
 import { DiffDatePipe } from './../pipes/diff-date.pipe';
 import { SearchPipe } from './../pipes/search.pipe';
@@ -20,7 +23,10 @@ import { MaterialModule } from './material.module';
     DiffDatePipe,
     SearchPipe,
     InputFocusDirective,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    CategoryExistValidator,
+    InputUploadDirective,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +46,10 @@ import { MaterialModule } from './material.module';
     ReactiveFormsModule,
     NotAuthorizedComponent,
     JokeModifyFormComponent,
-    MaterialModule
+    MaterialModule,
+    CategoryExistValidator,
+    InputUploadDirective,
+    ToolbarComponent
   ]
 })
 export class SharedModule {}

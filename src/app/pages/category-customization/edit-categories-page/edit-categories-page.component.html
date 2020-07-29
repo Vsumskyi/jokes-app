@@ -1,0 +1,34 @@
+<app-toolbar title="Edit Categories"></app-toolbar>
+
+<div class="container">
+    <div class="buttons">
+        <button mat-raised-button
+            (click)="addCategoryMode = true"
+            color="primary"
+            type="button">
+            <img src="assets/images/create.svg"
+                alt="">
+        </button>
+
+        <button mat-raised-button
+            (click)="addCategoryMode = false"
+            color="accent"
+            type="button">
+            <img src="assets/images/delete.svg"
+                alt="">
+        </button>
+    </div>
+
+    <app-category-form *ngIf="addCategoryMode"
+        [addCategoryMode]="addCategoryMode"
+        (modifyCategories)="addNewCategory($event.customCategory)"
+        [loadingState]="loadingState">
+    </app-category-form>
+
+    <app-category-form [categories]="categoriesList"
+        *ngIf="!addCategoryMode"
+        [addCategoryMode]="addCategoryMode"
+        (modifyCategories)="removeCategories($event.categoryList)"
+        [loadingState]="loadingState">
+    </app-category-form>
+</div>

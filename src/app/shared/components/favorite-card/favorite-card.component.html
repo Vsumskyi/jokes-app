@@ -7,23 +7,23 @@
         [ngClass]="{'disabled': loading}"
         href="#"
         class="heart">
-        <img
-          [src]="joke.favorite?'assets/images/heart-active.svg':'assets/images/heart.svg'"
+        <img [src]="joke.favorite?'assets/images/heart-active.svg':'assets/images/heart.svg'"
           alt="" /></a>
 
       <div class="card-content-wrapper">
         <div class="comment">
           <a href="#"
             (click)="$event.preventDefault()"><img
-              [src]="'assets/images/comment.svg'"
+              [src]="joke.imageUrls[0]? joke.imageUrls[0]: 'assets/images/comment.svg'"
               alt="" /></a>
 
         </div>
         <div class="card-content-inner">
-          <span>ID: <a href="#">{{joke.id}}</a>
+          <span>ID: <a href="#"
+              [routerLink]="['/joke', joke.id]">{{joke.id}}</a>
             <a href="#"
-              (click)="$event.preventDefault()"> <img
-                src="assets/images/link.svg"
+              (click)="$event.preventDefault()"
+              [routerLink]="['/joke', joke.id]"> <img src="assets/images/link.svg"
                 alt="" /></a>
           </span>
           <p>
@@ -43,23 +43,39 @@
             </span>
           </div>
         </div>
-        <div class="admin-panel"
-          *ngIf="authService.adminStatus">
+
+      </div>
+
+      <div class="admin-panel"
+        *ngIf="authService.adminStatus">
+        <a mat-icon-button
+          (click)="$event.preventDefault()"
+          href="#"
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu">
+          <img src="assets/images/menu-icon.svg"
+            alt="">
+        </a>
+
+        <mat-menu #menu="matMenu">
           <a [routerLink]="['/edit', joke.id]"
+            mat-menu-item
             *ngIf="edit"
             class="edit">
             <img src="assets/images/edit.svg"
               alt="">
+            Edit Joke
           </a>
-
           <a href="#"
             *ngIf="remove"
+            mat-menu-item
             class="delete"
             (click)="onRemove(joke.id, $event)">
             <img src="assets/images/delete.svg"
               alt="">
+            Delete Joke
           </a>
-        </div>
+        </mat-menu>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 export interface Joke {
-  iconUrl?: string;
+  imageUrls?: string[];
   value: string;
   id: number | string;
   updatedAt?: Date;
@@ -13,9 +13,10 @@ export interface PostJokeInterface {
   id?: string | number;
   value: string;
   url: string;
-  iconUrl: string;
+  image?: File[];
   categories: Array<number>;
   customCategories?: string;
+  imageNames: string[];
 }
 
 export interface JokeSearchFormValue {
@@ -32,6 +33,12 @@ export interface JokeSearchFormValue {
 export interface CategoryInterface {
   id: number;
   title: string;
+}
+
+export interface FormCategoriesInterface {
+  categoryList: Array<number>;
+  customCategory: string;
+  categoryOption: string;
 }
 
 export interface UserInterface {
@@ -58,9 +65,15 @@ export interface RegistryUser {
   firstName: string;
   lastName: string;
   password: string;
+  roles?: Array<string>;
 }
 
 export interface LoginUser {
   email: string;
   password: string;
+}
+
+export interface ImageInterface {
+  imageName: string;
+  imageUploadUrl: string;
 }

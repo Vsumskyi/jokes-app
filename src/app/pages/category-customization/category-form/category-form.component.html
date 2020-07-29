@@ -1,0 +1,55 @@
+<form autocomplete="off"
+    [formGroup]="form"
+    class="form-modify"
+    (submit)="submit()">
+
+    <div class="form-group"
+        *ngIf="addCategoryMode">
+        <mat-form-field appearance="legacy">
+            <mat-label>Add new category</mat-label>
+            <input matInput
+                appCategoryExistValidator
+                placeholder="Type category"
+                formControlName="customCategory">
+            <mat-error *ngIf="form.get('customCategory').hasError('duplicate') ">
+                Category already exist!</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group"
+        *ngIf="!addCategoryMode">
+        <mat-form-field appearance="legacy">
+            <mat-label>Remove category</mat-label>
+            <mat-select formControlName='categoryList'
+                multiple>
+                <mat-select-trigger>
+                    {{!!form.get('categoryList').value 
+                    ?  getCategoriesValue(form.get('categoryList').value[0])
+                    : '' | titlecase}}
+                    <span *ngIf="form.get('categoryList').value?.length > 1">
+                        (+{{form.get('categoryList').value.length - 1}}
+                        {{form.get('categoryList').value?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let category of categories"
+                    [value]="category.id">{{category.title | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="submit-group">
+        <mat-spinner [diameter]="25"
+            *ngIf="loadingState || form.pending">
+        </mat-spinner>
+
+        <button mat-raised-button
+            [color]="addCategoryMode? 'primary': 'accent'"
+            [disabled]="(loadingState || this.form.invalid ) || form.pending">{{
+            addCategoryMode
+            ? 'Create!'
+            : 'Delete!'
+        }}
+        </button>
+    </div>
+</form>
