@@ -11,7 +11,24 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./pages/auth/auth.module').then(module => module.AuthModule)
+      import('./pages/auth/auth-page/auth.module').then(
+        module => module.AuthModule
+      )
+  },
+
+  {
+    path: 'forgot',
+    loadChildren: () =>
+      import('./pages/auth/forgot-password-page/forgot-password.module').then(
+        module => module.ForgotPasswordModule
+      )
+  },
+  {
+    path: 'reset',
+    loadChildren: () =>
+      import('./pages/auth/reset-password-page/reset-password.module').then(
+        module => module.ResetPasswordModule
+      )
   },
   {
     path: 'favorites',

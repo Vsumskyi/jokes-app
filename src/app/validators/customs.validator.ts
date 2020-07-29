@@ -5,6 +5,8 @@ export const checkPasswords = (): ValidationErrors => {
     const pass = group.get('password').value;
     const confirmPass = group.get('confirmPassword').value;
     if (pass !== confirmPass) {
+      console.log(group);
+
       return { notSame: true };
     }
   };

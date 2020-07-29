@@ -77,3 +77,14 @@ export interface ImageInterface {
   imageName: string;
   imageUploadUrl: string;
 }
+
+export interface ResetPasswordRequestInterface {
+  succeeded: boolean;
+  error: string;
+}
+
+export interface ResetPasswordInterface {
+  userId: string | number;
+  token: string;
+  password?: string;
+}
