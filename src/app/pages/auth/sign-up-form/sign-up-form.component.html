@@ -61,8 +61,7 @@
         *ngIf="form.get('passwords.password').touched && form.get('passwords.password').invalid">
         <small *ngIf="form.get('passwords.password').errors.required">*Password
           is required!</small>
-        <small
-          *ngIf="form.get('passwords.password').errors?.minlength">*Password
+        <small *ngIf="form.get('passwords.password').errors?.minlength">*Password
           it`s not valid!</small>
       </div>
     </div>
@@ -83,8 +82,10 @@
 
   <div class="submit-group">
     <button class="btn"
+      mat-raised-button
+      color="primary"
       [disabled]="loading || form.invalid">
-      Sign In!
+      Sign Up!
     </button>
     <mat-checkbox formControlName="roles">Admin</mat-checkbox>
   </div>
