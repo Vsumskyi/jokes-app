@@ -18,19 +18,16 @@ export class InputUploadDirective implements OnInit {
       .pipe(map((i: InputEvent) => (i.target as HTMLInputElement).files))
       .subscribe(icons => {
         const imagesExtension = Object.values(icons).reduce(
-          (acc, curr: File) => {
-            const extension = curr.name.slice(curr.name.lastIndexOf('.') + 1);
-            acc.push(this.jokesMediaService.getImageData(extension));
-            return acc;
+          (result, file: File) => {
+            const extension = file.name.slice(file.name.lastIndexOf('.') + 1);
+            result.push(this.jokesMediaService.getImageData(extension));
+            return result;
           },
           []
         );
-        zip(...imagesExtension).subscribe(
-          (data: ImageInterface[]) => {
-            this.jokesMediaService.setImageData(data);
-          },
-          e => {}
-        );
+        zip(...imagesExtension).subscribe((data: ImageInterface[]) => {
+          this.jokesMediaService.setImageData(data);
+        });
       });
   }
 }

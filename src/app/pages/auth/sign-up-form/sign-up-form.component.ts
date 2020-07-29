@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistryUser, LoginUser } from 'src/app/interfaces/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PasswordsValidator } from 'src/app/validators/checkPasswords.validator';
 import { RolesEnum } from 'src/app/enums/enums';
+import { checkPasswords } from 'src/app/validators/customs.validator';
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
@@ -42,7 +42,7 @@ export class SignUpFormComponent implements OnInit {
             [Validators.required, Validators.minLength(6)]
           ]
         },
-        { validator: PasswordsValidator.checkPasswords() }
+        { validator: checkPasswords() }
       ),
       roles: [null]
     });
