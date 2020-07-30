@@ -19,16 +19,16 @@ const routes: Routes = [
   {
     path: 'forgot',
     loadChildren: () =>
-      import('./pages/auth/forgot-password-page/forgot-password.module').then(
-        module => module.ForgotPasswordModule
-      )
+      import(
+        './pages/auth/reset-password/forgot-password-page/forgot-password.module'
+      ).then(module => module.ForgotPasswordModule)
   },
   {
     path: 'reset',
     loadChildren: () =>
-      import('./pages/auth/reset-password-page/reset-password.module').then(
-        module => module.ResetPasswordModule
-      )
+      import(
+        './pages/auth/reset-password/reset-password-page/reset-password.module'
+      ).then(module => module.ResetPasswordModule)
   },
   {
     path: 'favorites',

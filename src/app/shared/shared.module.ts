@@ -1,3 +1,4 @@
+import { RestorePasswordFormComponent } from './../pages/auth/reset-password/restore-password-form/restore-password-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -26,7 +27,8 @@ import { MaterialModule } from './material.module';
     NotAuthorizedComponent,
     CategoryExistValidator,
     InputUploadDirective,
-    ToolbarComponent
+    ToolbarComponent,
+    RestorePasswordFormComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     CategoryExistValidator,
     InputUploadDirective,
-    ToolbarComponent
+    ToolbarComponent,
+    RestorePasswordFormComponent
   ]
 })
 export class SharedModule {}

@@ -1,8 +1,56 @@
+@import 'variables';
+@import 'media_mixin';
+
 .container {
   width: 100%;
   .content {
     width: 80%;
     margin: 0 auto;
+    button {
+      color: white;
+      margin: 10px;
+    }
+
+    .joke-value {
+      margin-top: 10px;
+      border-radius: 5px;
+      background: $joke-bgc;
+      padding: 15px;
+      padding-left: 20px;
+      position: relative;
+      line-height: 30px;
+      letter-spacing: 2px;
+    }
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      height: 30px;
+      img {
+        width: 30px;
+        height: 30px;
+        margin-right: 15px;
+      }
+    }
+
+    .joke-categories {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      span {
+        padding: 5px;
+        border-radius: 5px;
+        background: $joke-bgc;
+        margin-right: 10px;
+        font-style: italic;
+        font-weight: 100;
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
   }
 }
 mat-spinner {

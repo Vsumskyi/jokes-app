@@ -1,9 +1,39 @@
-<app-toolbar title="Joke"></app-toolbar>
+<app-toolbar title="Joke"
+    [disable]="true"></app-toolbar>
 
 <div class="container">
     <div class="content">
-        <app-favorite-card [joke]="joke"
-            *ngIf="!loading; else loader"></app-favorite-card>
+        <nav>
+            <button mat-raised-button
+                (click)="prevJoke()"
+                color="primary">
+                <mat-icon aria-hidden="false"
+                    aria-label="Example home icon"> arrow_back</mat-icon>
+            </button>
+            <button mat-raised-button
+                (click)="nextJoke()"
+                color="primary">
+                <mat-icon aria-hidden="false"
+                    aria-label="Example home icon"> arrow_forward</mat-icon>
+            </button>
+        </nav>
+
+        <p class="images">
+            <img *ngFor="let item of joke.imageUrls"
+                [src]="item"
+                alt="">
+        </p>
+
+        <p class="joke-value">
+            {{joke.value}}
+        </p>
+
+        <p class="joke-categories">
+            <span *ngFor="let item of joke.categories">
+                {{item | titlecase}}
+            </span>
+        </p>
+
     </div>
     <ng-template #loader>
         <mat-spinner></mat-spinner>
