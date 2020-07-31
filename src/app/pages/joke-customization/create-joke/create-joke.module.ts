@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CreateJokePageComponent } from './create-joke-page/create-joke-page.component';
 import { AdminGuard } from 'src/app/guards/admin.guard';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [CreateJokePageComponent],
   imports: [
     CommonModule,
     SharedModule,
-    PdfViewerModule,
+    // PdfViewerModule,
     RouterModule.forChild([
       {
         path: '',
