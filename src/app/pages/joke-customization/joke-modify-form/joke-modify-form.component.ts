@@ -2,6 +2,7 @@ import { CategoryInterface } from 'src/app/interfaces/interfaces';
 import { Joke } from 'src/app/interfaces/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Target } from '@angular/compiler';
 
 @Component({
   selector: 'app-joke-modify-form',
@@ -14,6 +15,7 @@ export class JokeModifyFormComponent implements OnInit {
   public image: File[];
 
   @Output() modifyOnJoke = new EventEmitter<Joke>();
+  // @Output() pdfOnSrc = new EventEmitter<string>();
   @Input() categoryList: CategoryInterface;
   @Input() modifyJokeMode: boolean;
   @Input() joke = {} as Joke;
@@ -44,9 +46,10 @@ export class JokeModifyFormComponent implements OnInit {
     }
   }
 
-  loadImg(image: File[]): void {
-    this.image = image;
-    this.imageNames = this.sliceFileName(image);
+  loadImg(files: File[]): void {
+    // this.viewPdf(files);
+    this.image = files;
+    this.imageNames = this.sliceFileName(files);
   }
 
   sliceFileName(image: File[]): string[] {
@@ -60,4 +63,16 @@ export class JokeModifyFormComponent implements OnInit {
       return acc;
     }, []);
   }
+
+  // viewPdf(files: File[]): void {
+  //   Object.values(files).forEach(file => {
+  //     if (file.type.slice(file.type.lastIndexOf('/') + 1) === 'pdf') {
+  //       const reader = new FileReader();
+  //       reader.onload = (e: any) => {
+  //         this.pdfOnSrc.emit(e.target.result);
+  //       };
+  //       reader.readAsArrayBuffer(file);
+  //     }
+  //   });
+  // }
 }

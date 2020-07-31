@@ -1,4 +1,3 @@
-import { RestorePasswordFormComponent } from './../pages/auth/reset-password/restore-password-form/restore-password-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -15,6 +14,7 @@ import { EmptyContainerComponent } from './components/empty-container/empty-cont
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { MaterialModule } from './material.module';
+import { RestorePasswordFormComponent } from './../pages/auth/reset-password/restore-password-form/restore-password-form.component';
 
 @NgModule({
   declarations: [
