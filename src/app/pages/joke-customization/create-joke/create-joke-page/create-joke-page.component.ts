@@ -21,6 +21,7 @@ export class CreateJokePageComponent implements OnInit {
   public loading = false;
   public joke: Joke;
   public categoriesList: CategoryInterface[] = [];
+  // public pdfSrc = '';
 
   constructor(
     private jokeService: JokeService,
@@ -107,4 +108,8 @@ export class CreateJokePageComponent implements OnInit {
   getCategoriesId(value: string): number {
     return this.categoriesList.find(i => i.title === value)?.id;
   }
+
+  // setPdf(pdfPath: string): void {
+  //   this.pdfSrc = pdfPath;
+  // }
 }

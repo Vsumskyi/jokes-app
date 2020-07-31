@@ -1,6 +1,7 @@
 <app-toolbar title="Create Joke"></app-toolbar>
 
 <div class="container">
+
   <div class="form-container">
     <app-joke-modify-form [loadingState]='loading'
       [categoryList]="categoriesList"
@@ -13,7 +14,14 @@
     </div>
 
   </div>
+
 </div>
+
+<!-- <pdf-viewer [src]="pdfSrc"
+  [render-text]="true"
+  [show-all]="false"
+  style="display: block;"></pdf-viewer> -->
+
 
 <ng-template #empty>
   <app-empty-container title="Create your first joke :)"></app-empty-container>

@@ -11,8 +11,7 @@
                 [matTextareaAutosize]="true"
                 formControlName="value"
                 placeholder="Type a joke..."></textarea>
-            <mat-error
-                *ngIf="form.get('value').touched && form.get('value').invalid">
+            <mat-error *ngIf="form.get('value').touched && form.get('value').invalid">
                 Joke is required!</mat-error>
         </mat-form-field>
     </div>
@@ -45,8 +44,7 @@
                 formControlName="customCategories"
                 placeholder="Type a joke..." />
 
-            <mat-error
-                *ngIf="form.get('customCategories').hasError('duplicate') ">
+            <mat-error *ngIf="form.get('customCategories').hasError('duplicate') ">
                 Category already exist!</mat-error>
         </mat-form-field>
     </div>
@@ -87,4 +85,3 @@
             [disabled]="(loadingState || this.form.invalid  || form.pending)">{{!modifyJokeMode? 'Create!': 'Update!'}}</button>
     </div>
 </form>
-{{ form.value.imageUrls | json}}

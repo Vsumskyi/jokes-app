@@ -14,6 +14,7 @@ import { EmptyContainerComponent } from './components/empty-container/empty-cont
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { MaterialModule } from './material.module';
+import { RestorePasswordFormComponent } from './../pages/auth/reset-password/restore-password-form/restore-password-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MaterialModule } from './material.module';
     NotAuthorizedComponent,
     CategoryExistValidator,
     InputUploadDirective,
-    ToolbarComponent
+    ToolbarComponent,
+    RestorePasswordFormComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     CategoryExistValidator,
     InputUploadDirective,
-    ToolbarComponent
+    ToolbarComponent,
+    RestorePasswordFormComponent
   ]
 })
 export class SharedModule {}

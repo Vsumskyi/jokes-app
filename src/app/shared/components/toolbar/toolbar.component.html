@@ -1,10 +1,23 @@
 <mat-toolbar>
     <button mat-raised-button
+        (click)="back()"
+        *ngIf="!disable"
         color="primary"
         class="example-icon"
-        routerLink="/"
         aria-label="Example icon-button with menu icon">
-        Home
+        <mat-icon aria-hidden="false"
+            aria-label="Example home icon"> arrow_back</mat-icon>
+    </button>
+
+    <button mat-raised-button
+        routerLink="/"
+        color="accent"
+        class="example-icon"
+        aria-label="Example icon-button with menu icon">
+        <mat-icon aria-hidden="false"
+            aria-label="Example home icon">home</mat-icon>
     </button>
     <span>{{title}}</span>
+
+
 </mat-toolbar>
